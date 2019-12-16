@@ -1,5 +1,8 @@
 from django.contrib import admin
+from django.contrib.auth.models import Group
 from . import models
+
+from appWeb.models import Pregunta, Respuesta
 # Register your models here.
 
 class AreaAdmin(admin.ModelAdmin):
@@ -35,6 +38,11 @@ class DependenciaAdmin(admin.ModelAdmin):
 		'id_area',
 	)
 
+	list_filter=(
+		'id_tipoDep',
+		'id_area',
+	)
+
 class CompetenciaAdmin(admin.ModelAdmin):
 	list_display=(
 		'nombCompetencia', 
@@ -52,7 +60,20 @@ class UsuarioAdmin(admin.ModelAdmin):
 		'id_tipoUsr',
 	)
 
+class RespuestaAdmin(admin.ModelAdmin):
+	list_display=(
+		'respuesta', 
+		'valorRta', 
+		'id_pregunta',
+	)
+
+class RespuestaInline(admin.StackedInline):
+	model=Respuesta
+	extra=4
+
 class PreguntaAdmin(admin.ModelAdmin):
+	inlines=[RespuestaInline]
+
 	list_display=(
 		'pregunta', 
 		'ayuda', 
@@ -64,15 +85,9 @@ class RecomendacionAdmin(admin.ModelAdmin):
 	list_display=(
 		'recomendacion', 
 		'valor', 
-		'id_pregunta',
+		'id_competencia',
 	)
 
-class RespuestaAdmin(admin.ModelAdmin):
-	list_display=(
-		'respuesta', 
-		'valorRta', 
-		'id_pregunta',
-	)
 
 class RtaUsrAdmin(admin.ModelAdmin):
 	list_display=(
@@ -104,3 +119,5 @@ _register(models.Recomendacion, RecomendacionAdmin)
 _register(models.Respuesta, RespuestaAdmin)
 _register(models.RtaUsr, RtaUsrAdmin)
 _register(models.Nivel, NivelAdmin)
+
+admin.site.unregister(Group)

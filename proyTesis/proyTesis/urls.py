@@ -20,5 +20,10 @@ from django.conf.urls import url, include
 urlpatterns = [
     path('jet/', include('jet.urls', 'jet')),  # Django JET URLS
     path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
+    path('', include('appWeb.urls')),
     path('admin/', admin.site.urls),
 ]
+
+admin.site.site_header = 'UTPL Encuestas Web'
+admin.site.site_title = "Admin UTPL Encuestas web"
+admin.site.index_title = "Admin UTPL Encuestas web"
