@@ -1,25 +1,24 @@
-var goToTop = function() {
+$(document).ready(main);
+ 
+var contador = 1;
+ 
+function main(){
+	$('.menu_bar').click(function(){
+		// $('nav').toggle(); 
+ 
+		if(contador == 1){
+			$('nav').animate({
+				left: '0'
+			});
+			contador = 0;
+		} else {
+			contador = 1;
+			$('nav').animate({
+				left: '-100%'
+			});
+		}
+ 
+	});
+ 
+};
 
-		$('.js-gotop').on('click', function(event){
-			
-			event.preventDefault();
-
-			$('html, body').animate({
-				scrollTop: $('html').offset().top
-			}, 500, 'easeInOutExpo');
-			
-			return false;
-		});
-
-		$(window).scroll(function(){
-
-			var $win = $(window);
-			if ($win.scrollTop() > 200) {
-				$('.js-top').addClass('active');
-			} else {
-				$('.js-top').removeClass('active');
-			}
-
-		});
-	
-	};

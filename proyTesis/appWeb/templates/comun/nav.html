@@ -1,27 +1,29 @@
 {% load static %}
 
+<link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}"/>
 <link rel="stylesheet" href="{% static 'estilos.css' %}">
+<link rel="stylesheet" href="{% static 'font.css' %}">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 
 </head>
 <body>
-	<nav class="navegador">
-		<div class="logo">
-			<a href="index.html"><img src="{% static 'images/logoSETED.png' %}"  alt="logo"></a>
+	<header>
+		<div class="menu_bar">
+			<a href="#" class="bt-menu"><span class="icon-menu"></span>Menu</a>
 		</div>
-		<ul class="nav nav-tabs">
-		  	<li role="presentation"><a href="{% url 'index' %}">Inicio</a></li>
-		  	<li role="presentation"><a href="{% url 'informacion' %}">Información</a></li>
-		  	<li role="presentation"><a href="{% url 'proposito' %}">Proposito</a></li>
-		  	<li role="presentation"><a href="{% url 'contacto' %}">Contáctanos</a></li>
-		</ul>
-		<form class="navbar-form" role="search">
-			<div class="form-group">
-			    <input type="text" class="form-control" placeholder="Buscar">
+		<nav class="navegador">
+			<div class="logo">
+				<a href="{% url 'index' %}"><img src="{% static 'images/logo.png' %}"  alt="logo"></a>
 			</div>
-		</form>
-	</nav>
-	<center>
-	<div class="cuerpo">
+			<ul class="nav nav-tabs">
+			  	<li role="presentation"><a href="{% url 'index' %}"><span class="icon-inicio"></span>Inicio</a></li>
+			  	<li role="presentation"><a href="{% url 'informacion' %}"><span class="icon-informacion"></span>Información</a></li>
+			  	<li role="presentation"><a href="{% url 'proposito' %}"><span class="icon-proposito"></span>Proposito</a></li>
+			  	<li role="presentation"><a href="{% url 'contacto' %}"><span class="icon-contacto"></span>Contáctanos</a></li>
+			  	<li role="presentation"><a href="{% url 'login' %}"><span class="icon-entrar"></span>Login / Inicio sesión</a></li>
+			</ul>
+		</nav>
+	</header>
+	<hr class="linea_amarilla">

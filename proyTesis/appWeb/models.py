@@ -94,15 +94,15 @@ class Competencia(models.Model):
 
 class Usuario(models.Model):
   	id_usr=models.AutoField(primary_key=True)
-  	nombUsuario=models.CharField(max_length=250, verbose_name='Nombres del usuario:')
+  	nombUsuario=models.CharField(max_length=250, verbose_name='Nombres y Apellidos:')
   	cedula=models.CharField(max_length=11, verbose_name='Cédula Usuario:')
   	correo=models.EmailField(max_length=75, verbose_name='Correo Usuario:')
   	clave=models.CharField(max_length=75, verbose_name='Contraseña:')
   	codigo=models.CharField(max_length=75, verbose_name='Codigo:')
   	estado_codigo=models.BooleanField()
 
-  	id_dependencia=models.ForeignKey(Dependencia, models.DO_NOTHING, db_column='id_dependencia', verbose_name='Dependencia:')
   	id_tipoUsr=models.ForeignKey(TipoUsr, models.DO_NOTHING, db_column='id_tipoUsr', verbose_name='Tipo de usuario:')
+  	id_dependencia=models.ForeignKey(Dependencia, models.DO_NOTHING, db_column='id_dependencia', verbose_name='Dependencia:')
 
   	class Meta:
   		verbose_name='Usuario'

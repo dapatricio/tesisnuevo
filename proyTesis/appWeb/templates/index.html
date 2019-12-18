@@ -9,7 +9,84 @@
 	<!-- Inicio Navegador-->
 	{% include 'comun/nav.html' %}
 	<!-- Fin navegador-->
-
+	<div class="img_index">
+		<img id="img_index" src="{% static 'images/universidad.png' %}" alt="Competencias Digitales">
+		<div class="txt_img">
+			<div class="centrado">
+				<h3>¿Qué son las competencias digitales?</h3>
+				<hr>
+				<p>La competencia digital es una de las ocho competencias clave y se refiere al uso seguro y crítico de la gama completa de las tecnologías digitales para la información, comunicación y resolución de problemas básicos en todos los aspectos de la vida. </p>
+				<br><p>Para entender mejor la naturaleza de esta competencia, la Comisión Europea ha desarrollado el Marco Europeo de Competencias Digitales para la Ciudadanía (DigComp), el cual se divide en cinco áreas: información y datos sobre alfabetización, comunicación y colaboración, creación de contenido digital, seguridad y resolución de problemas. En total incluyen 21 competencias.</p>
+				<a href="{% url 'informacion' %}">MÁS INFORMACIÓN</a>
+			</div>
+		</div>
+	</div>
+	<div class="txt_img2">
+		<h3>¿Qué son las competencias digitales?</h3>
+		<hr>
+		<p>La competencia digital es una de las ocho competencias clave y se refiere al uso seguro y crítico de la gama completa de las tecnologías digitales para la información, comunicación y resolución de problemas básicos en todos los aspectos de la vida. </p>
+		<br><p>Para entender mejor la naturaleza de esta competencia, la Comisión Europea ha desarrollado el Marco Europeo de Competencias Digitales para la Ciudadanía (DigComp), el cual se divide en cinco áreas: información y datos sobre alfabetización, comunicación y colaboración, creación de contenido digital, seguridad y resolución de problemas. En total incluyen 21 competencias.</p>
+		<a href="{% url 'informacion' %}">MÁS INFORMACIÓN</a>
+	</div>	
+	<center>
+	<div class="area">
+		<div class="int row">
+			<h2 class="titAreas col-md-12">Áreas de competencias digitales</h2>
+			<div class="col-md-1"></div>
+			<div class="espacio col-md-2">
+				<a href="{% url 'informacion' %}" class="a_info"><img src="{% static 'images/informacion.png' %}" alt=""></a>
+				<a href="{% url 'informacion' %}" class="a_txt"><h3 class="tit1">Información y alfabetización informacional</h3></a>
+			</div>
+			<div class="espacio col-md-2">
+				<a href="{% url 'informacion' %}"><img src="{% static 'images/comunicacion.png' %}" alt=""></a>
+				<h3 class="tit2">Comunicación y colaboración</h3>
+			</div>
+			<div class="espacio col-md-2">
+				<a href="{% url 'informacion' %}"><img src="{% static 'images/creacion.png' %}" alt=""></a>
+				<h3 class="tit3">Creación de contenidos digitales</h3>
+			</div>
+			<div class="espacio col-md-2">
+				<a href="{% url 'informacion' %}"><img src="{% static 'images/seguridad.png' %}" alt=""></a>
+				<h3 class="tit4">Seguridad</h3>
+			</div>
+			<div class="espacio col-md-2">
+				<a href="{% url 'informacion' %}"><img src="{% static 'images/resoluciones.png' %}" alt=""></a>
+				<h3 class="tit5">Resolución de problemas</h3>
+			</div>
+			<div class="col-md-1"></div>
+		</div>
+	</div>	
+	<div class="color_competencia">
+		<div class="competencia row">
+			<div class="img_competencia col-md-5">
+				<img src="{% static 'images/competencias.jpg' %}" alt="Imagen sobre competencias digitales">
+			</div>
+			<div class="txt_competencia col-md-7">
+				<h3>¿Qué son las áreas de competencias digitales?</h3>
+				<hr>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+					consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+					cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+					consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+					cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.img_competencia
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+					consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+					cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+				<a href="{% url 'informacion' %}">MÁS INFORMACIÓN</a>
+			</div>
+		</div>
+	</div>	
+	</center>
 	<!-- Inicio Footer -->
 	{% include 'comun/footer.html' %}
 	<!-- fin Footer -->

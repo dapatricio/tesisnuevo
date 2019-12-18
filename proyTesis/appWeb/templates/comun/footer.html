@@ -1,31 +1,31 @@
 {% load static %}
-	</div>
-	</center>
-	<br>
-	<footer>
-		<hr class="hr-footer">
+<footer>
+		<hr class="linea_amarilla">
 		<div class="footer">
-			<div class="logo imagen-footer">
-				<a href="index.html"><img src="{% static 'images/logoCompleto.jpg' %}"  alt="logo"></a>
-			</div>
-			<ul class="nav nav-tabs">
-			  	<li role="presentation"><a href="{% url 'index' %}">Inicio</a></li>
-			  	<li role="presentation"><a href="{% url 'informacion' %}">Información</a></li>
-			  	<li role="presentation"><a href="{% url 'proposito' %}">Proposito</a></li>
-			  	<li role="presentation"><a href="{% url 'contacto' %}">Contáctanos</a></li>
-			</ul>
+			<nav class="navegador">
+				<div class="logo">
+					<a href="{% url 'index' %}"><img src="{% static 'images/logo.png' %}"  alt="logo"></a>
+				</div>
+				<ul class="nav nav-tabs">
+				  	<li role="presentation"><a href="{% url 'index' %}"><span class="icon-inicio"></span>Inicio</a></li>
+				  	<li role="presentation"><a href="{% url 'informacion' %}"><span class="icon-informacion"></span>Información</a></li>
+				  	<li role="presentation"><a href="{% url 'proposito' %}"><span class="icon-proposito"></span>Proposito</a></li>
+				  	<li role="presentation"><a href="{% url 'contacto' %}"><span class="icon-contacto"></span>Contáctanos</a></li>
+				  	<li role="presentation"><a href="{% url 'login' %}"><span class="icon-entrar"></span>Login / Inicio sesión</a></li>
+				</ul>
+			</nav>
 		</div>
 
-		<div class="hr-bandera">
-			<hr class="hr-amarillo">
-			<hr class="hr-azul">
-			<hr class="hr-rojo">
+		<div class="logo2">
+			<a href="{% url 'index' %}"><img src="{% static 'images/logo.png' %}"  alt="logo"></a>
 		</div>
+
+		<div class="derechos">
+			<p><b>Copyright 2020.</b> Universidad Técnica Particular de Loja</p>		
+		</div>	
 	</footer>
-	<div class="gototop js-top">
-		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
-	</div>
-
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-<script src="{% static 'scripts/main.js' %}"></script>	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="{% static 'scripts/main.js' %}"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </body>	
