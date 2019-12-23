@@ -10,7 +10,15 @@
 	{% include 'comun/nav.html' %}
 	<!-- Fin navegador-->
 
-	
+	<div class="cont_contacto">	
+		<form method="POST" class="col-sm-offset-2 form_contacto">
+			<h3>Contáctanos</h3>
+			{% csrf_token %}
+				{{contacto_form.as_p}}
+				<button type="submit" class="btn btn-warnin">Enviar mensaje</button>
+		</form>	
+	</div>
+
 	<!-- Inicio Footer -->
 	{% include 'comun/footer.html' %}
 	<!-- fin Footer -->

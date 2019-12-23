@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Registro de nuevos usuarios</title>
+
+	<!-- Inicio Navegador-->
+		{% include 'comun/nav.html' %}
+	<!-- fin Navegador -->	
+	<div class="cont_crear">	
+		<form method="POST" class="col-sm-offset-2 form_usuario">
+			<h3>Registro de usuarios</h3>
+			{% csrf_token %}
+				{{usuario_form.as_p}}
+				<button type="submit" class="btn btn-warnin">Crear usuario</button>
+		</form>	
+	</div>
+	<!-- Inicio Footer -->
+	{% include 'comun/footer2.html' %}
+	<!-- fin Footer -->

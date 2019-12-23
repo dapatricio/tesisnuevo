@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from django.core.mail import EmailMessage
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,7 +26,7 @@ SECRET_KEY = 'vnh60^=8^sc@m0n4)buuk2feq!v#gx^2$y%$o&0v)u5is89h%3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.105', 'localhost']
+ALLOWED_HOSTS = ['192.168.0.105', 'localhost', '172.17.22.161']
 
 
 # Application definition
@@ -133,3 +134,11 @@ STATICFILES_DIRS = (
 )
 # PROJECT_DIR = os.path.dirname(os.path.abspath(_file_))
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'dapatricio9405@gmail.com'
+EMAIL_HOST_PASSWORD = 'fvaswfndktooilgv'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'Sistema de Encuestas sobre Competencias Digitales <noreply@encuestasdigitales.com>'

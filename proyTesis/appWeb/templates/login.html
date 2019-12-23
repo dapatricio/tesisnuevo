@@ -4,13 +4,40 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Inicio</title>
+<title>Iniciar sesión</title>
 
 	<!-- Inicio Navegador-->
 	{% include 'comun/nav.html' %}
 	<!-- Fin navegador-->
-
-	
+	<div class="img_login">
+		<img id="img_login" src="{% static 'images/login.jpg' %}" alt="Competencias Digitales Login">
+		<div class="login">
+			<form class="form-horizontal">
+				<div class="img_form col-sm-offset-1">
+					<img src="{% static 'images/usuario.png' %}" alt="Imagen usuario" class="img-rounded">
+				</div>
+				<div class="form-group">
+			  		<label for="exampleInputName2" class="col-sm-2 control-label">Cédula:</label>
+			    	<div class="col-sm-10">
+			      		<input type="text" class="form-control" id="exampleInputName2" placeholder="1101010101" max="11" required>
+			    	</div>
+			  	</div>
+			  	<div class="form-group">
+			    	<label for="inputPassword3" class="col-sm-2 control-label">Clave:</label>
+			    	<div class="col-sm-10">
+			      		<input type="password" class="form-control" id="inputPassword3" placeholder="Contraseña" required>
+			    	</div>
+			 	</div>
+			  	<div class="form-group">
+			    	<div class="col-sm-offset-1 botones_login">
+			      		<button type="submit" class="btn btn-warnin col-sm-6">Ingresar</button>
+			      		<br><br>
+			      		<a href="{% url 'registro' %}" class="cuenta col-sm-6">¿Aún no tienes cuenta?</a>
+			   		</div>
+			  	</div>
+			</form>
+		</div>
+	</div>
 	<!-- Inicio Footer -->
-	{% include 'comun/footer.html' %}
+	{% include 'comun/footer2.html' %}
 	<!-- fin Footer -->

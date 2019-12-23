@@ -31,7 +31,7 @@ class Area_Competencia(models.Model):
 
 class TipoCuest(models.Model):
 	id_tipoCuest=models.AutoField(primary_key=True)
-	nombCuest=models.CharField(max_length=250, verbose_name='Tipo de Cuestionario:')
+	nombCuest=models.CharField(max_length=250, verbose_name='Tipo de cuestionario:')
 
 	class Meta:
 		db_table='tipoCuest'
@@ -95,8 +95,8 @@ class Competencia(models.Model):
 class Usuario(models.Model):
   	id_usr=models.AutoField(primary_key=True)
   	nombUsuario=models.CharField(max_length=250, verbose_name='Nombres y Apellidos:')
-  	cedula=models.CharField(max_length=11, verbose_name='Cédula Usuario:')
-  	correo=models.EmailField(max_length=75, verbose_name='Correo Usuario:')
+  	cedula=models.CharField(max_length=11, verbose_name='Cédula usuario:')
+  	correo=models.EmailField(max_length=75, verbose_name='Correo usuario:')
   	clave=models.CharField(max_length=75, verbose_name='Contraseña:')
   	codigo=models.CharField(max_length=75, verbose_name='Codigo:')
   	estado_codigo=models.BooleanField()
