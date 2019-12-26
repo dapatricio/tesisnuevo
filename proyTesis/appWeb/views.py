@@ -19,9 +19,9 @@ def contacto(request):
 	if request.method == 'POST':
 		contacto_form = ContactoForm(request.POST)
 		if contacto_form.is_valid():
-			asunto = 'Nueva consulta del Sistema de Encuestas'
-			mensaje = contacto_form.cleaned_data['mensaje']
-			mail = EmailMessage(asunto, mensaje, to=['andrews19aa@gmail.com'])
+			asunto = contacto_form.cleaned_data['asunto']
+			mensaje = 'El mensaje indica:\n'+contacto_form.cleaned_data['mensaje']+'\n\n Enviado por: '+contacto_form.cleaned_data['nombre']+'\n Correo electrónico: '+contacto_form.cleaned_data['correo']
+			mail = EmailMessage(asunto, mensaje, to=['dppenarreta@gmail.com'])
 			mail.send()
 		return HttpResponseRedirect('/')
 	else:

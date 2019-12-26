@@ -396,6 +396,7 @@ footer{
 .botones_login{
 	margin-top: 5%;
 }
+
 .botones_login br{
 	display: none;
 }
@@ -456,7 +457,7 @@ footer{
 	margin-bottom: 2em;
 }
 
-.cont_crear{
+.cont_contacto{
 	width: 100%;
 	text-align: center;
 	display: inline-block;
@@ -464,6 +465,128 @@ footer{
 	background-size: cover;
 	margin-bottom: -1.4em;
 }
+
+.form_contacto{
+	margin-top: 4em;
+	margin-bottom: 4.5em;
+	padding: 3em 7em 5em 5em;
+	bottom: 40%;
+	z-index: 15;
+	background-color: rgba(255,255,255,.75);
+	width: 60%;
+    color: #000;
+    font-size: 16px;
+}
+
+.form_contacto label{
+	font-size: 16px;
+	width: 20%;
+	margin-top: 1em;
+	text-align: left;
+}
+
+.form_contacto input, #id_mensaje{
+	width: 40%;
+	margin-left: 1em;
+	font-size: 16px;
+	margin-top: 1em;
+	height: 2em;
+}
+
+#id_mensaje{
+	height: 6em;
+}
+
+.form_contacto button{
+	color: #003f72;
+	margin-top: 1em;
+	padding: 1em 9em;
+	font-weight: bold;
+	background-color:#eaab00;
+}
+
+.form_contacto button:hover{
+	color: #eaab00;
+	margin-top: 1em;
+	padding: 1em 9em;
+	font-weight: bold;
+	background-color: #003f72;
+}
+
+.form_contacto h3{
+	font-weight: bold;
+	margin-bottom: 2em;
+}
+
+.cont_proposito{
+	font-size: 16px;
+}
+
+.img_proposito, .tit1, .tit2, .tit3{
+	width: 100%;
+	margin-top: 2em;
+}
+
+.tit_proposito{
+	text-align: center;
+}
+
+.tit_proposito h3{
+	font-weight: bold;
+}
+
+.tit1 p, .tit2 p, .tit3 p{
+	text-align: justify;
+	padding: 0 2em;
+}
+
+.tit1 h3, .tit2 h3, .tit3 h3{
+	font-weight: bold;
+	margin-bottom:1em;
+}
+
+.tit1, .tit2, .tit3 {
+	padding: 0 4em;
+}
+
+.titulos{
+	background-color: #F5F5F5;
+	padding: 2em 0;
+}
+
+.titulos hr{
+	border: 0.1em solid #eaab00;
+	width: 15%;
+	margin: 1em 0;
+}
+
+.img_proposito img{
+	width: 60%;
+}
+
+.cont_titulos img{
+	width: 100%;
+}
+.img1{
+	width: 100%;
+}
+
+.div_tit2{
+	display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -620,6 +743,43 @@ footer{
 	}
 	.js-gotop{
 		font-size: 3em;
+	}
+
+	.contenedor{
+		width: 100%;
+	}
+	.img_proposito img{
+		width: 100%;
+	}
+
+	.img1 img{
+		width: 50%;
+	}
+	.tit1 p, .tit2 p, .tit3 p{
+		text-align: justify;
+	}
+	.tit_proposito p{
+		text-align: justify;
+		padding: .5em 1em;
+	}
+	.tit1, .tit2, .tit3 {
+		padding: 0 1em;
+	}
+
+	.titulos hr{
+		border: 0.1em solid #eaab00;
+		width: 25%;
+		margin: 1em 0;
+	}
+	.div_tit2{
+		display: block;
+	}
+	.div_tit1{
+		display: none;
+	}
+	.tit2{
+		background-color: #fff;
+		padding-bottom: 2em;
 	}
 }
 
@@ -813,6 +973,68 @@ footer{
 	}
 
 	.cont_crear{
+		width: 100%;
+		text-align: center;
+		display: inline-block;
+		background-image: url("images/creacion.jpg");
+		background-size: cover;
+		margin-bottom: -1.4em;
+	}
+	.form_contacto{
+		margin-top: 3em;
+		margin-bottom: 3.5em;
+		padding: 1em;
+		bottom: 40%;
+		z-index: 15;
+		background-color: rgba(255,255,255,.75);
+		width: 100%;
+	    color: #000;
+	    font-size: 14px;
+	}
+
+	.form_contacto label{
+		font-size: 14px;
+		width: 35%;
+		margin-top: 1em;
+		text-align: left;
+	}
+	
+	.form_contacto input, #id_mensaje{
+		width: 75%;
+		margin-left: 1em;
+		font-size: 16px;
+		margin-top: 1em;
+		height: 2em;
+	}
+
+	#id_mensaje{
+		height: 4em;
+	}
+
+	.form_contacto button{
+		color: #003f72;
+		margin-top: 1em;
+		padding: 1em 5em;
+		font-weight: bold;
+		background-color:#eaab00;
+		font-size: 16px;
+	}
+
+	.form_contacto button:hover{
+		color: #eaab00;
+		margin-top: 1em;
+		padding: 1em 5em;
+		font-weight: bold;
+		background-color: #003f72;
+		font-size: 16px;
+	}
+
+	.form_contacto h3{
+		font-weight: bold;
+		margin-bottom: 1em;
+	}
+
+	.cont_contacto{
 		width: 100%;
 		text-align: center;
 		display: inline-block;
