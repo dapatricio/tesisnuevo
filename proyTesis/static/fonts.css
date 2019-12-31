@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?cddlz5');
-  src:  url('fonts/icomoon.eot?cddlz5#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?cddlz5') format('truetype'),
-    url('fonts/icomoon.woff?cddlz5') format('woff'),
-    url('fonts/icomoon.svg?cddlz5#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?nnendm');
+  src:  url('fonts/icomoon.eot?nnendm#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?nnendm') format('truetype'),
+    url('fonts/icomoon.woff?nnendm') format('woff'),
+    url('fonts/icomoon.svg?nnendm#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -45,6 +45,12 @@
 }
 .icon-pregunta:before {
   content: "\ea09";
+}
+.icon-mas:before {
+  content: "\ea0a";
+}
+.icon-menos:before {
+  content: "\ea0b";
 }
 .icon-proposito:before {
   content: "\ea0c";
