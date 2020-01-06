@@ -50,15 +50,15 @@ class CompetenciaAdmin(admin.ModelAdmin):
 		'id_area_competencia',
 	)
 
-class UsuarioAdmin(admin.ModelAdmin):
-	list_display=(
-		'nombUsuario', 
-		'cedula', 
-		'correo', 
-		'clave', 
-		'id_dependencia', 
-		'id_tipoUsr',
-	)
+# class UsuarioAdmin(admin.ModelAdmin):
+# 	list_display=(
+# 		'nombUsuario', 
+# 		'cedula', 
+# 		'correo', 
+# 		'clave', 
+# 		'id_dependencia', 
+# 		'id_tipoUsr',
+# 	)
 
 class RespuestaAdmin(admin.ModelAdmin):
 	list_display=(
@@ -113,7 +113,7 @@ _register(models.TipoDep, TipoDepAdmin)
 _register(models.TipoUsr, TipoUsrAdmin)
 _register(models.Dependencia, DependenciaAdmin)
 _register(models.Competencia, CompetenciaAdmin)
-_register(models.Usuario, UsuarioAdmin)
+# _register(models.Usuario, UsuarioAdmin)
 _register(models.Pregunta, PreguntaAdmin)
 _register(models.Recomendacion, RecomendacionAdmin)
 _register(models.Respuesta, RespuestaAdmin)

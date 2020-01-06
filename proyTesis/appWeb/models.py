@@ -4,7 +4,8 @@ from django.contrib.auth.models import User
 # Create your models here.
 # 
 from django.contrib.auth.models import AbstractUser
-from django.contrib.auth.models import AbstractUser
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 class Area(models.Model):
 	id_area=models.AutoField(primary_key=True)
@@ -92,24 +93,20 @@ class Competencia(models.Model):
 	def __str__(self):
 		return u'%s' %self.nombCompetencia	
 
-class Usuario(models.Model):
-  	id_usr=models.AutoField(primary_key=True)
-  	nombUsuario=models.CharField(max_length=250, verbose_name='Nombres y Apellidos:')
-  	cedula=models.CharField(max_length=11, verbose_name='Cédula usuario:')
-  	correo=models.EmailField(max_length=75, verbose_name='Correo usuario:')
-  	clave=models.CharField(max_length=75, verbose_name='Contraseña:')
-  	codigo=models.CharField(max_length=75, verbose_name='Codigo:')
-  	estado_codigo=models.BooleanField()
+# class Usuario(models.Model):
+#   	id_usr=models.AutoField(primary_key=True)
+#   	nombUsuario=models.CharField(max_length=250, verbose_name='Nombres y Apellidos:')
+#   	correo=models.EmailField(max_length=75, verbose_name='Correo usuario:')
+#   	clave=models.CharField(max_length=75, verbose_name='Contraseña:')
+  	
 
-  	id_tipoUsr=models.ForeignKey(TipoUsr, models.DO_NOTHING, db_column='id_tipoUsr', verbose_name='Tipo de usuario:')
-  	id_dependencia=models.ForeignKey(Dependencia, models.DO_NOTHING, db_column='id_dependencia', verbose_name='Dependencia:')
 
-  	class Meta:
-  		verbose_name='Usuario'
-  		db_table='usuario'
+#   	class Meta:
+#   		verbose_name='Usuario'
+#   		db_table='usuario'
 
-  	def __str__(self):
-  		return u'%s' %self.nombUsuario		
+#   	def __str__(self):
+#   		return u'%s' %self.nombUsuario		
 
 class Pregunta(models.Model):
 	id_pregunta=models.AutoField(primary_key=True)
@@ -160,7 +157,7 @@ class RtaUsr(models.Model):
 	rtaUser=models.CharField(max_length=75, verbose_name='Respuesta usuario')
 
 	id_pregunta=models.ForeignKey(Pregunta, models.DO_NOTHING, db_column='id_pregunta', verbose_name='Pregunta a la que pertenece:')
-	id_usr = models.ForeignKey(Usuario, models.DO_NOTHING, db_column='id_usr', verbose_name='Respuesta realizada por:')
+	id_usr = models.ForeignKey(User, models.DO_NOTHING, db_column='user_id', verbose_name='Respuesta realizada por:')
 
 	class Meta:
 		verbose_name = "Respuestas Usuario"
@@ -182,3 +179,21 @@ class Nivel(models.Model):
 
 	def __str__(self):
 		return u'%s' %self.nivel
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    cedula=models.CharField(max_length=11, verbose_name='Cédula usuario:')
+    codigo=models.CharField(max_length=75, verbose_name='Codigo:')
+    estado_codigo=models.BooleanField(null=True)
+
+    id_tipoUsr=models.ForeignKey(TipoUsr, models.DO_NOTHING, db_column='id_tipoUsr', verbose_name='Tipo de usuario:')
+    id_dependencia=models.ForeignKey(Dependencia, models.DO_NOTHING, db_column='id_dependencia', verbose_name='Dependencia:')
+
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+    	if created:
+    		Profile.objects.create(user=instance)
+
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+    	instance.profile.save()

@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'proyTesis.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'webencuestas',                  
+        'NAME': 'webencuestas1',                  
         'USER': 'root',             
         'PASSWORD': '',                  
         'HOST': 'localhost',                     
