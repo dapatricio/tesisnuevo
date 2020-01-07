@@ -1,6 +1,7 @@
 from django import forms
 from django.db import IntegrityError
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
 from .models import RtaUsr, Profile
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -34,7 +35,7 @@ class UserForm(UserCreationForm):
     last_name = forms.CharField(max_length=30, required=True, label="Apellidos")
     email = forms.EmailField(
         max_length=254,
-        help_text="Necesario. Informar una dirección de correo electrónico válida.",
+        help_text="Necesario. Ingresar una dirección de correo electrónico válida.",
     )
 
     class Meta:
@@ -66,3 +67,19 @@ class ProfileForm(forms.ModelForm):
             "id_tipoUsr",
             "id_dependencia",
         )
+
+class UserLoginForm(forms.Form):
+    username=forms.CharField()
+    password= forms.CharField(widget=forms.PasswordInput)
+
+    def clean(self, *args, **kwargs):
+        username=self.cleaned_data.get('username')
+        password=self.cleaned_data.get('password')
+
+        if username and password:
+            user = authenticate(username=username, password=password)
+            if not user:
+                raise form.ValidationError('El usuario no existe')
+            if not user.check_password(password):
+                raise form.ValidationError('La contraseña es incorrecta')
+        return super(UserLoginForm, self).clean(*args, **kwargs)

@@ -40,12 +40,13 @@ INSTALLED_APPS = [
     "jet.dashboard",
     "jet",
     "django.contrib.admin",
-    "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.auth",
     "appWeb",
+
 ]
 
 MIDDLEWARE = [
@@ -80,21 +81,19 @@ TEMPLATES = [
 WSGI_APPLICATION = "proyTesis.wsgi.application"
 
 
-# Database
+#Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'webencuestas1',
-#         'USER': 'root',
-#         'PASSWORD': '',
-#         'HOST': 'localhost',
-#         'PORT': '3306',
-#     }
-# }
-
-DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": "mydatabase",}}
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'webencuestas1',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}
 
 
 # Password validation
@@ -104,9 +103,15 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
+    {
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+        },
+    {
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+        },
 ]
 
 
@@ -144,3 +149,6 @@ EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = (
     "Sistema de Encuestas sobre Competencias Digitales <noreply@encuestasdigitales.com>"
 )
+
+LOGIN_REDIRECT_URL = 'cuestionario'
+LOGOUT_REDIRECT_URL = '/'

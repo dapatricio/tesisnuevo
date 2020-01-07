@@ -13,7 +13,7 @@
 		<form method="POST" class="col-sm-offset-2 form_usuario">
 			<h3>Registro de usuarios</h3>
 				{% csrf_token %}
-				{{ profile_form.as_p }}
+				
 				{% for field in user_form %}
 				<div class="form-group">
 			    <label for="{{ field.name }}">{{ field.label }}</label>
@@ -22,8 +22,8 @@
 			    <small id="{{ field.name }}" class="form-text text-muted">{{ field.help_text }}</small>
 					{{ field.errors }}
 			  </div>
-        {% endfor %}
-
+        		{% endfor %}
+				{{ profile_form.as_p }}
 				<button type="submit" class="btn btn-warnin">Crear usuario</button>
 		</form>
 	</div>

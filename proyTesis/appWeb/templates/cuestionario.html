@@ -1,16 +1,26 @@
 {% load static %}
+
 <!DOCTYPE html>
 
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <title>Cuestionario</title>
-
+	{% if user.is_authenticated %}
 	<!-- Inicio Navegador-->
 	{% include 'comun/nav.html' %}
+	<br>
+	<br>
+	<p>Hola {{request.user.first_name}} bienvenido</p>
+	<a href="{% url 'logout' %}" class="cuenta col-sm-6">Salir</a>
 
-	
-
-	<!-- Inicio Footer -->
 	{% include 'comun/footer2.html' %}
+
+	{% else %}
+		<a href="{% url 'registro' %}" class="cuenta col-sm-6">¿Aún no tienes cuenta?</a>
+	{% endif %}	
+	<br>
+	<br>
+	<!-- Inicio Footer -->
+	
 	<!-- fin Footer -->

@@ -22,6 +22,7 @@ urlpatterns = [
     path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
     path('', include('appWeb.urls')),
     path('admin/', admin.site.urls),
+    path('', include('django.contrib.auth.urls')),
 ]
 
 admin.site.site_header = 'UTPL Encuestas Web'

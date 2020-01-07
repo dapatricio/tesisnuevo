@@ -1,8 +1,18 @@
+from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect
 from .models import *
-from .forms import ContactoForm, UserForm, ProfileForm
+from .forms import ContactoForm, UserForm, ProfileForm, UserLoginForm
 from django.core.mail import send_mail, EmailMessage
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
+from django.contrib.auth import (
+    authenticate,
+    get_user_model,
+    login,
+    logout,
+    )
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 
 
 # Create your views here.
@@ -40,8 +50,8 @@ def contacto(request):
     return render(request, "contacto.html", {"contacto_form": contacto_form})
 
 
-def login(request):
-    return render(request, "login.html")
+# def login(request):
+#     return render(request, "login.html")
 
 def registro(request):
     if request.method == "POST":
@@ -59,3 +69,8 @@ def registro(request):
     return render(
         request, "registro.html", {"user_form": user_form, "profile_form": profile_form}
     )
+
+@login_required
+def cuestionario(request):
+    # response.user
+    return render(request, 'cuestionario.html')
