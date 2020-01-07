@@ -8,15 +8,24 @@
 
 	<!-- Inicio Navegador-->
 		{% include 'comun/nav.html' %}
-	<!-- fin Navegador -->	
-	<div class="cont_crear">	
+	<!-- fin Navegador -->
+	<div class="cont_crear">
 		<form method="POST" class="col-sm-offset-2 form_usuario">
 			<h3>Registro de usuarios</h3>
-			{% csrf_token %}
-				{{ user_form.as_p }}
-  				{{ profile_form.as_p }}
+				{% csrf_token %}
+				{{ profile_form.as_p }}
+				{% for field in user_form %}
+				<div class="form-group">
+			    <label for="{{ field.name }}">{{ field.label }}</label>
+			    {{ field }}
+					<br>
+			    <small id="{{ field.name }}" class="form-text text-muted">{{ field.help_text }}</small>
+					{{ field.errors }}
+			  </div>
+        {% endfor %}
+
 				<button type="submit" class="btn btn-warnin">Crear usuario</button>
-		</form>	
+		</form>
 	</div>
 	<!-- Inicio Footer -->
 	{% include 'comun/footer2.html' %}
