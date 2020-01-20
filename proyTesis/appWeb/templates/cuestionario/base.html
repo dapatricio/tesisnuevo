@@ -1,0 +1,195 @@
+{% load static %}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <title>APN - Academia Politécnica Nacional</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <link rel="shortcut icon" href="{% static 'wp-admin-light/images/favicon.ico' %}">
+
+  <link rel="stylesheet" href="{% static 'wp-admin-light/plugins/morris/morris.css' %}">
+  <!-- TOAST -->
+  <link href="{% static 'wp-admin-light/plugins/toastr/toastr.min.css' %}" rel="stylesheet" type="text/css" />
+  <!-- sweet alert -->
+  <link href="{% static 'wp-admin-light/plugins/sweet-alert/sweetalert2.min.css' %}" rel="stylesheet" type="text/css" />
+  <link href="{% static 'wp-admin-light/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+  <link href="{% static 'wp-admin-light/css/icons.css' %}" rel="stylesheet" type="text/css" />
+  <link href="{% static 'wp-admin-light/css/style.css' %}" rel="stylesheet" type="text/css" />
+  <!-- Modal -->
+  <link href="{% static 'wp-admin-light/plugins/custombox/dist/custombox.min.css' %}" rel="stylesheet">
+
+  <script src="{% static 'wp-admin-light/js/modernizr.min.js' %}"></script>
+
+</head>
+
+<body>
+  <header id="topnav">
+    <div class="topbar-main">
+      <div class="container-fluid">
+        <div class="logo">
+          <a href="#" class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="" height="26" class="logo-small">
+            <img src="{% static 'images/logo.png' %}" alt="" height="24" class="logo-large">
+          </a>
+        </div>
+        <div class="navbar-custom">
+
+        </div>
+        <div class="menu-extras topbar-custom">
+
+          <ul class="list-unstyled topbar-right-menu float-right mb-0">
+            <li class="menu-item">
+              <!-- Mobile menu toggle-->
+              <a class="navbar-toggle nav-link">
+                <div class="lines">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </a>
+              <!-- End mobile menu toggle-->
+            </li>
+            <li class="dropdown notification-list">
+              <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                <span>{{ request.user }} &nbsp;</span>
+                <img src="{% static 'images/usuario.png' %}" alt="user" class="rounded-circle">
+              </a>
+              <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+                <a href="javascript:void(0);" class="dropdown-item notify-item"><i class="ti-user m-r-5"></i> Mi Perfil</a>
+                <a href="" class="dropdown-item notify-item"><i class="ti-power-off m-r-5"></i> Cerrar Sesión</a>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+        <div class="clearfix"></div>
+      </div> <!-- end container -->
+    </div>
+
+    <div class="navbar-custom secondary">
+      <div class="container-fluid">
+        <div id="navigation">
+          <!-- Navigation Menu-->
+          <ul class="navigation-menu">
+            <li class="has-submenu">
+              <a href="{% url 'index' %}"><i class="mdi mdi-home"></i> <span> Inicio </span> </a>
+            </li>
+            <li class="has-submenu">
+              <a href="{% url 'informacion' %}"><i class="mdi mdi-home"></i> <span> Información</span> </a>
+            </li>
+            <li class="has-submenu">
+              <a href="{% url 'proposito' %}"><i class="mdi mdi-home"></i> <span> Proposito</span> </a>
+            </li>
+            <li class="has-submenu">
+              <a href="{% url 'contacto' %}"><i class="mdi mdi-home"></i> <span> Contáctanos</span> </a>
+            </li>
+          </ul>
+          <!-- End navigation menu -->
+        </div> <!-- end #navigation -->
+      </div> <!-- end container -->
+    </div> <!-- end navbar-custom -->
+  </header>
+  <!-- End Navigation Bar-->
+
+
+  <div class="wrapper" style="margin-top: 0 !important;padding-top: 0 !important;">
+    <div class="container-fluid">
+      {% block body %}
+      <div class="row m-t-20">
+        <div class="col-xl-6 col-md-6">
+          <img width="90%" src="{% static 'web/images/bienvenido.png' %}">
+        </div><!-- end col -->
+
+        <div class="col-xl-6 col-md-6">
+          <div class="card-box widget-user">
+            <h4 class="page-title text-center">!Hola {{user.first_name}}!</h4>
+          </div>
+          <div class="card-box">
+            <div class="row">
+              <div class="col-xl-3 col-md-3">
+                <img src="{{ user.profile.avatar }}" class="img-responsive rounded-circle img-thumbnail" alt="user">
+              </div>
+              <div class="col-xl-9 col-md-9">
+                <div class="wid-u-info">
+                  <br><br>
+                  <h5 class="mt-0 m-b-5" style="font-size: 1.2rem;"><strong>Usuario:</strong> {{ user.username }}</h5>
+                  <p class="text-muted m-b-5 font-13" style="font-size: 1.3rem !important;">{{ user.first_name }} {{ user.last_name }}</p>
+                  <p class="text-muted m-b-5 font-13">{{ user.email }}</p>
+                  <small class="badge badge-success text-white" style="font-size: 1.2rem;"><b>{% if user.profile.alumno %}Alumno{%else%}Docente{%endif%}</b></small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- end col -->
+      </div>
+      <!-- end row -->
+      {% endblock %}
+
+    </div> <!-- end container -->
+
+  </div>
+  <!-- end wrapper -->
+
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          Copyright 2020. Universidad Técnica Particular de Loja
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- End Footer -->
+
+
+  <script>
+    var secondary = document.querySelector(".secondary");
+
+    var fromTop = secondary.offsetTop;
+
+    document.onscroll = function() {
+      if (!secondary.classList.contains("stuck") && window.pageYOffset >= fromTop) {
+        secondary.classList.add("stuck");
+      } else if (secondary.classList.contains("stuck") && window.pageYOffset < fromTop) {
+        secondary.classList.remove("stuck");
+      }
+    };
+  </script>
+
+  <!-- jQuery  -->
+  <script src="{% static 'wp-admin-light/js/jquery.min.js' %}"></script>
+  <script src="{% static 'wp-admin-light/js/popper.min.js' %}"></script>
+  <script src="{% static 'wp-admin-light/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'wp-admin-light/js/waves.js' %}"></script>
+  <script src="{% static 'wp-admin-light/js/jquery.slimscroll.js' %}"></script>
+
+  <!-- KNOB JS -->
+  <!--[if IE]>
+        <script type="text/javascript" src="{% static 'wp-admin-light/plugins/jquery-knob/excanvas.js' %}"></script>
+        <![endif]-->
+  <script src="{% static 'wp-admin-light/plugins/jquery-knob/jquery.knob.js' %}"></script>
+
+  <!--Morris Chart-->
+  <script src="{% static 'wp-admin-light/plugins/morris/morris.min.js' %}"></script>
+  <script src="{% static 'wp-admin-light/plugins/raphael/raphael-min.js' %}"></script>
+
+  <!-- Dashboard init -->
+  <script src="{% static 'wp-admin-light/pages/jquery.dashboard.js' %}"></script>
+
+
+  <!-- App js -->
+  <script src="{% static 'wp-admin-light/js/jquery.core.js' %}"></script>
+  <script src="{% static 'wp-admin-light/js/jquery.app.js' %}"></script>
+  <script src="{% static 'wp-admin-light/plugins/sweet-alert/sweetalert2.min.js' %}"></script>
+  <script src="{% static 'wp-admin-light/plugins/toastr/toastr.min.js' %}"></script>
+  {% block script %}
+  {% endblock %}
+
+</body>
+
+</html>

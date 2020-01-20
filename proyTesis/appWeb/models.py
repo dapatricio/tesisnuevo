@@ -129,21 +129,6 @@ class Competencia(models.Model):
         return u"%s" % self.nombCompetencia
 
 
-# class Usuario(models.Model):
-#   	id_usr=models.AutoField(primary_key=True)
-#   	nombUsuario=models.CharField(max_length=250, verbose_name='Nombres y Apellidos:')
-#   	correo=models.EmailField(max_length=75, verbose_name='Correo usuario:')
-#   	clave=models.CharField(max_length=75, verbose_name='Contraseña:')
-
-
-#   	class Meta:
-#   		verbose_name='Usuario'
-#   		db_table='usuario'
-
-#   	def __str__(self):
-#   		return u'%s' %self.nombUsuario
-
-
 class Pregunta(models.Model):
     id_pregunta = models.AutoField(primary_key=True)
 
@@ -283,14 +268,3 @@ class Profile(models.Model):
         db_column="id_dependencia",
         verbose_name="Dependencia:",
     )
-
-    # @receiver(post_save, sender=User)
-    # def create_user_profile(sender, instance, created, **kwargs):
-    # 	if created:
-    # 		Profile.objects.create(user=instance)
-
-
-#
-# @receiver(post_save, sender=User)
-# def save_user_profile(sender, instance, **kwargs):
-# 	instance.profile.save()

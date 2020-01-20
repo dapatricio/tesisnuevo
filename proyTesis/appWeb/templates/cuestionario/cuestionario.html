@@ -1,0 +1,363 @@
+{% extends 'cuestionario/base.html' %}
+{% load static %}
+{% block body %}
+
+
+<br>
+<div class="row" style="margin-top: 3%">
+  <div class="col-md-6 col-lg-3" id="div_listapreguntas" onload="Carga()">
+    <p class=""><strong>LISTA DE PREGUNTAS {{total}}</strong></p>
+    {% for c in lista %}
+      <hr>
+      <!-- <p><strong>{{forloop.counter}}. {{c.categorias|upper}}</strong></p> -->
+      {% for d in c.preguntas %}
+        {% if cuestionario_terminado is True %}
+          {% if d.correcta == "1" %}
+            <button type="button" onclick="Pregunta({{d.contador}}, {{d.opcion}}, {{d.id_preguntas}})" class="btn btn-outline-success btn-rounded  m-b-5" id="btnpregunta{{d.contador}}"><strong>{{d.contador}}</strong></button>
+          {% else %}
+            <button type="button" onclick="Pregunta({{d.contador}}, {{d.opcion}}, {{d.id_preguntas}})" class="btn btn-outline-danger btn-rounded  m-b-5" id="btnpregunta{{d.contador}}"><strong>{{d.contador}}</strong></button>
+          {% endif %}
+        {% else %}
+          <button type="button" onclick="Pregunta({{d.contador}}, {{d.opcion}}, {{d.id_preguntas}})" class="btn {% if d.llena == True %}btn-primary{% else %} btn-secondary{% endif %} btn-rounded  m-b-5" id="btnpregunta{{d.contador}}">{{d.contador}}</button>
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+  </div><!-- end col -->
+  <div class="col-md-6 col-lg-9">
+    <!-- Simple card -->
+    <div class="card m-b-20">
+      <div class="card-header">
+        <button type="button" class="btn btn-dark btn-rounded  m-b-5"><strong id="numpregunta">SELECCIONE UNA PREGUNTA</strong></button>
+        <button type="button" onclick="NuevoCuestionario()" class="btn btn-outline-primary btn-rounded m-b-5"><strong id="numpregunta">NUEVO CUESTIONARIO</strong></button>
+        <button type="button" onclick="TerminarCuestionario()" class="btn btn-outline-success btn-rounded m-b-5" id="btnterminar" {% if btn_terminar == 'true' %} disabled="disabled" {%endif%}><strong>TERMINAR</strong></button>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card-header encabezado">
+              <h4 class="card-title">Enunciado</h4>
+            </div>
+            <div id="enunciado" class="container m-b-20">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card-header encabezado">
+              <h4 class="card-title">Opciones</h4>
+            </div>
+            <!-- <h4 class="card-title enunciado">Enunciado de la pregunta número 1.</h4> -->
+            <form id="opciones" class="m-t-20" action="">
+            </form>
+          </div>
+        </div>
+        <div class="text-center mt-5">
+          <button class="btn btn-outline-dark btn-rounded m-b-5" id="btnAnterior" onclick="Anterior()"><strong>Anterior</strong></button>
+          <button class="btn btn-outline-dark btn-rounded m-b-5" id="btnSiguiente" onclick="Siguiente()">
+            <strong>Siguiente</strong>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div><!-- end col -->
+</div>
+<!-- end row -->
+<style type="text/css">
+  .circular-question {
+    border: 3px solid;
+    border-color: green;
+    padding: 5%;
+    text-align: center;
+  }
+
+  .circular-question-false {
+    border: 1px dotted;
+    padding: 2%;
+    border-color: red;
+    text-align: center;
+  }
+</style>
+{% block script %}
+<script type="text/javascript">
+  // alert(window.location.pathname);
+  $('#btnpregunta1').click();
+  console.log(window.location.pathname);
+  var correcta_sum = 0;
+
+  function NuevoCuestionario(argument) {
+    // alert(correcta_sum);
+
+    swal({
+      title: '¿Estás seguro de iniciar un nuevo cuestionario?',
+      text: '¡Los avances de este cuestionario se perderán!',
+      type: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, estoy seguro',
+      cancelButtonText: 'No, cancelar',
+      confirmButtonColor: '#4fa7f3'
+    }).then(function() {
+      $.ajax({
+        url: window.location.pathname,
+        data: {
+          btn_nuevocuestionario: 'btn_nuevocuestionario',
+          csrfmiddlewaretoken: '{{ csrf_token }}'
+        },
+        dataType: 'json',
+        type: 'POST',
+        success: function(data) {
+          alert("éxito");
+        }
+      });
+      swal({
+        title: 'Creando nuevo cuestionario',
+        text: '....',
+        timer: 1500,
+        imageUrl: 'http://www.sersanahsap.com/wp-content/plugins/gallery-album/assets/img/load11.gif',
+        showConfirmButton: false,
+        allowOutsideClick: false,
+      });
+      window.setTimeout(function() {
+        $(location).attr('href', window.location.href);
+      }, 1500);
+      // .then(function(){
+      //         $(location).attr('href', window.location.href);
+      // });
+    });
+  }
+
+  function TerminarCuestionario(argument) {
+    // alert(correcta_sum);
+    var calificacion_final = correcta_sum + {{calificacion}};
+    $.ajax({
+      url: window.location.pathname,
+      data: {
+        btn_terminar: 'btn_terminar',
+        csrfmiddlewaretoken: '{{ csrf_token }}'
+      },
+      dataType: 'json',
+      type: 'POST',
+      success: function(data) {
+        alert("éxito");
+      }
+    });
+    swal({
+      title: 'Tu calificación es ' + calificacion_final + ' / {{total}}',
+      text: '¡Has finalizado el test!',
+      type: 'success',
+      confirmButtonColor: '#4fa7f3'
+    }).then(function() {
+      swal({
+        title: '¿Deseas iniciar un nuevo cuestionario?',
+        text: 'Inicia un nuevo cuestionario o revisa tus respuestas',
+        type: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Iniciar un nuevo cuestionario',
+        cancelButtonText: 'No, deseo revisar mis respuestas'
+      }).then(
+        function() {
+          $.ajax({
+            url: window.location.pathname,
+            data: {
+              btn_nuevocuestionario: 'btn_nuevocuestionario',
+              csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+            dataType: 'json',
+            type: 'POST',
+            success: function(data) {
+              alert("éxito");
+            }
+          });
+          swal({
+            title: 'Creando nuevo cuestionario',
+            text: '....',
+            timer: 1500,
+            imageUrl: 'http://www.sersanahsap.com/wp-content/plugins/gallery-album/assets/img/load11.gif',
+            showConfirmButton: false,
+            allowOutsideClick: false,
+          });
+          window.setTimeout(function() {
+            $(location).attr('href', window.location.href);
+          }, 1500);
+        },
+        function(dismiss) {
+          $(location).attr('href', window.location.href);
+        }
+      )
+    });
+    $('div input[value="true"]').parent("div").addClass('circular-question');
+    $('div input[value="false"]').parent("div").addClass('circular-question-false');
+    $('input').prop('disabled', true);
+  }
+
+  function Siguiente(numero_pregunta) {
+    $('#btnpregunta' + (numero_pregunta + 1)).click();
+  }
+
+  function Anterior(numero_pregunta) {
+    $('#btnpregunta' + (numero_pregunta - 1)).click();
+  }
+
+  function CambiarEstado(numero_pregunta, id_opciones, id_pregunta, correcta) {
+    $("#btnpregunta" + numero_pregunta).removeClass("btn-secondary");
+    $("#btnpregunta" + numero_pregunta).addClass("btn-primary");
+
+    // alert('#btnpregunta' + numero_pregunta)
+    // Remuevo el onclick de btnpregunta
+    if (correcta == true) {
+      correcta_sum = correcta_sum + 1;
+    }
+    var numItems = $('.btn-primary').length
+    if (numItems == {{total}}) {
+      bloqueo = false;
+    } else {
+      bloqueo = true;
+    }
+    $.ajax({
+      url: window.location.pathname,
+      data: {
+        btn_cambiarestado: 'btn_cambiarestado',
+        numero_pregunta: numero_pregunta,
+        id_opciones: id_opciones,
+        bloqueo: bloqueo,
+        correcta: correcta,
+        csrfmiddlewaretoken: '{{ csrf_token }}'
+      },
+      dataType: 'json',
+      type: 'POST',
+      success: function(data) {
+        alert("éxito");
+      }
+    });
+    $('#btnpregunta' + numero_pregunta).removeAttr('onclick');
+    $('#btnpregunta' + numero_pregunta).attr('onClick', 'Pregunta(' + numero_pregunta + ',' + id_opciones + ',' + id_pregunta + ');');
+    var numItems = $('.btn-primary').length
+    // alert($('.btn-primary').length);
+    if (numItems == {{total}}) {
+      var shortCutFunction = "success"
+      var title = "FINALIZADO"
+      var mensaje = "¡Cuestionario finalizado!<br>Pulsa <strong>TERMINAR</strong><br>para obtener la califición "
+      toastr.options = {
+        closeButton: true,
+        debug: false,
+        newestOnTop: $('#newestOnTop').prop('checked'),
+        progressBar: true,
+        positionClass: 'toast-top-right',
+        preventDuplicates: true,
+        onclick: null
+      };
+      // alert("El cuestionario ha finalizado");
+      $("#btnterminar").prop("disabled", false);
+      $('#toastrOptions').text('Command: toastr["' +
+        shortCutFunction +
+        '"]("' +
+        mensaje +
+        ("TITULO" ? '", "' + "titulo" : '') +
+        '")\n\ntoastr.options = ' +
+        JSON.stringify(toastr.options, null, 2)
+      );
+
+      var $toast = toastr[shortCutFunction](mensaje, title);
+    }
+    // alert(numItems);
+
+
+
+  }
+
+  function Pregunta(numero_pregunta, id_opciones, id_pregunta) {
+    // alert("El id de la pregunta es: " + id_pregunta + " num: " + numero_pregunta);
+
+    $(".opcion").remove();
+    $(".enunciado").remove();
+    $("#numpregunta").text("PREGUNTA N° " + numero_pregunta);
+    $("br").remove();
+    // Configuracion del boton anterior y siguiente
+    if (numero_pregunta == 1) {
+      $('#btnAnterior').hide();
+    } else {
+      $('#btnAnterior').show();
+      $('#btnAnterior').removeAttr('onclick');
+      $('#btnAnterior').attr('onClick', 'Anterior(' + numero_pregunta + ');');
+    }
+    $('#btnSiguiente').removeAttr('onclick');
+    $('#btnSiguiente').attr('onClick', 'Siguiente(' + numero_pregunta + ');');
+
+
+
+    $.ajax({
+      url: '/pregunta/ajax/' + id_pregunta + '/' + {{ide_cuestionario}} + '/',
+      dataType: 'json',
+      type: 'GET',
+      success: function(data) {
+        // alert(data['pregunta']);
+        // alert(data['opciones']);
+        pregunta = data['pregunta'];
+        cuestionario_terminado = data['cuestionario_terminado'];
+        $("#enunciado").append("<div class='enunciado m-t-20'>" + pregunta + "</div>");
+
+        for (var i = 0; i < data['opciones'].length; i++) {
+          if (data['opciones'][i]['enunciado'] != null) {
+            opcion = data['opciones'][i]['enunciado'];
+          } else {
+            opcion = '';
+          }
+          correcta = data['opciones'][i]['correcta'];
+          imagen = data['opciones'][i]['imagen'];
+          id_opcion = data['opciones'][i]['id_opciones'];
+          if (id_opcion == id_opciones) {
+            if (imagen != "none") {
+              $("#opciones").append("<div class='radio radio-primary ml-5 opcion m-t-20' style='align:center;'><input class='form-check-input' name='opciones' type='radio' value='" + correcta + "' id='defaultCheck1' onchange='CambiarEstado(" +
+                numero_pregunta + "," + id_opcion + "," + id_pregunta + "," + correcta + ")' checked='checked'><label class='form-check-label' for='opcion" + id_opcion + "'>" + opcion + "<img src='" + imagen + "'></label></div><btn-rounded>");
+            } else {
+              $("#opciones").append("<div class='radio radio-primary ml-5 opcion m-t-20'><input class='form-check-input' name='opciones' type='radio' value='" + correcta + "' id='opcion" + id_opcion + "' onchange='CambiarEstado(" +
+                numero_pregunta + "," + id_opcion + "," + id_pregunta + "," + correcta + ")' checked='checked'><label class='form-check-label' for='opcion" + id_opcion + "'>" + opcion + "</label></div>");
+            }
+          } else {
+            if (imagen != "none") {
+              $("#opciones").append("<div class='radio radio-primary ml-5 opcion m-t-20'><input class='form-check-input' name='opciones' type='radio' value='" + correcta + "' id='opcion" + id_opcion + "' onchange='CambiarEstado(" +
+                numero_pregunta + "," + id_opcion + "," + id_pregunta + "," + correcta + ")'><label class='form-check-label' for='opcion" + id_opcion + "'>" + opcion + "<img src='" + imagen + "'></label></div><btn-rounded>");
+            } else {
+              $("#opciones").append("<div class='radio radio-primary ml-5 opcion m-t-20'><input class='form-check-input' name='opciones' type='radio' value='" + correcta + "' id='opcion" + id_opcion + "' onchange='CambiarEstado(" +
+                numero_pregunta + "," + id_opcion + "," + id_pregunta + "," + correcta + ")'><label class='form-check-label' for='opcion" + id_opcion + "'>" + opcion + "</label></div>");
+            }
+          }
+
+        }
+
+        $('#enunciado img').css('width', '100%');
+        $('#enunciado img').css('height', 'auto');
+        if (cuestionario_terminado == true) {
+          $('div input[value="true"]').parent("div").addClass('circular-question');
+          $('div input[value="false"]').parent("div").addClass('circular-question-false');
+          $('input').prop('disabled', true);
+        }
+        if (numero_pregunta == {{total}}) {
+          $('#btnSiguiente').hide();
+        } else {
+          $('#btnSiguiente').show();
+        }
+
+      }
+    });
+  }
+</script>
+{% endblock %}
+{#% else %#}
+<!-- <br>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card card-danger card m-b-20">
+      <div class="row">
+        <div class="card-body text-secondary"><br><br><br>
+          <h2 class="text-center text-primary"><strong>¡Atención!</strong></h2>
+          <br>
+          <p class="text-center">No tienes acceso a los cuestionarios</p>
+          <br><br><br>
+
+        </div>
+      </div>
+
+    </div>
+  </div> -->
+{#% endif %#}
+
+{% endblock %}
