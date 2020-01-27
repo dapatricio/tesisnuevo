@@ -16,15 +16,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url, include
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
-    path('jet/', include('jet.urls', 'jet')),  # Django JET URLS
-    path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
-    path('', include('appWeb.urls')),
-    path('admin/', admin.site.urls),
-    path('', include('django.contrib.auth.urls')),
-]
+    path("jet/", include("jet.urls", "jet")),  # Django JET URLS
+    path(
+        "jet/dashboard/", include("jet.dashboard.urls", "jet-dashboard")
+    ),  # Django JET dashboard URLS
+    path("", include("appWeb.urls")),
+    path("admin/", admin.site.urls),
+    path("", include("django.contrib.auth.urls")),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-admin.site.site_header = 'UTPL Encuestas Web'
+admin.site.site_header = "UTPL Encuestas Web"
 admin.site.site_title = "Admin UTPL Encuestas web"
 admin.site.index_title = "Admin UTPL Encuestas web"

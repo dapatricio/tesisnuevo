@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from image_cropping import ImageCropField, ImageRatioField
 
 
 class Area(models.Model):
@@ -43,6 +44,12 @@ class Area_Competencia(models.Model):
 class TipoCuest(models.Model):
     id_tipoCuest = models.AutoField(primary_key=True)
     nombCuest = models.CharField(max_length=250, verbose_name="Tipo de cuestionario:")
+    id_tipoUsr = models.ForeignKey(
+        "TipoUsr",
+        models.DO_NOTHING,
+        db_column="id_tipoUsr",
+        verbose_name="Tipo de usuario:",
+    )
 
     class Meta:
         db_table = "tipoCuest"
@@ -182,8 +189,14 @@ class Recomendacion(models.Model):
 
 class Respuesta(models.Model):
     id_respuesta = models.AutoField(primary_key=True)
-    respuesta = models.CharField(max_length=250, verbose_name="Respuesta pregunta:")
+    respuesta = models.CharField(
+        max_length=250, blank=True, verbose_name="Respuesta pregunta:"
+    )
     valorRta = models.IntegerField(verbose_name="Valor de la respuesta:")
+    imagen = ImageCropField(max_length=150, upload_to="cursos", blank=True)
+    imagen_crop = ImageRatioField(
+        "imagen", "200x200", size_warning=True, free_crop=True
+    )
 
     id_pregunta = models.ForeignKey(
         Pregunta,
@@ -268,3 +281,6 @@ class Profile(models.Model):
         db_column="id_dependencia",
         verbose_name="Dependencia:",
     )
+
+    def __str__(self):
+        return u"%s" % self.user

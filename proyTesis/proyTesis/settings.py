@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.auth",
     "appWeb",
+    "image_cropping",
+    "easy_thumbnails",
 ]
 
 MIDDLEWARE = [
@@ -131,6 +133,9 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 # PROJECT_DIR = os.path.dirname(os.path.abspath(_file_))
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_HOST_USER = (
@@ -145,3 +150,13 @@ DEFAULT_FROM_EMAIL = (
 
 LOGIN_REDIRECT_URL = "cuestionario"
 LOGOUT_REDIRECT_URL = "/"
+
+
+from easy_thumbnails.conf import Settings as thumbnail_settings
+
+THUMBNAIL_PROCESSORS = (
+    "image_cropping.thumbnail_processors.crop_corners",
+) + thumbnail_settings.THUMBNAIL_PROCESSORS
+IMAGE_CROPPING_BACKEND = "image_cropping.backends.easy_thumbs.EasyThumbnailsBackend"
+IMAGE_CROPPING_BACKEND_PARAMS = {}
+IMAGE_CROPPING_THUMB_SIZE = (300, 300)

@@ -9,8 +9,7 @@ urlpatterns = [
     path("proposito/", views.proposito, name="proposito"),
     path("contacto/", views.contacto, name="contacto"),
     path("registro/", views.registro, name="registro"),
-    path("login/cuestionario/", views.cuestionario, name="cuestionario"),
-    path("cuestionario", views.cuestionarios, name="cuestionarios"),
+    path("login/cuestionario/", views.cuestionarios, name="cuestionario"),
     path(
         "pregunta/ajax/<int:id_preguntas>/<int:cuestionario>/",
         views.pregunta_ajax,
