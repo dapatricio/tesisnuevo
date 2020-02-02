@@ -13,6 +13,13 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 from django.core.mail import EmailMessage
 
+from .ckeditor_settings import (
+    CKEDITOR_UPLOAD_PATH,
+    CKEDITOR_IMAGE_BACKEND,
+    CKEDITOR_RESTRICT_BY_DATE,
+    CKEDITOR_CONFIGS,
+)
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -48,6 +55,8 @@ INSTALLED_APPS = [
     "appWeb",
     "image_cropping",
     "easy_thumbnails",
+    "ckeditor",
+    "ckeditor_uploader",
 ]
 
 MIDDLEWARE = [

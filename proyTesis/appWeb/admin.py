@@ -71,7 +71,7 @@ class RespuestaAdmin(ImageCroppingMixin, admin.ModelAdmin):
     )
 
 
-class RespuestaInline(admin.StackedInline):
+class RespuestaInline(ImageCroppingMixin, admin.StackedInline):
     model = Respuesta
     extra = 4
 

@@ -18,6 +18,7 @@ from django.urls import path
 from django.conf.urls import url, include
 from django.conf.urls.static import static
 from django.conf import settings
+from django.contrib.auth import logout
 
 urlpatterns = [
     path("jet/", include("jet.urls", "jet")),  # Django JET URLS
@@ -27,6 +28,8 @@ urlpatterns = [
     path("", include("appWeb.urls")),
     path("admin/", admin.site.urls),
     path("", include("django.contrib.auth.urls")),
+    path(route="ckeditor/", view=include("ckeditor_uploader.urls")),
+    path("logout/", logout, {"next_page": "/login/"}, name="logout"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 admin.site.site_header = "UTPL Encuestas Web"

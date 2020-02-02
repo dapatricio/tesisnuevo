@@ -8,6 +8,8 @@ from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from image_cropping import ImageCropField, ImageRatioField
+from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 
 
 class Area(models.Model):
@@ -155,7 +157,7 @@ class Pregunta(models.Model):
     ayuda = models.CharField(
         max_length=250, verbose_name="Instrucción para la pregunta:"
     )
-    pregunta = models.CharField(max_length=250, verbose_name="Pregunta:")
+    pregunta = RichTextUploadingField(max_length=5000)
 
     class Meta:
         verbose_name = "Pregunta"
@@ -215,7 +217,7 @@ class Respuesta(models.Model):
 
 class RtaUsr(models.Model):
     id_rtaUser = models.AutoField(primary_key=True)
-    rtaUser = models.CharField(max_length=75, verbose_name="Respuesta usuario")
+    rtaUser = models.IntegerField(verbose_name="Respuesta usuario")
 
     id_pregunta = models.ForeignKey(
         Pregunta,
@@ -247,6 +249,7 @@ class Nivel(models.Model):
         models.DO_NOTHING,
         db_column="id_competencia",
         verbose_name="Competencia digital:",
+        related_name="nivel",
     )
     id_dependencia = models.ForeignKey(
         Dependencia,

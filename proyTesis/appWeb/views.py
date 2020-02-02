@@ -132,8 +132,11 @@ def cuestionarios(request):
         calificacion = 0
         for x in request.session["lista" + ide_cuestionario]:
             for n in x["preguntas"]:
-                print(n)
-                if str(n["correcta"]) == "true":
+                pg = Pregunta.objects.get(pk=n["id_preguntas"])
+                RtaUsr.objects.create(
+                    rtaUser=n["correcta"], id_pregunta=pg, id_usr=request.user,
+                )
+                if str(n["correcta"]) == "1":
                     calificacion = calificacion + 1
         request.session["calificacion" + ide_cuestionario] = calificacion
         request.session["cuestionario_terminado" + ide_cuestionario] = True
@@ -175,14 +178,10 @@ from easy_thumbnails.files import get_thumbnailer
 
 
 def pregunta_ajax(request, id_preguntas, cuestionario):
-    preguntas = Pregunta.objects.get(pk=id_preguntas).pregunta
     lista = []
+    preguntas = Pregunta.objects.get(pk=id_preguntas)
     opciones = Respuesta.objects.filter(id_pregunta=id_preguntas)
-    # .values(
-    #     "respuesta", "correcta", "imagen", "imagen_crop", "id_opciones"
-    # )
     for c in opciones:
-        # print(c["imagen_crop"])
         try:
             imagen_crop = (
                 get_thumbnailer(c.imagen)
@@ -207,10 +206,85 @@ def pregunta_ajax(request, id_preguntas, cuestionario):
             }
         )
     ctx = {
-        "pregunta": preguntas,
+        "area": preguntas.id_competencia.id_area_competencia.nombAreaCompetencia,
+        "digital": preguntas.id_competencia.nombCompetencia,
+        "pregunta": preguntas.pregunta,
+        "ayuda": preguntas.ayuda,
+        "ayuda": preguntas.ayuda,
         "opciones": list(lista),
         "cuestionario_terminado": request.session[
             "cuestionario_terminado" + str(cuestionario)
         ],
     }
     return JsonResponse(ctx, safe=False)
+
+
+from django.db.models import Avg, Count, Min, Sum
+from django.db.models import F
+from django.db.models import OuterRef, Subquery
+from django.db.models import Func
+from django.db.models.functions import Round
+
+# class Round(Func):
+#     function = "ROUND"
+#     arity = 2
+
+
+def repuestas_usuario(request):
+    profile = Profile.objects.get(user=request.user)
+    query = RtaUsr.objects.filter(
+        id_usr__profile__id_dependencia=profile.id_dependencia
+    )
+    rpst = (
+        RtaUsr.objects.filter(id_usr=request.user)
+        .order_by(
+            "id_pregunta__id_competencia__id_area_competencia",
+            "id_pregunta__id_competencia",
+        )
+        .values(competencia=F("id_pregunta__id_competencia__nombCompetencia"))
+        .annotate(
+            ide=F("id_pregunta__id_competencia__id_competencia"),
+            sumatoria=Sum("rtaUser"),
+            area=F(
+                "id_pregunta__id_competencia__id_area_competencia__nombAreaCompetencia"
+            ),
+            recomendado=F("id_pregunta__id_competencia__nivel__nivel"),
+        )
+        .values("competencia", "ide", "sumatoria", "area", "recomendado")
+    )
+    list = []
+    Rarea = []
+    for value in rpst:
+        ar = (
+            query.filter(id_pregunta__id_competencia__id_competencia=value["ide"])
+            .values("id_usr")
+            .annotate(s=Sum("rtaUser"))
+            .values("id_usr", "s")
+            .aggregate(p=Round(Avg("s")))
+        )
+        list.append(
+            {
+                "competencia": value["competencia"],
+                "sumatoria": value["sumatoria"],
+                "recomendado": value["recomendado"],
+                "area": int(ar["p"]),
+            }
+        )
+        Rarea.append(int(ar["p"]))
+
+    c = rpst.count()
+    competencia = [f"C{value+1}" for value in range(c)]
+    Rpersonal = [value["sumatoria"] for value in rpst]
+    Rrecomendado = [value["recomendado"] for value in rpst]
+
+    for value in rpst:
+        print(value)
+
+    ctx = {
+        "rpst": list,
+        "lista": competencia,
+        "resul_personal": Rpersonal,
+        "resul_recomendado": Rrecomendado,
+        "resul_area": Rarea,
+    }
+    return render(request, "cuestionario/base.html", ctx)

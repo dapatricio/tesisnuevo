@@ -1,6 +1,5 @@
 from django.urls import path
 from . import views
-from django.contrib.auth import views as auth_views
 from django.views.generic.base import TemplateView
 
 urlpatterns = [
@@ -10,6 +9,7 @@ urlpatterns = [
     path("contacto/", views.contacto, name="contacto"),
     path("registro/", views.registro, name="registro"),
     path("login/cuestionario/", views.cuestionarios, name="cuestionario"),
+    path("cuestionario/respuestas", views.repuestas_usuario, name="repuestas_usuario"),
     path(
         "pregunta/ajax/<int:id_preguntas>/<int:cuestionario>/",
         views.pregunta_ajax,

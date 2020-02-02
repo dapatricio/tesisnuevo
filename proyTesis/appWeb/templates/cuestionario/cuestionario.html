@@ -12,7 +12,7 @@
       <!-- <p><strong>{{forloop.counter}}. {{c.categorias|upper}}</strong></p> -->
       {% for d in c.preguntas %}
         {% if cuestionario_terminado is True %}
-          {% if d.correcta == "1" %}
+          {% if d.correcta in "12" %}
             <button type="button" onclick="Pregunta({{d.contador}}, {{d.opcion}}, {{d.id_preguntas}})" class="btn btn-outline-success btn-rounded  m-b-5" id="btnpregunta{{d.contador}}"><strong>{{d.contador}}</strong></button>
           {% else %}
             <button type="button" onclick="Pregunta({{d.contador}}, {{d.opcion}}, {{d.id_preguntas}})" class="btn btn-outline-danger btn-rounded  m-b-5" id="btnpregunta{{d.contador}}"><strong>{{d.contador}}</strong></button>
@@ -28,14 +28,24 @@
     <div class="card m-b-20">
       <div class="card-header">
         <button type="button" class="btn btn-dark btn-rounded  m-b-5"><strong id="numpregunta">SELECCIONE UNA PREGUNTA</strong></button>
-        <button type="button" onclick="NuevoCuestionario()" class="btn btn-outline-primary btn-rounded m-b-5"><strong id="numpregunta">NUEVO CUESTIONARIO</strong></button>
-        <button type="button" onclick="TerminarCuestionario()" class="btn btn-outline-success btn-rounded m-b-5" id="btnterminar" {% if btn_terminar == 'true' %} disabled="disabled" {%endif%}><strong>TERMINAR</strong></button>
+        <button type="button" onclick="TerminarCuestionario()" class="btn btn-outline-success btn-rounded m-b-5" id="btnterminar" {% if btn_terminar == 'true' %} disabled="disabled" {% else %} disabled="disabled"{%endif%}><strong>TERMINAR</strong></button>
       </div>
       <div class="card-body">
         <div class="row">
+          <div class="col-md-12">
+            <div class="text-center">
+              <h4 id="area" class="card-title"></h4>
+              <h6 id="digital" class="card-title"></h6>
+            </div>
+            <div class="text-right" >
+              <a href="javascript:void(0)" id="ayuda" data-container="body" data-toggle="popover" data-placement="right" > Instrucciones <i class="fa fa-question-circle"></i></a>
+            </div>
+          </div>
           <div class="col-md-6">
             <div class="card-header encabezado">
-              <h4 class="card-title">Enunciado</h4>
+              <h4 class="card-title">Enunciado
+
+              </h4>
             </div>
             <div id="enunciado" class="container m-b-20">
             </div>
@@ -82,46 +92,46 @@
   console.log(window.location.pathname);
   var correcta_sum = 0;
 
-  function NuevoCuestionario(argument) {
-    // alert(correcta_sum);
-
-    swal({
-      title: '¿Estás seguro de iniciar un nuevo cuestionario?',
-      text: '¡Los avances de este cuestionario se perderán!',
-      type: 'question',
-      showCancelButton: true,
-      confirmButtonText: 'Sí, estoy seguro',
-      cancelButtonText: 'No, cancelar',
-      confirmButtonColor: '#4fa7f3'
-    }).then(function() {
-      $.ajax({
-        url: window.location.pathname,
-        data: {
-          btn_nuevocuestionario: 'btn_nuevocuestionario',
-          csrfmiddlewaretoken: '{{ csrf_token }}'
-        },
-        dataType: 'json',
-        type: 'POST',
-        success: function(data) {
-          alert("éxito");
-        }
-      });
-      swal({
-        title: 'Creando nuevo cuestionario',
-        text: '....',
-        timer: 1500,
-        imageUrl: 'http://www.sersanahsap.com/wp-content/plugins/gallery-album/assets/img/load11.gif',
-        showConfirmButton: false,
-        allowOutsideClick: false,
-      });
-      window.setTimeout(function() {
-        $(location).attr('href', window.location.href);
-      }, 1500);
-      // .then(function(){
-      //         $(location).attr('href', window.location.href);
-      // });
-    });
-  }
+  // function NuevoCuestionario(argument) {
+  //   // alert(correcta_sum);
+  //
+  //   swal({
+  //     title: '¿Estás seguro de iniciar un nuevo cuestionario?',
+  //     text: '¡Los avances de este cuestionario se perderán!',
+  //     type: 'question',
+  //     showCancelButton: true,
+  //     confirmButtonText: 'Sí, estoy seguro',
+  //     cancelButtonText: 'No, cancelar',
+  //     confirmButtonColor: '#4fa7f3'
+  //   }).then(function() {
+  //     $.ajax({
+  //       url: window.location.pathname,
+  //       data: {
+  //         btn_nuevocuestionario: 'btn_nuevocuestionario',
+  //         csrfmiddlewaretoken: '{{ csrf_token }}'
+  //       },
+  //       dataType: 'json',
+  //       type: 'POST',
+  //       success: function(data) {
+  //         alert("éxito");
+  //       }
+  //     });
+  //     swal({
+  //       title: 'Creando nuevo cuestionario',
+  //       text: '....',
+  //       timer: 1500,
+  //       imageUrl: 'http://www.sersanahsap.com/wp-content/plugins/gallery-album/assets/img/load11.gif',
+  //       showConfirmButton: false,
+  //       allowOutsideClick: false,
+  //     });
+  //     window.setTimeout(function() {
+  //       $(location).attr('href', window.location.href);
+  //     }, 1500);
+  //     // .then(function(){
+  //     //         $(location).attr('href', window.location.href);
+  //     // });
+  //   });
+  // }
 
   function TerminarCuestionario(argument) {
     // alert(correcta_sum);
@@ -139,48 +149,14 @@
       }
     });
     swal({
-      title: 'Tu calificación es ' + calificacion_final + ' / {{total}}',
+      title: 'Felicitaciones {{request.user}}',
       text: '¡Has finalizado el test!',
       type: 'success',
       confirmButtonColor: '#4fa7f3'
     }).then(function() {
-      swal({
-        title: '¿Deseas iniciar un nuevo cuestionario?',
-        text: 'Inicia un nuevo cuestionario o revisa tus respuestas',
-        type: 'question',
-        showCancelButton: true,
-        confirmButtonText: 'Iniciar un nuevo cuestionario',
-        cancelButtonText: 'No, deseo revisar mis respuestas'
-      }).then(
-        function() {
-          $.ajax({
-            url: window.location.pathname,
-            data: {
-              btn_nuevocuestionario: 'btn_nuevocuestionario',
-              csrfmiddlewaretoken: '{{ csrf_token }}'
-            },
-            dataType: 'json',
-            type: 'POST',
-            success: function(data) {
-              alert("éxito");
-            }
-          });
-          swal({
-            title: 'Creando nuevo cuestionario',
-            text: '....',
-            timer: 1500,
-            imageUrl: 'http://www.sersanahsap.com/wp-content/plugins/gallery-album/assets/img/load11.gif',
-            showConfirmButton: false,
-            allowOutsideClick: false,
-          });
-          window.setTimeout(function() {
-            $(location).attr('href', window.location.href);
-          }, 1500);
-        },
-        function(dismiss) {
-          $(location).attr('href', window.location.href);
-        }
-      )
+      window.setTimeout(function() {
+        $(location).attr('href', window.location.href);
+      }, 1500);
     });
     $('div input[value="true"]').parent("div").addClass('circular-question');
     $('div input[value="false"]').parent("div").addClass('circular-question-false');
@@ -280,18 +256,16 @@
     $('#btnSiguiente').removeAttr('onclick');
     $('#btnSiguiente').attr('onClick', 'Siguiente(' + numero_pregunta + ');');
 
-
-
     $.ajax({
       url: '/pregunta/ajax/' + id_pregunta + '/' + {{ide_cuestionario}} + '/',
       dataType: 'json',
       type: 'GET',
       success: function(data) {
-        // alert(data['pregunta']);
-        // alert(data['opciones']);
-        pregunta = data['pregunta'];
         cuestionario_terminado = data['cuestionario_terminado'];
-        $("#enunciado").append("<div class='enunciado m-t-20'>" + pregunta + "</div>");
+        $("#ayuda").attr("data-content", data['ayuda'])
+        $("#area").empty().append(data['area'])
+        $("#digital").empty().append(data['digital'])
+        $("#enunciado").append("<div class='enunciado m-t-20'>" + data['pregunta'] + "</div>");
 
         for (var i = 0; i < data['opciones'].length; i++) {
           if (data['opciones'][i]['enunciado'] != null) {
