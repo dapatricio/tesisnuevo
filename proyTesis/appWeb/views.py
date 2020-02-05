@@ -231,6 +231,13 @@ from django.db.models.functions import Round
 
 
 def repuestas_usuario(request):
+    lista = {
+        0: "Basico",
+        1: "Basico",
+        2: "Intermedio",
+        3: "Intermedio",
+        4: "Avanzado",
+    }
     profile = Profile.objects.get(user=request.user)
     query = RtaUsr.objects.filter(
         id_usr__profile__id_dependencia=profile.id_dependencia
@@ -265,9 +272,9 @@ def repuestas_usuario(request):
         list.append(
             {
                 "competencia": value["competencia"],
-                "sumatoria": value["sumatoria"],
-                "recomendado": value["recomendado"],
-                "area": int(ar["p"]),
+                "sumatoria": lista[int(value["sumatoria"])],
+                "recomendado": lista[int(value["recomendado"])],
+                "area": lista[int(ar["p"])],
             }
         )
         Rarea.append(int(ar["p"]))
@@ -276,9 +283,6 @@ def repuestas_usuario(request):
     competencia = [f"C{value+1}" for value in range(c)]
     Rpersonal = [value["sumatoria"] for value in rpst]
     Rrecomendado = [value["recomendado"] for value in rpst]
-
-    for value in rpst:
-        print(value)
 
     ctx = {
         "rpst": list,

@@ -29,6 +29,9 @@
       <div class="card-header">
         <button type="button" class="btn btn-dark btn-rounded  m-b-5"><strong id="numpregunta">SELECCIONE UNA PREGUNTA</strong></button>
         <button type="button" onclick="TerminarCuestionario()" class="btn btn-outline-success btn-rounded m-b-5" id="btnterminar" {% if btn_terminar == 'true' %} disabled="disabled" {% else %} disabled="disabled"{%endif%}><strong>TERMINAR</strong></button>
+        {% if btn_terminar == 'false' %}
+        <a class="btn btn-outline-info btn-rounded m-b-5" href="{% url 'repuestas_usuario' %}">INFORME</a>
+        {% endif %}
       </div>
       <div class="card-body">
         <div class="row">
