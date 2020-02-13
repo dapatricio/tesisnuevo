@@ -1,7 +1,7 @@
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect
 from .models import *
-from .forms import ContactoForm, UserForm, ProfileForm, UserLoginForm
+from .forms import ContactoForm, UserForm, ProfileForm, UserLoginForm, UserUpdateForm
 from django.core.mail import send_mail, EmailMessage
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
@@ -28,6 +28,10 @@ from django.contrib.auth import login, logout
 from django.contrib.auth import authenticate
 from django.utils.translation import ugettext_lazy as _
 from django.http import HttpResponse
+
+from django.contrib.auth.models import User
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
+
 
 # Create your views here.
 def index(request):
@@ -292,3 +296,10 @@ def repuestas_usuario(request):
         "resul_area": Rarea,
     }
     return render(request, "cuestionario/base.html", ctx)
+
+
+class UpdateUserView(UpdateView):
+    model = User
+    form_class = UserUpdateForm
+    template_name = 'cuestionario/user.html'
+    success_url = '/login/cuestionario/'

@@ -48,11 +48,6 @@ class UserForm(UserCreationForm):
             "password1",
             "password2",
         )
-        widgets = {
-            "id_ficha_predial": forms.HiddenInput(),
-            "clave_catastral": forms.HiddenInput(),
-            "descripcion": forms.Textarea(attrs={"rows": 4}),
-        }
 
 
 class ProfileForm(forms.ModelForm):
@@ -83,3 +78,9 @@ class UserLoginForm(forms.Form):
             if not user.check_password(password):
                 raise form.ValidationError('La contraseña es incorrecta')
         return super(UserLoginForm, self).clean(*args, **kwargs)
+
+
+class UserUpdateForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email']

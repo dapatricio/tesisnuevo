@@ -58,7 +58,7 @@
                 <img src="{% static 'images/usuario.png' %}" alt="user" class="rounded-circle">
               </a>
               <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
-                <a href="javascript:void(0);" class="dropdown-item notify-item"><i class="ti-user m-r-5"></i> Mi Perfil</a>
+                <a href="{% url 'actualizar' request.user.pk %}" class="dropdown-item notify-item"><i class="ti-user m-r-5"></i> Mi Perfil</a>
                 <a href="{% url 'logout' %}" class="dropdown-item notify-item"><i class="ti-power-off m-r-5"></i> Cerrar Sesión</a>
               </div>
             </li>

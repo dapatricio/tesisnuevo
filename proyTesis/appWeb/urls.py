@@ -8,6 +8,7 @@ urlpatterns = [
     path("proposito/", views.proposito, name="proposito"),
     path("contacto/", views.contacto, name="contacto"),
     path("registro/", views.registro, name="registro"),
+    path("login/actualizar/<int:pk>/", views.UpdateUserView.as_view(), name="actualizar"),
     path("login/cuestionario/", views.cuestionarios, name="cuestionario"),
     path("cuestionario/respuestas", views.repuestas_usuario, name="repuestas_usuario"),
     path(

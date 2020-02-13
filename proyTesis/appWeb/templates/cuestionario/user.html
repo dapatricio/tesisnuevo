@@ -1,0 +1,23 @@
+{% extends 'cuestionario/base.html' %}
+{% load static %}
+{% block body %}
+
+
+<br>
+<div class="row" style="margin-top: 3%">
+  <div class="col-xl-6 col-md-6">
+    <div class="card-box">
+      <div class="col-xl-12 col-md-12">
+        <form class="" action="{% url 'actualizar' request.user.pk %}" method="post">
+          {% csrf_token %}
+          {{form.as_p}}
+          <button class="btn btn-info" type="submit" name="button">Guardar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% block script %}{% endblock %}
+
+{% endblock %}
