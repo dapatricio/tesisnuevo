@@ -10,6 +10,7 @@ from django.dispatch import receiver
 from image_cropping import ImageCropField, ImageRatioField
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
+from django.utils.text import slugify
 
 
 class Area(models.Model):
@@ -23,7 +24,7 @@ class Area(models.Model):
         db_table = "area"
 
     def __str__(self):
-        return u"%s" % self.nombArea
+        return "%s" % self.nombArea
 
 
 class Area_Competencia(models.Model):
@@ -40,7 +41,7 @@ class Area_Competencia(models.Model):
         db_table = "area_competencia"
 
     def __str__(self):
-        return u"%s" % self.nombAreaCompetencia
+        return "%s" % self.nombAreaCompetencia
 
 
 class TipoCuest(models.Model):
@@ -59,7 +60,7 @@ class TipoCuest(models.Model):
 
     def __str__(self):
 
-        return u"%s" % self.nombCuest
+        return "%s" % self.nombCuest
 
 
 class TipoDep(models.Model):
@@ -73,7 +74,7 @@ class TipoDep(models.Model):
         db_table = "tipoDep"
 
     def __str__(self):
-        return u"%s" % self.tipo_dep
+        return "%s" % self.tipo_dep
 
 
 class TipoUsr(models.Model):
@@ -87,7 +88,7 @@ class TipoUsr(models.Model):
         db_table = "tipoUsr"
 
     def __str__(self):
-        return u"%s" % self.tipo_usuario
+        return "%s" % self.tipo_usuario
 
 
 class Dependencia(models.Model):
@@ -111,7 +112,7 @@ class Dependencia(models.Model):
         db_table = "dependencia"
 
     def __str__(self):
-        return u"%s" % self.nombDependencia
+        return "%s" % self.nombDependencia
 
 
 class Competencia(models.Model):
@@ -135,7 +136,7 @@ class Competencia(models.Model):
         db_table = "competencia"
 
     def __str__(self):
-        return u"%s" % self.nombCompetencia
+        return "%s" % self.nombCompetencia
 
 
 class Pregunta(models.Model):
@@ -164,7 +165,7 @@ class Pregunta(models.Model):
         db_table = "pregunta"
 
     def __str__(self):
-        return u"%s" % self.pregunta
+        return "%s" % self.pregunta
 
 
 class Recomendacion(models.Model):
@@ -186,7 +187,7 @@ class Recomendacion(models.Model):
         db_table = "recomendacion"
 
     def __str__(self):
-        return u"%s" % self.recomendacion
+        return "%s" % self.recomendacion
 
 
 class Respuesta(models.Model):
@@ -212,12 +213,35 @@ class Respuesta(models.Model):
         db_table = "respuesta"
 
     def __str__(self):
-        return u"%s" % self.respuesta
+        return "%s" % self.respuesta
+
+
+class HistoricoEvaluacion(models.Model):
+    id_usr = models.ForeignKey(
+        User,
+        models.DO_NOTHING,
+        db_column="user_id",
+        verbose_name="Respuesta realizada por:",
+    )
+    create_date = models.DateTimeField(auto_now_add=True, verbose_name="Fecha Creación")
+    slug = models.SlugField(editable=False)
+
+    class Meta:
+        verbose_name = "Respuestas Usuario"
+
+    def save(self, *args, **kwargs):
+        """Se reescribe el método save para guardar el slug"""
+        self.slug = slugify(f"{self.create_date}-{self.id_usr}")
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return "%s" % self.id_usr
 
 
 class RtaUsr(models.Model):
     id_rtaUser = models.AutoField(primary_key=True)
     rtaUser = models.IntegerField(verbose_name="Respuesta usuario")
+    historico = models.ForeignKey(HistoricoEvaluacion, models.DO_NOTHING)
 
     id_pregunta = models.ForeignKey(
         Pregunta,
@@ -237,7 +261,7 @@ class RtaUsr(models.Model):
         db_table = "rtaUser"
 
     def __str__(self):
-        return u"%s" % self.rtaUser
+        return "%s" % self.rtaUser
 
 
 class Nivel(models.Model):
@@ -263,7 +287,7 @@ class Nivel(models.Model):
         db_table = "nivel"
 
     def __str__(self):
-        return u"%s" % self.nivel
+        return "%s" % self.nivel
 
 
 class Profile(models.Model):
@@ -286,4 +310,4 @@ class Profile(models.Model):
     )
 
     def __str__(self):
-        return u"%s" % self.user
+        return "%s" % self.user

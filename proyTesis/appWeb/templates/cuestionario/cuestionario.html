@@ -9,7 +9,7 @@
     <p class=""><strong>LISTA DE PREGUNTAS {{total}}</strong></p>
     {% for c in lista %}
       <hr>
-      <!-- <p><strong>{{forloop.counter}}. {{c.categorias|upper}}</strong></p> -->
+      <p><strong>{{forloop.counter}}. {{c.categorias|upper}}</strong></p>
       {% for d in c.preguntas %}
         {% if cuestionario_terminado is True %}
           {% if d.correcta in "12" %}
@@ -236,13 +236,14 @@
       var $toast = toastr[shortCutFunction](mensaje, title);
     }
     // alert(numItems);
-
-
-
   }
+
 
   function Pregunta(numero_pregunta, id_opciones, id_pregunta) {
     // alert("El id de la pregunta es: " + id_pregunta + " num: " + numero_pregunta);
+
+    var element = document.getElementById(`btnpregunta${numero_pregunta}`);
+    element.classList.add("active");
 
     $(".opcion").remove();
     $(".enunciado").remove();
@@ -260,7 +261,7 @@
     $('#btnSiguiente').attr('onClick', 'Siguiente(' + numero_pregunta + ');');
 
     $.ajax({
-      url: '/pregunta/ajax/' + id_pregunta + '/' + {{ide_cuestionario}} + '/',
+      url: '/pregunta/ajax/' + id_pregunta + '/{{ide_cuestionario}}/',
       dataType: 'json',
       type: 'GET',
       success: function(data) {

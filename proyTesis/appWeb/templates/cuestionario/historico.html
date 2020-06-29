@@ -1,0 +1,48 @@
+{% extends 'cuestionario/base.html' %}
+{% load static %}
+{% block body %}
+<div class="row m-t-20">
+  {% if object_historico %}
+  <div class="col-md-12">
+    <div class="card-box">
+      <h5 class="title">
+        <a href="javascript:void(0)">INFORMES AREAS</a>
+      </h5>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="card-box">
+      <h5 class="title" style="height:54px">
+        <a href="{% url 'informe_area' 'all' 'todas-las-areas-de-competencias-digitales' %}">Todas las areas de competencias digitales</a>
+      </h5>
+    </div>
+  </div>
+  {% for area in object_area %}
+  <div class="col-md-2">
+    <div class="card-box">
+      <h5 class="title" style="height:54px;">
+        <a href="{% url 'informe_area' area.pk area.nombAreaCompetencia|slugify %}" style="height:100%;align-items: center;">Área {{area.nombAreaCompetencia}}</a>
+      </h5>
+    </div>
+  </div>
+  {% endfor %}
+  <div class="col-md-12">
+    <div class="card-box">
+      <h5 class="title">
+        <a href="javascript:void(0)">HISTORIAL DE EVALUACIONES</a>
+      </h5>
+    </div>
+  </div>
+  {% for historico in object_historico %}
+  <div class="col-md-2">
+    <div class="card-box">
+      <h5 class="title">
+        <a href="{% url 'repuestas_usuario' %}">Informe Evaluacion realizada: <br> {{historico.create_date}}</a>
+      </h5>
+    </div>
+  </div>
+  {% endfor %}
+
+  {% endif %}
+</div>
+{% endblock %}

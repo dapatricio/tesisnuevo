@@ -86,6 +86,12 @@
             <li class="has-submenu">
               <a href="{% url 'contacto' %}"><i class="mdi mdi-home"></i> <span> Contáctanos</span> </a>
             </li>
+            <li class="has-submenu">
+              <a href="{% url 'categoria' %}"><i class="mdi mdi-home"></i> <span> Cuestionarios</span> </a>
+            </li>
+            <li class="has-submenu">
+              <a href="{% url 'historico' %}"><i class="mdi mdi-home"></i> <span> Historial</span> </a>
+            </li>
           </ul>
           <!-- End navigation menu -->
         </div> <!-- end #navigation -->
@@ -240,7 +246,7 @@
       }
     };
   </script>
-
+  {% block super %}
   <script type="text/javascript">
   const labels = {{lista|safe}}
   const rp = {{resul_personal|safe}}
@@ -248,6 +254,7 @@
   const ra = {{resul_area|safe}}
   const user = "{{request.user}}"
   </script>
+  {% endblock %}
 
   <!-- jQuery  -->
   <script src="{% static 'wp-admin-light/js/jquery.min.js' %}"></script>

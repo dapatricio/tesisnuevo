@@ -157,7 +157,8 @@ DEFAULT_FROM_EMAIL = (
     "Sistema de Encuestas sobre Competencias Digitales <noreply@encuestasdigitales.com>"
 )
 
-LOGIN_REDIRECT_URL = "cuestionario"
+LOGIN_URL = "/login/"
+LOGIN_REDIRECT_URL = "categoria"
 LOGOUT_REDIRECT_URL = "/"
 
 
@@ -168,4 +169,4 @@ THUMBNAIL_PROCESSORS = (
 ) + thumbnail_settings.THUMBNAIL_PROCESSORS
 IMAGE_CROPPING_BACKEND = "image_cropping.backends.easy_thumbs.EasyThumbnailsBackend"
 IMAGE_CROPPING_BACKEND_PARAMS = {}
-IMAGE_CROPPING_THUMB_SIZE = (300, 300)
+IMAGE_CROPPING_THUMB_SIZE = (350, 350)
