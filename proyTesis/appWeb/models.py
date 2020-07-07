@@ -235,7 +235,7 @@ class HistoricoEvaluacion(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return "%s" % self.id_usr
+        return "%s - %s" % (self.create_date, self.id_usr)
 
 
 class RtaUsr(models.Model):

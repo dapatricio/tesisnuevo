@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 from .models import *
 from django.shortcuts import render
 from django.http import JsonResponse
+from django.conf import settings
+from django.shortcuts import render, reverse, redirect
 
 
 class CategoriaTemplateView(LoginRequiredMixin, TemplateView):
@@ -65,7 +67,7 @@ def cuestionarios(request, **kwargs):
                         "contador": contador,
                         "id_preguntas": d.pk,
                         "llena": False,
-                        "correcta": "false",
+                        "correcta": "0",
                         "opcion": 0,
                     }
                 )
@@ -97,6 +99,7 @@ def cuestionarios(request, **kwargs):
 
     if request.method == "POST" and "btn_nuevocuestionario" in request.POST:
         del request.session["cuestionario_iniciado" + ide_cuestionario]
+        # return redirect("/cuestionario/categoria/")
 
     if request.method == "POST" and "btn_cambiarestado" in request.POST:
         request.session["bloqueo" + ide_cuestionario] = request.POST["bloqueo"]
@@ -121,6 +124,11 @@ def cuestionarios(request, **kwargs):
         "btn_terminar": request.session["bloqueo" + ide_cuestionario],
         "total": request.session["total" + ide_cuestionario],
         "ide_cuestionario": ide_cuestionario,
+        "temporizador": (
+            settings.TEMPORIZADOR_ALL
+            if area_competencia == "all"
+            else settings.TEMPORIZADOR
+        ),
     }
     return render(request, "cuestionario/cuestionario.html", ctx)
 
@@ -223,15 +231,19 @@ def repuestas_usuario(request, **kwargs):
             .values("id_usr", "s")
             .aggregate(p=Round(Avg("s")))
         )
-        list.append(
-            {
-                "competencia": value["competencia"],
-                "sumatoria": lista[int(value["sumatoria"])],
-                "recomendado": lista[int(value["recomendado"])],
-                "area": lista[int(ar["p"])],
-            }
-        )
-        Rarea.append(int(ar["p"]))
+        try:
+
+            list.append(
+                {
+                    "competencia": value["competencia"],
+                    "sumatoria": lista[int(value["sumatoria"])],
+                    "recomendado": lista[int(value["recomendado"])],
+                    "area": lista[int(ar["p"])],
+                }
+            )
+            Rarea.append(int(ar["p"]))
+        except Exception as e:
+            pass
 
     c = rpst.count()
     competencia = [f"C{value+1}" for value in range(c)]
