@@ -4,6 +4,16 @@
   <div class="row m-t-20">
     {% if object_area %}
       <div class="col-md-4">
+        <a href="{% url 'cuestionario' 0 'cuestionario-de-repaso-basico' 'basic' %}">
+          <img src="https://freebw.com/templates/smartedu/images/home2-course-1.jpg" alt="Steven Boyd" width="100%">
+        </a>
+        <div class="card-box">
+          <h5 class="title">
+            <a href="{% url 'cuestionario' 0 'cuestionario-de-repaso-basico' 'basic' %}">Cuestionario básico de repaso</a>
+          </h5>
+        </div>
+      </div>
+      <div class="col-md-4">
         <a href="{% url 'cuestionario' 0 'todas-las-areas-de-competencias-digitales' 'all' %}">
           <img src="https://freebw.com/templates/smartedu/images/home2-course-1.jpg" alt="Steven Boyd" width="100%">
         </a>

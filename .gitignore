@@ -1,0 +1,10 @@
+*.vscode
+*.pyc
+*~
+*.sqlite3
+*.lock
+*.python-version
+*.idea
+*.coverage
+*.env
+*.DS_Store

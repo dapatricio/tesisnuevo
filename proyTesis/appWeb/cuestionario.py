@@ -55,7 +55,10 @@ def cuestionarios(request, **kwargs):
         for c in categorias:
             lista_preguntas = []
             preguntas = Pregunta.objects.filter(id_tipoCuest=c.pk).order_by("?")
-            if area_competencia != "all":
+            if area_competencia == 'basic':
+                preguntas = preguntas[:10]
+
+            if area_competencia != "all" and area_competencia != 'basic':
                 preguntas = preguntas.filter(
                     id_competencia__id_area_competencia__pk=area_competencia
                 )

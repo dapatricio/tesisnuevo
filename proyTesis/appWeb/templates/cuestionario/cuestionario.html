@@ -18,16 +18,16 @@
     {% for d in c.preguntas %}
     {% if cuestionario_terminado is True %}
     {% if d.correcta in "12" %}
-    <button type="button" onclick="Pregunta({{d.contador}}, {{d.opcion}}, {{d.id_preguntas}})" class="btn btn-outline-success btn-rounded  m-b-5" id="btnpregunta{{d.contador}}">
+    <button type="button" onclick="Pregunta({{d.contador}}, {{d.opcion}}, {{d.id_preguntas}})" class="btn btn-primary active-count btn-rounded  m-b-5" id="btnpregunta{{d.contador}}">
       <strong>{{d.contador|stringformat:"02d"}}</strong>
     </button>
     {% else %}
-    <button type="button" onclick="Pregunta({{d.contador}}, {{d.opcion}}, {{d.id_preguntas}})" class="btn btn-outline-danger btn-rounded  m-b-5" id="btnpregunta{{d.contador}}">
+    <button type="button" onclick="Pregunta({{d.contador}}, {{d.opcion}}, {{d.id_preguntas}})" class="btn btn-primary active-count btn-rounded  m-b-5" id="btnpregunta{{d.contador}}">
       <strong>{{d.contador|stringformat:"02d"}}</strong>
     </button>
     {% endif %}
     {% else %}
-    <button type="button" onclick="Pregunta({{d.contador}}, {{d.opcion}}, {{d.id_preguntas}})" class="btn {% if d.llena == True %}btn-primary{% else %} btn-secondary{% endif %} btn-rounded  m-b-5"
+    <button type="button" onclick="Pregunta({{d.contador}}, {{d.opcion}}, {{d.id_preguntas}})" class="btn {% if d.llena == True %}btn-primary active-count{% else %} btn-secondary{% endif %} btn-rounded  m-b-5"
       id="btnpregunta{{d.contador}}">{{d.contador|stringformat:"02d"}}</button>
     {% endif %}
     {% endfor %}
@@ -56,6 +56,10 @@
         {% else %}
         <button type="button" onclick="NuevoCuestionario()" class="btn btn-outline-primary btn-rounded m-b-5"><strong id="numpregunta">FINALIZAR REVISION</strong></button>
         {% endif %}
+
+          <a class="btn btn-outline-info btn-rounded m-b-5" href="javascript:void(0)">
+            <span id="id_number_llena">0</span> de {{ total }}
+        </a>
 
       </div>
       <div class="card-body">
@@ -161,6 +165,10 @@
 {% endif %}
 <script type="text/javascript">
   // alert(window.location.pathname);
+  function countQuestion() {
+      let contador = $(".active-count").length
+      $(`#id_number_llena`).text(contador)
+  }
 
   $('#btnpregunta1').click();
   var correcta_sum = 0;
@@ -229,10 +237,13 @@
       numero_pregunta - 1
     )).click();
   }
-
+    countQuestion()
   function CambiarEstado(numero_pregunta, id_opciones, id_pregunta, correcta) {
     $("#btnpregunta" + numero_pregunta).removeClass("btn-secondary");
     $("#btnpregunta" + numero_pregunta).addClass("btn-primary");
+    $("#btnpregunta" + numero_pregunta).addClass("active-count");
+
+    countQuestion()
 
     // alert('#btnpregunta' + numero_pregunta) Remuevo el onclick de btnpregunta
     if (correcta == true) {
