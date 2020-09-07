@@ -4,26 +4,78 @@
 <link rel="stylesheet" href="{% static 'estilos.css' %}">
 <link rel="stylesheet" href="{% static 'fonts.css' %}">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<link rel="shortcut icon" href="{% static 'images/favicon.png' %}">
+
+<link rel="stylesheet" href="{% static 'wp-admin-light/plugins/morris/morris.css' %}">
+<!-- TOAST -->
+<link href="{% static 'wp-admin-light/plugins/toastr/toastr.min.css' %}" rel="stylesheet" type="text/css" />
+<!-- sweet alert -->
+<link href="{% static 'wp-admin-light/plugins/sweet-alert/sweetalert2.min.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'wp-admin-light/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'wp-admin-light/css/icons.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'wp-admin-light/css/style.css' %}" rel="stylesheet" type="text/css" />
+<!-- Modal -->
+<link href="{% static 'wp-admin-light/plugins/custombox/dist/custombox.min.css' %}" rel="stylesheet">
+<script src="{% static 'wp-admin-light/js/modernizr.min.js' %}"></script>
+
 
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 
 </head>
 <body>
-	<header>
-		<div class="menu_bar">
-			<a href="#" class="bt-menu"><span class="icon-menu"></span>Menu</a>
-		</div>
-		<nav class="navegador">
-			<div class="logo">
-				<a href="{% url 'index' %}"><img src="{% static 'images/logo.png' %}"  alt="logo"></a>
-			</div>
-			<ul class="nav nav-tabs">
-			  	<li role="presentation"><a href="{% url 'index' %}"><span class="icon-inicio"></span>Inicio</a></li>
-			  	<li role="presentation"><a href="{% url 'informacion' %}"><span class="icon-informacion"></span>Información</a></li>
-			  	<li role="presentation"><a href="{% url 'proposito' %}"><span class="icon-proposito"></span>Proposito</a></li>
-			  	<li role="presentation"><a href="{% url 'contacto' %}"><span class="icon-contacto"></span>Contáctanos</a></li>
-			  	<li role="presentation"><a href="{% url 'login' %}"><span class="icon-entrar"></span>Login / Inicio sesión</a></li>
-			</ul>
-		</nav>
-	</header>
-	<hr class="linea_amarilla">
+
+	<header id="topnav">
+    <div class="topbar-main">
+      <div class="container-fluid">
+        <div class="logo">
+          <a href="#" class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="" height="26" class="logo-small">
+            <img src="{% static 'images/logo.png' %}" alt="" height="24" class="logo-large">
+          </a>
+        </div>
+        <div class="menu-extras topbar-custom">
+
+          <ul class="list-unstyled topbar-right-menu float-right mb-0">
+            <li class="menu-item">
+              <!-- Mobile menu toggle-->
+              <a class="navbar-toggle nav-link">
+                <div class="lines">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </a>
+              <!-- End mobile menu toggle-->
+            </li>
+          </ul>
+        </div>
+        <div class="clearfix"></div>
+      </div> <!-- end container -->
+    </div>
+
+    <div class="navbar-custom secondary">
+      <div class="container-fluid">
+        <div id="navigation">
+          <!-- Navigation Menu-->
+          <ul class="navigation-menu">
+            <li class="has-submenu">
+              <a href="{% url 'index' %}"><i class="mdi mdi-home"></i> <span> Inicio </span> </a>
+            </li>
+            <li class="has-submenu">
+              <a href="{% url 'informacion' %}"><i class="mdi mdi-home"></i> <span> Información</span> </a>
+            </li>
+            <li class="has-submenu">
+              <a href="{% url 'proposito' %}"><i class="mdi mdi-home"></i> <span> Proposito</span> </a>
+            </li>
+            <li class="has-submenu">
+              <a href="{% url 'contacto' %}"><i class="mdi mdi-home"></i> <span> Contáctanos</span> </a>
+            </li>
+            <li class="has-submenu">
+              <a href="{% url 'login' %}"><i class="mdi mdi-home"></i> <span> Login / Inicio sesión</span> </a>
+            </li>
+          </ul>
+          <!-- End navigation menu -->
+        </div> <!-- end #navigation -->
+      </div> <!-- end container -->
+    </div> <!-- end navbar-custom -->
+  </header>

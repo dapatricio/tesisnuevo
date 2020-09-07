@@ -1,29 +1,23 @@
 {% load static %}
-<footer>
-		<hr class="linea_amarilla">
-		<div class="footer">
-			<nav class="navegador">
-				<div class="logo">
-					<a href="{% url 'index' %}"><img src="{% static 'images/logo.png' %}"  alt="logo"></a>
-				</div>
-				<ul class="nav nav-tabs">
-				  	<li role="presentation"><a href="{% url 'index' %}"><span class="icon-inicio"></span>Inicio</a></li>
-				  	<li role="presentation"><a href="{% url 'informacion' %}"><span class="icon-informacion"></span>Información</a></li>
-				  	<li role="presentation"><a href="{% url 'proposito' %}"><span class="icon-proposito"></span>Proposito</a></li>
-				  	<li role="presentation"><a href="{% url 'contacto' %}"><span class="icon-contacto"></span>Contáctanos</a></li>
-				  	<li role="presentation"><a href="{% url 'login' %}"><span class="icon-entrar"></span>Login / Inicio sesión</a></li>
-				</ul>
-			</nav>
+<!--<footer>
+		<hr class="linea_amarilla2">
+		<div class="footer2">
+			<div class="derechos2">
+				<p><b>Copyright 2020.</b> Universidad Técnica Particular de Loja</p>		
+			</div>	
 		</div>
-
-		<div class="logo2">
-			<a href="{% url 'index' %}"><img src="{% static 'images/logo.png' %}"  alt="logo"></a>
-		</div>
-
-		<div class="derechos">
-			<p><b>Copyright 2020.</b> Universidad Técnica Particular de Loja</p>		
-		</div>	
-	</footer>
+		
+	</footer>-->
+  <footer class="footer">
+  	<hr class="linea_amarilla2">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          Copyright 2020. Universidad Técnica Particular de Loja
+        </div>
+      </div>
+    </div>
+  </footer>	
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="{% static 'scripts/main.js' %}"></script>

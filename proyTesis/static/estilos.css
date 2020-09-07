@@ -12,6 +12,9 @@ header{
 	font-size: 18px;
 }
 
+body{
+	padding-bottom: 0px !important;
+}
 .navegador{
 	z-index: 100;
 }
@@ -26,11 +29,11 @@ header{
 	text-align: center;
 }
 
-.logo{
+.logoF{
 	display: inline;
 }
 
-.logo img{
+.logoF img{
 	margin:1em;
 	width: 8%;
 }
@@ -87,9 +90,10 @@ header{
 
 footer{
 	background-color: #003f72;
-	padding-bottom: 1em;
 	text-align: center;
 	font-size: 16px;
+	color:#000 !important;
+	padding-top: 0 !important;
 }
 
 #img_index{
@@ -100,8 +104,8 @@ footer{
 }
 
 .linea_amarilla{
-	border: 0.5em solid #eaab00;
-	margin:0;
+	height: 0.3em;
+	background-color: #eaab00;
 }
 
 .log{
@@ -155,7 +159,8 @@ footer{
 }
 
 .txt_img hr{
-	border: 0.2em solid #eaab00;
+	height: 0.2em;
+	background-color: #eaab00;
 	margin:0;
 	width: 30%;
 	margin: 1em 0;
@@ -195,7 +200,7 @@ footer{
 	display: inline-block;
 }
 .img_competencia img{
-	width: 100%; 
+	width: 90%; 
 	float: left;
 }
 
@@ -211,7 +216,8 @@ footer{
 }
 
 .txt_competencia hr{
-	border: 0.2em solid #eaab00;
+	height: 0.2em; 
+	background-color: #eaab00;
 	width: 15%;
 	margin: 1em 0;
 }
@@ -222,11 +228,6 @@ footer{
 	padding: 1em 5em;
 	font-size: 16px;
 	text-align: justify;
-}
-
-.color_competencia{
-	background-color: #F5F5F5;
-	margin-bottom: -1em;
 }
 
 .txt_competencia a{
@@ -250,7 +251,8 @@ footer{
 }
 
 .color_competencia{
-	padding: 1em 0;
+	background-color: #F5F5F5;
+	padding: 2em 0 7em 0;
 }
 
 .txt_img2{
@@ -287,9 +289,10 @@ footer{
 }
 
 .txt_img2 hr{
-		border: 0.1em solid #eaab00;
-		width: 20%;
-		margin: 1em 0;
+	height: 0.1em; 
+	background-color: #eaab00;
+	width: 20%;
+	margin: 1em 0;
 }
 
 .js-gotop{
@@ -340,7 +343,6 @@ footer{
 	font-size: 16px;
 	bottom: 0;
 	z-index: 15;
-	margin-top: -1em;
 }
 
 .derechos2{
@@ -383,7 +385,8 @@ footer{
 }
 
 .linea_amarilla2{
-	border: 0.5em solid #eaab00;
+	height: 0.3em;
+	background-color: #eaab00;
 }
 
 .img_form img{
@@ -519,15 +522,19 @@ footer{
 
 .cont_proposito{
 	font-size: 16px;
+
 }
 
 .img_proposito, .tit1, .tit2, .tit3{
 	width: 100%;
 	margin-top: 2em;
+	vertical-align: center;
 }
 
 .tit_proposito{
 	text-align: center;
+	width: 40%;
+	margin: 1em 0em;
 }
 
 .tit_proposito h3{
@@ -549,18 +556,21 @@ footer{
 }
 
 .titulos{
+	width: 80%;
 	background-color: #F5F5F5;
-	padding: 2em 0;
+	padding:2em 0 6em 0;
 }
 
 .titulos hr{
-	border: 0.1em solid #eaab00;
-	width: 15%;
+	height: 0.2em; 
+	background-color:#eaab00;
+	width: 20%;
 	margin: 1em 0;
 }
 
 .img_proposito img{
 	width: 60%;
+	text-align: center;
 }
 
 .cont_titulos img{
@@ -687,8 +697,14 @@ footer{
 	margin-top: 1em;
 }
 
+.prop_img{
+	width: 400px;
+}
 
-
+.tit_info{
+	font-weight: bold;
+	margin-top: 1em;
+}
 
 
 
@@ -730,7 +746,8 @@ footer{
 	}
 
 	.txt_img hr{
-		border: 0.2em solid #eaab00;
+		height: 0.2em;
+		background-color: #eaab00;
 		width: 20%;
 		margin: 1em 0;
 	}
@@ -765,6 +782,7 @@ footer{
 	.cont_rtas{
 		padding-top: 1em;
 		padding-left: 2em !important;
+		padding-bottom: 3em;
 	}
 	.conf_info{
 		margin:1em 1em;
@@ -810,7 +828,8 @@ footer{
 	}
 
 	.txt_img hr{
-		border: 0.2em solid #eaab00;
+		height: 0.2em; 
+		background-color: #eaab00;
 		width: 15%;
 		margin-top: 1em;
 	}
@@ -902,7 +921,8 @@ footer{
 	}
 
 	.titulos hr{
-		border: 0.1em solid #eaab00;
+		height: 0.1em; 
+		background-color: #eaab00;
 		width: 25%;
 		margin: 1em 0;
 	}
@@ -1003,7 +1023,7 @@ footer{
 	.espacio .a_info:hover{
 		display: block;
 	}
-	.logo img{
+	.logoF img{
 		width: 40%;
 	}
 	.logo2{

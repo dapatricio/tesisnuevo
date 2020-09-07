@@ -5,17 +5,17 @@
     {% if object_area %}
       <div class="col-md-4">
         <a href="{% url 'cuestionario' 0 'cuestionario-de-repaso-basico' 'basic' %}">
-          <img src="https://freebw.com/templates/smartedu/images/home2-course-1.jpg" alt="Steven Boyd" width="100%">
+          <img src="{% static 'images/basico.jpg' %}" alt="Steven Boyd" width="97%">
         </a>
         <div class="card-box">
           <h5 class="title">
-            <a href="{% url 'cuestionario' 0 'cuestionario-de-repaso-basico' 'basic' %}">Cuestionario básico de repaso</a>
+            <a href="{% url 'cuestionario' 0 'cuestionario-de-repaso-basico' 'basic' %}">Cuestionario general</a>
           </h5>
         </div>
       </div>
       <div class="col-md-4">
         <a href="{% url 'cuestionario' 0 'todas-las-areas-de-competencias-digitales' 'all' %}">
-          <img src="https://freebw.com/templates/smartedu/images/home2-course-1.jpg" alt="Steven Boyd" width="100%">
+          <img src="{% static 'images/competencia_digital.jpeg' %}" alt="Steven Boyd" width="100%">
         </a>
         <div class="card-box">
           <h5 class="title">
