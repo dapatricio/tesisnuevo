@@ -165,20 +165,22 @@
                 <thead>
                   <tr>
                     <th class="text-center" scope="col">N˚</th>
-                    <th class="text-center" scope="col">Competencia</th>
+                    <th class="text-center" scope="col" width="35%">Competencia</th>
                     <th class="text-center" scope="col">Resultado Personal</th>
                     <th class="text-center" scope="col">Nivel Recomendado</th>
                     <th class="text-center" scope="col">Promedio Area</th>
+                    <th class="text-center"scope="col">Recomendación para  Subir Nivel</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {% for city in rpst %}
+                  {% for r in rpst %}
                   <tr>
                       <th style="padding: 0" scope="row">C{{forloop.counter}}</th>
-                      <td style="padding: 0">{{city.competencia}}</th>
-                      <td class="text-center" style="padding: 0">{{city.sumatoria}}</td>
-                      <td class="text-center" style="padding: 0">{{city.recomendado}}</td>
-                      <td class="text-center" style="padding: 0">{{city.area}}</td>
+                      <td style="padding: 0">{{r.competencia}}</th>
+                      <td class="text-center" style="padding: 0">{{r.sumatoria}}</td>
+                      <td class="text-center" style="padding: 0">{{r.recomendado}}</td>
+                      <td class="text-center" style="padding: 0">{{r.area}}</td>
+                      <td style="padding: 0">{{r.subir|safe}}</td>
                     </tr>
                     {% endfor %}
                   </tbody>

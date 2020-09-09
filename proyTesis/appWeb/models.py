@@ -35,6 +35,7 @@ class Area_Competencia(models.Model):
     detalle_area_competencia = models.CharField(
         max_length=500, verbose_name="Descripcion del área de competencia:"
     )
+    image = models.ImageField(upload_to="area-competencia", blank=True)
 
     class Meta:
         verbose_name = "Áreas de competencia"
@@ -139,6 +140,29 @@ class Competencia(models.Model):
         return "%s" % self.nombCompetencia
 
 
+class Recomendaciones(models.Model):
+    competencia = models.ForeignKey(
+        Competencia, on_delete=models.DO_NOTHING, related_name="subida_nivel",
+    )
+    nivel = models.CharField(
+        max_length=128,
+        choices=(
+            ("Basico", "Basico"),
+            ("Intermedio", "Intermedio"),
+            ("Avanzado", "Avanzado"),
+        ),
+    )
+    contenido = models.TextField()
+
+    class Meta:
+        verbose_name = "Recomendacion para subir de nivel"
+        verbose_name_plural = "Recomendacion para subir de nivel"
+        unique_together = ["competencia", "nivel"]
+
+    def __str__(self):
+        return "%s" % self.competencia
+
+
 class Pregunta(models.Model):
     id_pregunta = models.AutoField(primary_key=True)
 
@@ -223,11 +247,13 @@ class HistoricoEvaluacion(models.Model):
         db_column="user_id",
         verbose_name="Respuesta realizada por:",
     )
+    nombre_cuestionario = models.CharField(max_length=256, blank=True)
+    code_uuid = models.CharField(max_length=32, blank=True)
     create_date = models.DateTimeField(auto_now_add=True, verbose_name="Fecha Creación")
     slug = models.SlugField(editable=False)
 
     class Meta:
-        verbose_name = "Respuestas Usuario"
+        verbose_name = "Historial evaluaciones"
 
     def save(self, *args, **kwargs):
         """Se reescribe el método save para guardar el slug"""

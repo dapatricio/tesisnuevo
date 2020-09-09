@@ -37,7 +37,7 @@
   <div class="col-md-2">
     <div class="card-box">
       <h5 class="title">
-        <a href="{% url 'repuestas_usuario' %}">Informe Evaluacion realizada: <br> {{historico.create_date}}</a>
+        <a href="{% url 'repuestas_usuario' %}">Cuestioanrio:<br>{{ historico.nombre_cuestionario}}<br> {{ historico.create_date|date:"D d M Y" }} {{ historico.create_date|time:"H:i" }}</a>
       </h5>
     </div>
   </div>

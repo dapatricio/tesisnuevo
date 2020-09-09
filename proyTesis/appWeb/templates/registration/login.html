@@ -1,37 +1,38 @@
 {% load static %}
+
 <!DOCTYPE html>
 
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Iniciar sesión</title>
+    <meta charset="UTF-8">
+    <title>Iniciar sesión</title>
 
-	<!-- Inicio Navegador-->
-	{% include 'comun/nav.html' %}
-	<!-- Fin navegador-->
-	<div class="img_login">
-		<img id="img_login" src="{% static 'images/login.jpg' %}" alt="Competencias Digitales Login">
-		<div class="login">
-			<form method="post" class="form-horizontal">
-				<div class="img_form col-sm-offset-1">
-					<img src="{% static 'images/usuario.png' %}" alt="Imagen usuario" class="img-rounded">
-				</div>
-				{% csrf_token %}
-				<div class="form-group">
-					<div class="col-sm-10">
-				{{ form.as_p}}
-					</div>
-			 	</div>
-			  	<div class="form-group">
-			    	<div class="col-sm-offset-1 botones_login">
-			      		<button type="submit" class="btn btn-warnin col-sm-6">Ingresar</button>
-			      		<br><br>
-			      		<a href="{% url 'registro' %}" class="cuenta col-sm-6">¿Aún no tienes cuenta?</a>
-			   		</div>
-			  	</div>
-			</form>
-		</div>
-	</div>
-	<!-- Inicio Footer -->
-	{% include 'comun/footer2.html' %}
-	<!-- fin Footer -->
+    <!-- Inicio Navegador-->
+    {% include 'comun/nav.html' %}
+    <!-- Fin navegador-->
+    <div class="img_login">
+        <img id="img_login" src="{% static 'images/login.jpg' %}" alt="Competencias Digitales Login">
+        <div class="login">
+            <form method="post" class="form-horizontal">
+                <div class="img_form col-sm-offset-1">
+                    <img src="{% static 'images/usuario.png' %}" alt="Imagen usuario" class="img-rounded">
+                </div>
+                {% csrf_token %}
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-sm-8 text-center">
+                        {{ form.as_p}}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-1 botones_login">
+                        <button type="submit" class="btn btn-warnin col-sm-6">Ingresar</button>
+                        <br><br>
+                        <a href="{% url 'registro' %}" class="cuenta col-sm-6">¿Aún no tienes cuenta?</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Inicio Footer -->
+    {% include 'comun/footer2.html' %}
+    <!-- fin Footer -->

@@ -46,7 +46,7 @@
           <strong>TERMINAR</strong>
         </button>
         {% endif %}
-        {% if btn_terminar == 'false' %}
+        {% if btn_terminar == 'false' and status %}
         <a class="btn btn-outline-info btn-rounded m-b-5" href="{% url 'repuestas_usuario' %}">INFORME</a>
         {% endif %}
         {% if cuestionario_terminado is False %}

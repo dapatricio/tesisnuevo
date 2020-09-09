@@ -1,36 +1,21 @@
-from django.http import Http404, HttpResponse
-from django.shortcuts import render, redirect
-from .models import *
-from .forms import ContactoForm, UserForm, ProfileForm, UserLoginForm, UserUpdateForm
-from django.core.mail import send_mail, EmailMessage
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
-from django.contrib.auth import (
-    authenticate,
-    get_user_model,
-    login,
-    logout,
-)
-from django.shortcuts import render_to_response
-from django.template import RequestContext
-
-from django.shortcuts import render
-from django.shortcuts import render, redirect
-
-# from .forms import *
-from .models import *
+# Python
+import datetime
+import pytz
 from datetime import datetime
-from django.http import JsonResponse
-import pytz, datetime
-from django.utils import timezone
-from django.shortcuts import get_object_or_404
-from django.contrib.auth import login, logout
-from django.contrib.auth import authenticate
-from django.utils.translation import ugettext_lazy as _
-from django.http import HttpResponse
-
+# Django core
+from django.contrib.auth import authenticate, authenticate, get_user_model, login, login, logout, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.core.mail import EmailMessage, send_mail
+from django.http import Http404, HttpResponse, HttpResponse, HttpResponseRedirect, JsonResponse
+from django.shortcuts import get_object_or_404, redirect, redirect, render, render, render, render_to_response
+from django.template import RequestContext
+from django.utils import timezone
+from django.utils.translation import ugettext_lazy as _
+from django.views.generic import CreateView, DetailView, ListView, UpdateView
+# Local Apps
+from .forms import ContactoForm, ProfileForm, UserForm, UserLoginForm, UserUpdateForm
+from .models import *
 
 
 # Create your views here.

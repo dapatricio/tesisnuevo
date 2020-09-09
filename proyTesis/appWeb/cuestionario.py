@@ -1,12 +1,13 @@
-from django.views.generic import View
-from django.views.generic import TemplateView
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.decorators import login_required
-from .models import *
-from django.shortcuts import render
-from django.http import JsonResponse
+# Django core
 from django.conf import settings
-from django.shortcuts import render, reverse, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse
+from django.shortcuts import redirect, render, render, reverse
+from django.views.generic import TemplateView, View
+
+# Local apps
+from .models import *
 
 
 class CategoriaTemplateView(LoginRequiredMixin, TemplateView):
@@ -15,7 +16,19 @@ class CategoriaTemplateView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         object_area_competencia = Area_Competencia.objects.all()
-        context.update({"object_area": object_area_competencia})
+        disabled_all = not HistoricoEvaluacion.objects.filter(
+            id_usr=self.request.user, code_uuid="basic"
+        ).exists()
+        disabled_area = not HistoricoEvaluacion.objects.filter(
+            id_usr=self.request.user, code_uuid="all"
+        ).exists()
+        context.update(
+            {
+                "object_area": object_area_competencia,
+                "disabled_all": disabled_all,
+                "disabled_area": disabled_area,
+            }
+        )
         return context
 
 
@@ -27,9 +40,14 @@ class HistorialTemplateView(LoginRequiredMixin, TemplateView):
         object_historico = HistoricoEvaluacion.objects.filter(
             id_usr=self.request.user
         ).order_by("-create_date")
+        object_historico = object_historico.exclude(code_uuid="basic")
         object_area_competencia = Area_Competencia.objects.all()
-        context.update({"object_area": object_area_competencia})
-        context.update({"object_historico": object_historico})
+        context.update(
+            {
+                "object_area": object_area_competencia,
+                "object_historico": object_historico,
+            }
+        )
         return context
 
 
@@ -55,10 +73,10 @@ def cuestionarios(request, **kwargs):
         for c in categorias:
             lista_preguntas = []
             preguntas = Pregunta.objects.filter(id_tipoCuest=c.pk).order_by("?")
-            if area_competencia == 'basic':
+            if area_competencia == "basic":
                 preguntas = preguntas[:10]
 
-            if area_competencia != "all" and area_competencia != 'basic':
+            if area_competencia != "all" and area_competencia != "basic":
                 preguntas = preguntas.filter(
                     id_competencia__id_area_competencia__pk=area_competencia
                 )
@@ -85,7 +103,19 @@ def cuestionarios(request, **kwargs):
     # Aqui guardo la instancia para que se guarde la pregunta que se ha contestado
     if request.method == "POST" and "btn_terminar" in request.POST:
         calificacion = 0
-        objHistorico = HistoricoEvaluacion.objects.create(id_usr=request.user)
+        txt = None
+        if area_competencia == "basic":
+            txt = "Cuestionario General"
+
+        if area_competencia == "all":
+            txt = "Todas las áreas de competencias digitales"
+
+        if txt is None:
+            txt = Area_Competencia.objects.get(pk=area_competencia).nombAreaCompetencia
+
+        objHistorico = HistoricoEvaluacion.objects.create(
+            id_usr=request.user, nombre_cuestionario=txt, code_uuid=area_competencia
+        )
         for x in request.session["lista" + ide_cuestionario]:
             for n in x["preguntas"]:
                 pg = Pregunta.objects.get(pk=n["id_preguntas"])
@@ -117,6 +147,10 @@ def cuestionarios(request, **kwargs):
                     calificacion = calificacion + 1
             request.session["calificacion" + ide_cuestionario] = calificacion
 
+    status = True
+    if area_competencia == "basic":
+        status = False
+
     ctx = {
         "cuestionario_terminado": request.session[
             "cuestionario_terminado" + ide_cuestionario
@@ -132,6 +166,7 @@ def cuestionarios(request, **kwargs):
             if area_competencia == "all"
             else settings.TEMPORIZADOR
         ),
+        "status": status,
     }
     return render(request, "cuestionario/cuestionario.html", ctx)
 
@@ -172,7 +207,6 @@ def pregunta_ajax(request, id_preguntas, cuestionario):
         "digital": preguntas.id_competencia.nombCompetencia,
         "pregunta": preguntas.pregunta,
         "ayuda": preguntas.ayuda,
-        "ayuda": preguntas.ayuda,
         "opciones": list(lista),
         "cuestionario_terminado": request.session[
             "cuestionario_terminado" + str(cuestionario)
@@ -181,15 +215,11 @@ def pregunta_ajax(request, id_preguntas, cuestionario):
     return JsonResponse(ctx, safe=False)
 
 
-from django.db.models import Avg, Count, Min, Sum
-from django.db.models import F
-from django.db.models import OuterRef, Subquery
-from django.db.models import Func
+from django.db.models import F, Func, OuterRef, Subquery, Avg, Count, Min, Sum
 from django.db.models.functions import Round
 
 
 def repuestas_usuario(request, **kwargs):
-
     lista = {
         0: "Basico",
         1: "Basico",
@@ -197,15 +227,31 @@ def repuestas_usuario(request, **kwargs):
         3: "Intermedio",
         4: "Avanzado",
     }
+    choices = {
+        "Basico": 0,
+        "Intermedio": 1,
+        "Avanzado": 2,
+    }
+    choices2 = {
+        0: "Basico",
+        1: "Intermedio",
+        2: "Avanzado",
+    }
+
+    area = kwargs.get("area", None)
     profile = Profile.objects.get(user=request.user)
-    query = RtaUsr.objects.filter(
-        id_usr__profile__id_dependencia=profile.id_dependencia
-    )
-    querySet = RtaUsr.objects.filter(id_usr=request.user)
-    if "area" in kwargs:
-        area = kwargs.get("area")
-        if area != "all":
+    base_query = RtaUsr.objects.exclude(historico__code_uuid="basic")
+    query = base_query.filter(id_usr__profile__id_dependencia=profile.id_dependencia)
+    querySet = base_query.filter(id_usr=request.user)
+    if area:
+        if area == "all":
+            querySet = querySet.filter(historico__code_uuid="all")
+            query = query.filter(historico__code_uuid="all")
+        else:
             querySet = querySet.filter(
+                id_pregunta__id_competencia__id_area_competencia=area
+            )
+            query = RtaUsr.objects.filter(
                 id_pregunta__id_competencia__id_area_competencia=area
             )
     rpst = (
@@ -224,8 +270,7 @@ def repuestas_usuario(request, **kwargs):
         )
         .values("competencia", "ide", "sumatoria", "area", "recomendado")
     )
-    list = []
-    Rarea = []
+    list, Rarea = [], []
     for value in rpst:
         ar = (
             query.filter(id_pregunta__id_competencia__id_competencia=value["ide"])
@@ -235,6 +280,18 @@ def repuestas_usuario(request, **kwargs):
             .aggregate(p=Round(Avg("s")))
         )
         try:
+            id = value["ide"]
+            nivel = int(choices[str(lista[int(value["sumatoria"])])]) + 1
+            text = "Sin registro"
+            if not nivel > 2:
+                nivel = choices2[int(nivel)]
+                recomendaciones = Recomendaciones.objects.filter(
+                    competencia__id_competencia=id, nivel=nivel
+                )
+                if recomendaciones.exists():
+                    text = recomendaciones.first().contenido
+            else:
+                text = "Alcanzo el nivel maximo en esta competencia"
 
             list.append(
                 {
@@ -242,14 +299,15 @@ def repuestas_usuario(request, **kwargs):
                     "sumatoria": lista[int(value["sumatoria"])],
                     "recomendado": lista[int(value["recomendado"])],
                     "area": lista[int(ar["p"])],
+                    "subir": text,
                 }
             )
             Rarea.append(int(ar["p"]))
         except Exception as e:
-            pass
+            print(e)
 
     c = rpst.count()
-    competencia = [f"C{value+1}" for value in range(c)]
+    competencia = [f"C{value + 1}" for value in range(c)]
     Rpersonal = [value["sumatoria"] for value in rpst]
     Rrecomendado = [value["recomendado"] for value in rpst]
 

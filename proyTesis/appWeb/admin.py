@@ -44,7 +44,13 @@ class DependenciaAdmin(admin.ModelAdmin):
     )
 
 
+class RSubidaInline(admin.StackedInline):
+    model = models.Recomendaciones
+    extra = 1
+
+
 class CompetenciaAdmin(admin.ModelAdmin):
+    inlines = [RSubidaInline]
     list_display = (
         "nombCompetencia",
         "detalle_competencia",
@@ -132,3 +138,4 @@ _register(models.Nivel, NivelAdmin)
 admin.site.unregister(Group)
 
 admin.site.register(models.Profile)
+admin.site.register(models.HistoricoEvaluacion)
