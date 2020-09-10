@@ -59,28 +59,36 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = (
             "cedula",
+            "genero",
             "id_tipoUsr",
             "id_dependencia",
+            "ancho_banda",
+            "tipo_computador",
+            "tiempo_dispositivo_movil",
+            "tipo_movil",
+            "numero_computador",
+            "numero_moviles",
         )
 
+
 class UserLoginForm(forms.Form):
-    username=forms.CharField()
-    password= forms.CharField(widget=forms.PasswordInput)
+    username = forms.CharField()
+    password = forms.CharField(widget=forms.PasswordInput)
 
     def clean(self, *args, **kwargs):
-        username=self.cleaned_data.get('username')
-        password=self.cleaned_data.get('password')
+        username = self.cleaned_data.get("username")
+        password = self.cleaned_data.get("password")
 
         if username and password:
             user = authenticate(username=username, password=password)
             if not user:
-                raise form.ValidationError('El usuario no existe')
+                raise form.ValidationError("El usuario no existe")
             if not user.check_password(password):
-                raise form.ValidationError('La contraseña es incorrecta')
+                raise form.ValidationError("La contraseña es incorrecta")
         return super(UserLoginForm, self).clean(*args, **kwargs)
 
 
 class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email']
+        fields = ["first_name", "last_name", "email"]
