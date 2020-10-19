@@ -341,7 +341,7 @@ class Profile(models.Model):
     genero = models.CharField(
         max_length=32,
         choices=(
-            ("másculino", "másculino"),
+            ("Másculino", "Másculino"),
             ("Femenino", "Femenino"),
             ("Otro", "Otro"),
         ),
