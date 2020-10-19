@@ -634,14 +634,11 @@ footer{
 
 .cont_rtas{
 	padding-top: 1em;
-	padding-left: 5em !important;
-}
-.cierre{
-	width: 70%;
+	margin-left: 7em !important;
+	text-align: left;
 }
 
 .cierre p{
-	padding: 1em 1em;
 	text-align: justify;
 }
 
@@ -1041,10 +1038,6 @@ footer{
 
 	.js-gotop{
 		font-size: 2em;
-	}
-
-	.footer{
-		display: none;
 	}
 
 	.txt_competencia p{
