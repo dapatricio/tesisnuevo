@@ -689,7 +689,7 @@ footer{
 }
 
 .prop_img{
-	width: 400px;
+	width: 70%;
 }
 
 .tit_info{
@@ -787,6 +787,18 @@ footer{
 	.conf_info{
 		margin:1em 1em;
 	}
+	.tit_proposito{
+		width: 70%;
+		text-align: justify;
+		padding: .5em 1em;
+	}
+	.prop_img{
+		width: 80%;
+		margin-top: 4em;
+	}
+	.madic{
+		margin-top: 10em;
+	}
 }
 
 
@@ -816,10 +828,23 @@ footer{
 		display: inline-block;
 		background-image: url("images/registro.jpg");
 	}
+	.madic{
+		margin-top: 10em;
+	}
 }
 
 
 @media screen and (max-width: 1000px){
+
+	.madic{
+		margin-top: 12em;
+	}
+	.prop_img{
+		width: 80%;
+	}
+	.cont_titulos{
+		width: 80%;
+	}
 
 	.footer2{
 		margin-top: 4em;
@@ -927,10 +952,6 @@ footer{
 	.tit1 p, .tit2 p, .tit3 p{
 		text-align: justify;
 	}
-	.tit_proposito p{
-		text-align: justify;
-		padding: .5em 1em;
-	}
 	.tit1, .tit2, .tit3 {
 		padding: 0 1em;
 	}
@@ -981,6 +1002,10 @@ footer{
 }
 
 @media screen and (max-width: 850px){
+
+	.prop_img{
+		width: 80%;
+	}
 
 	header nav {
 		width: 60%;
@@ -1219,5 +1244,11 @@ footer{
 		background-image: url("images/creacion.jpg");
 		background-size: cover;
 		margin-bottom: -1.4em;
+	}
+}
+@media screen and (max-width: 767px){
+
+	.prop_img{
+		width: 40%;
 	}
 }
