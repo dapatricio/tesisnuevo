@@ -719,9 +719,16 @@ footer{
 	.txt_competencia{
 		padding: 1em 2em;
 	}
+	.footer2{
+		margin-top: 2em;
+	}
 }
 
 @media screen and (max-width: 1400px){
+
+	.footer2{
+		margin-top: 4em;
+	}
 
 	.txt_img{
 		position: absolute;
@@ -802,10 +809,17 @@ footer{
 	#rta_area1 img{
 		width: 60%;
 	}
+	.footer2{
+		margin-top: 4em;
+	}
 }
 
 
 @media screen and (max-width: 1000px){
+
+	.footer2{
+		margin-top: 4em;
+	}
 
 	.txt_img{
 		z-index: 10;
