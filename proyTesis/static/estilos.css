@@ -85,7 +85,7 @@ body{
 	font-size: 0.9em;
 	float: left;
 	text-align: justify;
-  	text-justify: inter-word;
+	text-justify: inter-word;
 }
 
 footer{
@@ -98,7 +98,7 @@ footer{
 
 #img_index{
 	max-width: 100%;
-  	height: auto;
+	height: auto;
 	margin:auto;
 	z-index: -1;
 }
@@ -144,18 +144,18 @@ footer{
 	width: 30%;
 	height: 100%;
 	padding: 2.5em 3em;
-    right: 10%;
-    color: #fff;
-    font-size: 16px;
-    text-align: justify;
+	right: 10%;
+	color: #fff;
+	font-size: 16px;
+	text-align: justify;
 }
 
 .centrado{
-    position: relative;
-    top: 50%;
-    -ms-transform: translateY(-50%);
-    -webkit-transform: translateY(-50%);
-    transform: translateY(-50%);
+	position: relative;
+	top: 50%;
+	-ms-transform: translateY(-50%);
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
 }
 
 .txt_img hr{
@@ -260,10 +260,10 @@ footer{
 	background-color: rgba(0,0,0,.8);
 	width: 100%;
 	padding: 1.5em 2em;
-    right: 10%;
-    color: #fff;
-    text-align: justify;
-    display: none;
+	right: 10%;
+	color: #fff;
+	text-align: justify;
+	display: none;
 }
 
 .txt_img2 a{
@@ -318,9 +318,9 @@ footer{
 	background-color: rgba(255,255,255,.75);
 	width: 35%;
 	padding: 0em 2em 3em;
-    color: #000;
-    font-size: 16px;
-    border-radius: 1em;
+	color: #000;
+	font-size: 16px;
+	border-radius: 1em;
 }
 
 .login label{
@@ -332,9 +332,9 @@ footer{
 	background-image: url('images/login.jpg');
 	display: inline-block;
 	text-align: center;
-    width: 100%; 
-    height:100%;
-    position: fixed;
+	width: 100%; 
+	height:100%;
+	position: fixed;
 }
 
 .footer2{
@@ -413,8 +413,8 @@ footer{
 	z-index: 15;
 	background-color: rgba(255,255,255,.75);
 	width: 60%;
-    color: #000;
-    font-size: 16px;
+	color: #000;
+	font-size: 16px;
 }
 
 .form_usuario label{
@@ -469,8 +469,8 @@ footer{
 	z-index: 15;
 	background-color: rgba(255,255,255,.75);
 	width: 60%;
-    color: #000;
-    font-size: 16px;
+	color: #000;
+	font-size: 16px;
 }
 
 .form_contacto label{
@@ -619,9 +619,9 @@ footer{
 
 .vl{
 	border-right: .5em solid #003f72;
-  	height: auto;
-  	position: absolute;
-  	top: 0;
+	height: auto;
+	position: absolute;
+	top: 0;
 }
 .vl a{
 	font-size: 18px;
@@ -709,13 +709,8 @@ footer{
 }
 
 
-
-
 @media screen and (max-width: 1750px){
 
-	.img_competencia img{
-		
-	}
 	.txt_competencia{
 		padding: 1em 2em;
 	}
@@ -738,10 +733,10 @@ footer{
 		width: 35%;
 		height: 100%;
 		padding: 2.5em 3em;
-	    right: 10%;
-	    color: #fff;
-	    font-size: 13px;
-	    text-align: justify;
+		right: 10%;
+		color: #fff;
+		font-size: 13px;
+		text-align: justify;
 	}
 
 	.txt_img h3{
@@ -794,6 +789,7 @@ footer{
 	}
 }
 
+
 @media screen and (max-width: 1200px){
 	.txt_competencia p{
 		font-size: 13px;
@@ -813,6 +809,13 @@ footer{
 	.footer2{
 		margin-top: 4em;
 	}
+	.cont_crear{
+		width: 100%;
+		text-align: center;
+		background-position: center;
+		display: inline-block;
+		background-image: url("images/registro.jpg");
+	}
 }
 
 
@@ -828,10 +831,10 @@ footer{
 		width: 35%;
 		height: 100%;
 		padding: 1.5em 2em;
-	    color: #fff;
-	    font-size: 11px;
-	    text-align: justify;
-	    display: none;
+		color: #fff;
+		font-size: 11px;
+		text-align: justify;
+		display: none;
 	}
 
 	.txt_img h3{
@@ -875,11 +878,11 @@ footer{
 	}
 	
 	.centrado{
-	    position: block;
-	    top: 0%;
-	    -ms-transform: translateY(-0%);
-	    -webkit-transform: translateY(-0%);
-	    transform: translateY(0%);
+		position: block;
+		top: 0%;
+		-ms-transform: translateY(-0%);
+		-webkit-transform: translateY(-0%);
+		transform: translateY(0%);
 	}
 
 	.txt_img2{
@@ -958,10 +961,10 @@ footer{
 	.vl{
 		border-bottom: .3em solid #003f72;
 		border-top: .3em solid #003f72;
-	  	height: auto;
-	  	position: absolute;
-	  	top: 0;
-	  	border-right: 0em;
+		height: auto;
+		position: absolute;
+		top: 0;
+		border-right: 0em;
 	}
 	.cierre p{
 		padding: .5em .5em;
@@ -988,20 +991,20 @@ footer{
 		font-size: 18px;
 		text-align: left;
 	}
- 
+
 	header nav ul li {
 		display:block;
 		float:none;
 		border-bottom:1px solid rgba(255,255,255, .3);
 		width: 100%;
 	}
- 
+
 	.menu_bar {
 		display:block;
 		width:100%;
 		background:#ccc;
 	}
- 
+
 	.menu_bar .bt-menu {
 		display:block;
 		padding:1em;
@@ -1014,7 +1017,7 @@ footer{
 		-moz-box-sizing:border-box;
 		box-sizing:border-box;
 	}
- 
+
 	.menu_bar span {
 		float:right;
 		font-size:1.5em;
@@ -1086,9 +1089,9 @@ footer{
 		background-color: rgba(255,255,255,.75);
 		width: 75%;
 		padding: 3em 3em 2em 3em;
-	    color: #000;
-	    font-size: 16px;
-	    border-radius: 1em;
+		color: #000;
+		font-size: 16px;
+		border-radius: 1em;
 	}
 	.img_form img{
 		width: 35%;
@@ -1105,8 +1108,8 @@ footer{
 		z-index: 15;
 		background-color: rgba(255,255,255,.75);
 		width: 100%;
-	    color: #000;
-	    font-size: 14px;
+		color: #000;
+		font-size: 14px;
 	}
 
 	.form_usuario label{
@@ -1155,14 +1158,6 @@ footer{
 		margin-bottom: 1em;
 	}
 
-	.cont_crear{
-		width: 100%;
-		text-align: center;
-		display: inline-block;
-		background-image: url("images/creacion.jpg");
-		background-size: cover;
-		margin-bottom: -1.4em;
-	}
 	.form_contacto{
 		margin-top: 3em;
 		margin-bottom: 3.5em;
@@ -1171,8 +1166,8 @@ footer{
 		z-index: 15;
 		background-color: rgba(255,255,255,.75);
 		width: 100%;
-	    color: #000;
-	    font-size: 14px;
+		color: #000;
+		font-size: 14px;
 	}
 
 	.form_contacto label{
