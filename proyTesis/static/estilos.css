@@ -787,6 +787,7 @@ footer{
 		padding-top: 1em;
 		padding-left: 2em !important;
 		padding-bottom: 3em;
+		margin-left: 0em !important;
 	}
 	.conf_info{
 		margin:1em 1em;
@@ -971,6 +972,7 @@ footer{
 		margin-top: 1em;
 		padding-bottom: 1em;
 		padding-top: 1em;
+		margin-left: 0em !important;
 	}
 
 }

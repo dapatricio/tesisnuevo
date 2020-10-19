@@ -13,4 +13,60 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="{% static 'scripts/main.js' %}"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+ <script>
+            var secondary = document.querySelector(".secondary");
+
+            var fromTop = secondary.offsetTop;
+
+            document.onscroll = function() {
+              if (!secondary.classList.contains("stuck") && window.pageYOffset >= fromTop) {
+                secondary.classList.add("stuck");
+              } else if (secondary.classList.contains("stuck") && window.pageYOffset < fromTop) {
+                secondary.classList.remove("stuck");
+              }
+            };
+            </script>
+            {% block super %}
+            <script type="text/javascript">
+            const labels = {{lista|safe}}
+            const rp = {{resul_personal|safe}}
+            const rr = {{resul_recomendado|safe}}
+            const ra = {{resul_area|safe}}
+            const user = "{{request.user}}"
+            </script>
+            {% endblock %}
+
+            <!-- jQuery  -->
+            <script src="{% static 'wp-admin-light/js/jquery.min.js' %}"></script>
+            <script src="{% static 'wp-admin-light/js/popper.min.js' %}"></script>
+            <script src="{% static 'wp-admin-light/js/bootstrap.min.js' %}"></script>
+            <script src="{% static 'wp-admin-light/js/waves.js' %}"></script>
+            <script src="{% static 'wp-admin-light/js/jquery.slimscroll.js' %}"></script>
+
+            <!-- KNOB JS -->
+            <!--[if IE]>
+            <script type="text/javascript" src="{% static 'wp-admin-light/plugins/jquery-knob/excanvas.js' %}"></script>
+            <![endif]-->
+            <script src="{% static 'wp-admin-light/plugins/jquery-knob/jquery.knob.js' %}"></script>
+            <script src="{% static 'wp-admin-light/plugins/chart.js/Chart.bundle.min.js' %}"></script>
+
+            <!--Morris Chart-->
+            <script src="{% static 'wp-admin-light/plugins/morris/morris.min.js' %}"></script>
+            <script src="{% static 'wp-admin-light/plugins/raphael/raphael-min.js' %}"></script>
+
+            <!-- Dashboard init -->
+            <script src="{% static 'wp-admin-light/pages/jquery.dashboard.js' %}"></script>
+            <script src="{% static 'scripts/graficos.js'%}" charset="utf-8"></script>
+
+            <!-- App js -->
+            <script src="{% static 'wp-admin-light/js/jquery.core.js' %}"></script>
+            <script src="{% static 'wp-admin-light/js/jquery.app.js' %}"></script>
+            <script src="{% static 'wp-admin-light/plugins/sweet-alert/sweetalert2.min.js' %}"></script>
+            <script src="{% static 'wp-admin-light/plugins/toastr/toastr.min.js' %}"></script>
+            {% block script %}
+
+
+            {% endblock %}
+
+            </body>
 </body>
