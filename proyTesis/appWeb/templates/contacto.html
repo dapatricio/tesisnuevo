@@ -3,21 +3,21 @@
 
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Contáctanos</title>
+	<meta charset="UTF-8">
+	<title>Contáctanos</title>
 
 	<!-- Inicio Navegador-->
 	{% include 'comun/nav.html' %}
 	<!-- Fin navegador-->
-
-	<div class="cont_contacto">	
-		<form method="POST" class="col-sm-offset-2 form_contacto">
-			<h3>Contáctanos</h3>
-			{% csrf_token %}
+	<div class="body_contacto">	
+			<form method="POST" class="col-sm-offset-2 form_contacto">
+				<h3>Contáctanos</h3>
+				{% csrf_token %}
 				{{contacto_form.as_p}}
 				<button type="submit" class="btn btn-warnin">Enviar mensaje</button>
-		</form>	
+			</form>	
 	</div>
+	
 	<!-- Inicio Footer -->
-	{% include 'comun/footer2.html' %}
+	{% include 'comun/footer.html' %}
 	<!-- fin Footer -->

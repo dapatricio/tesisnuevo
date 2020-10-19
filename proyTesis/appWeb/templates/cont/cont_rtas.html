@@ -1,12 +1,22 @@
 {% load static %}
 <div class="col-md-7 cont_rtas">
 		<!-- Area 1 -->
+		<div class="cierre" id="rta_area{{ area.pk }}" style="display:inline">
+			<center><h3>¿Qué son las competencias digitales?</h3>
+			<img src="{% static 'images/comp_general.jpg' %}" alt="Imagen sobre competencias digitales DigComp 2.1" class="imgP"></center>
+			<p>La sociedad del conocimiento y la revolución tecnológica han provocado importantes cambios en todos los sectores de la sociedad, incluido el educativo, lo que reclama de alumnos, profesores y personal administrativo “dominar una serie de competencias para saber desenvolverse con las tecnologías que están cambiando nuestros escenarios formativos” <i>(Cabero, Llorente, Leal & Andrés, 2009, p. 43).</i></p>
+
+			<p>Con la irrupción de las nuevas tecnologías han surgido diversos términos relacionados con la temática, entre los que se puede identificar: alfabetización digital, brecha digital, sociedad digital, generación digital, alfabetización informacional y competencia digital, entre otros. En este primer momento del Trabajo de Titulación la atención estará centrada en el concepto de Competencia Digital y con ayuda de varios autores e instituciones se intentará llegar a una definición clara, que sirva de referencia teórica para el diseño de los instrumentos de evaluación, su aplicación y análisis.
+			</p>
+			<center><p><b>La competencia digital implica un saber actuar complejo que integra y moviliza conocimientos, habilidades, destrezas, valores y actitudes para el uso creativo, responsable y crítico de las tecnologías digitales. </b></p></center>
+			<br>
+		</div>
 		{% for area in object_list %}
 		<div class="cierre" id="rta_area{{ area.pk }}" style="display:none">
-			<h3>{{ forloop.counter }}. {{ area.nombAreaCompetencia }}</h3>
-			<img src="{{area.image.url}}" alt="">
+			<center><h3>{{ forloop.counter }}. {{ area.nombAreaCompetencia }}</h3>
+			<img src="{{area.image.url}}" alt="Imagen de {{ area.nombAreaCompetencia }}"></center>
 			{{ area.info_text|safe }}
-			<button type="button" class="btn btn-warning btn_area1">Aprender más</button>
+			<br>
 		</div>
 		{% endfor %}
 </div>

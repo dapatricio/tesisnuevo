@@ -10,7 +10,6 @@
 	{% include 'comun/nav.html' %}
 	<!-- Fin navegador-->
 	<div class="img_login">
-		<img id="img_login" src="{% static 'images/login.jpg' %}" alt="Competencias Digitales Login">
 		<div class="login">
 			<form class="form-horizontal">
 				<div class="img_form col-sm-offset-1">
@@ -18,7 +17,6 @@
 				</div>
 				{% csrf_token %}
 				{{ UserLoginForm.as_p}}
-			 	</div>
 			  	<div class="form-group">
 			    	<div class="col-sm-offset-1 botones_login">
 			      		<button type="submit" class="btn btn-warnin col-sm-6">Ingresar</button>
