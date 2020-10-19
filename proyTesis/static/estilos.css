@@ -1078,7 +1078,7 @@ footer{
 
 	.login form{
 		position: absolute;
-		bottom: 10%;
+		bottom: 20%;
 		right: 13%;
 		z-index: 10;
 		background-color: rgba(255,255,255,.75);
@@ -1097,9 +1097,9 @@ footer{
 
 	.form_usuario{
 		margin-top: 3em;
-		margin-bottom: 3.5em;
+		margin-bottom: 8em;
 		padding: 1em;
-		bottom: 40%;
+		
 		z-index: 15;
 		background-color: rgba(255,255,255,.75);
 		width: 100%;
