@@ -38,7 +38,7 @@
     {% if object_area %}
     <div class="col-md-4 containers">
         <a href="{% url 'cuestionario' 0 'cuestionario-de-repaso-basico' 'basic' %}">
-            <img src="{% static 'images/basico.jpg' %}" alt="Steven Boyd" width="97%">
+            <img src="{% static 'images/basico.jpg' %}" alt="Cuestionario de repaso" width="103%">
         </a>
         <div class="card-box">
             <h5 class="title">
@@ -52,7 +52,7 @@
     </div>
     <div class="col-md-4 {% if disabled_all %} containers {% endif %}">
         <a href="{% url 'cuestionario' 0 'todas-las-areas-de-competencias-digitales' 'all' %}" >
-            <img src="{% static 'images/competencia_digital.jpeg' %}" alt="Steven Boyd" width="100%">
+            <img src="{% static 'images/competencia_digital.jpeg' %}" alt="Cuestionario completo" width="100%">
         </a>
         <div class="card-box">
             <h5 class="title">

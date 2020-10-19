@@ -72,7 +72,7 @@ class ProfileForm(forms.ModelForm):
 
 
 class UserLoginForm(forms.Form):
-    username = forms.CharField()
+    username = forms.CharField(label="Usuario")
     password = forms.CharField(widget=forms.PasswordInput)
 
     def clean(self, *args, **kwargs):

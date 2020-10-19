@@ -36,6 +36,7 @@ class Area_Competencia(models.Model):
         max_length=500, verbose_name="Descripcion del área de competencia:"
     )
     image = models.ImageField(upload_to="area-competencia", blank=True)
+    info_text = RichTextUploadingField(max_length=17500)
 
     class Meta:
         verbose_name = "Áreas de competencia"
@@ -131,6 +132,8 @@ class Competencia(models.Model):
         db_column="id_area_competencia",
         verbose_name="Área de la competencia:",
     )
+    image = models.ImageField(upload_to="img-competencia", blank=True)
+    info_text = RichTextUploadingField(max_length=17500)
 
     class Meta:
         verbose_name = "Competencias digitale"
@@ -182,7 +185,7 @@ class Pregunta(models.Model):
     ayuda = models.CharField(
         max_length=250, verbose_name="Instrucción para la pregunta:"
     )
-    pregunta = RichTextUploadingField(max_length=5000)
+    pregunta = RichTextUploadingField(max_length=17500)
 
     class Meta:
         verbose_name = "Pregunta"
@@ -338,7 +341,7 @@ class Profile(models.Model):
     genero = models.CharField(
         max_length=32,
         choices=(
-            ("Masculino", "Masculino"),
+            ("másculino", "másculino"),
             ("Femenino", "Femenino"),
             ("Otro", "Otro"),
         ),
@@ -349,8 +352,8 @@ class Profile(models.Model):
         choices=(
             ("10Mb", "10Mb"),
             ("15Mb", "15Mb"),
-            ("mas de 25mb", "mas de 25mb"),
-            ("mas de 50mb", "mas de 50mb"),
+            ("más de 25mb", "más de 25mb"),
+            ("más de 50mb", "más de 50mb"),
         ),
         verbose_name="Que ancho de banda de internet tiene?",
         blank=True,
@@ -370,7 +373,7 @@ class Profile(models.Model):
             ("4h", "4h"),
             ("6h", "6h"),
             ("8h", "8h"),
-            ("mas de 10h", "mas de 10h"),
+            ("más de 10h", "más de 10h"),
         ),
         verbose_name="Cuanto tiempo al dia utiliza un dispositivo movil?",
         blank=True,
@@ -378,7 +381,7 @@ class Profile(models.Model):
     tipo_movil = models.CharField(
         max_length=128,
         choices=(("Celular", "Celular"), ("Tablet", "Tablet")),
-        verbose_name="Que tipo de dispositivo movil utiliza con mas frecuencia?",
+        verbose_name="Que tipo de dispositivo movil utiliza con más frecuencia?",
         blank=True,
     )
     numero_computador = models.CharField(
@@ -386,8 +389,8 @@ class Profile(models.Model):
         choices=(
             ("1", "1"),
             ("2", "2"),
-            ("mas de 4", "mas de 4"),
-            ("mas de 6", "mas de 6"),
+            ("más de 4", "más de 4"),
+            ("más de 6", "más de 6"),
         ),
         verbose_name="Cuantas computadores tiene en su domicilio?",
         blank=True,
@@ -397,8 +400,8 @@ class Profile(models.Model):
         choices=(
             ("1", "1"),
             ("2", "2"),
-            ("mas de 4", "mas de 4"),
-            ("mas de 6", "mas de 6"),
+            ("más de 4", "más de 4"),
+            ("más de 6", "más de 6"),
         ),
         verbose_name="Cuantos dispositivos moviles tiene en su domicilio?",
         blank=True,
