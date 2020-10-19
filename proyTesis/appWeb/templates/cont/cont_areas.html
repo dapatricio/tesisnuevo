@@ -1,75 +1,35 @@
 {% load static %}
 <div class="col-md-4 vl pad_cont_info">
-	<div class="cont_area1">
+	{% for area in object_list %}
+		<div class="cont_area1">
+			<div class="area{{ area.pk }}">
+				<a href="#" id="area{{ area.pk }}">{{ forloop.counter }}. {{ area.nombAreaCompetencia }}</a>
+			</div>
+		</div>
+	{% endfor %}
+	<!--<div class="cont_area1">
 		<div class="area1">
 			<a href="#" id="area1">1. Información y alfabetización informacional.</a>
 		</div>
-		<!--<div class="competencia1 comp">
-			<a href="#" id="ar1_comp1"><b>1.1. </b>Navegación, búsqueda y filtrado de datos, información y contenidos digitales.</a><br>
-			<br>
-			<a href="#" id="ar1_comp2"><b>1.2. </b>Evaluación de datos, información y contenidos digitales.</a><br>
-			<br>
-			<a href="#" id="ar1_comp3"><b>1.3. </b>Gestión de datos, información y contenidos digitales.</a><br>
-		</div>-->
 	</div>
 	<div class="cont_area2">
 		<div class="area2">
 			<a href="#" id="area2">2. Comunicación y colaboración.</a>
 		</div>
-		<!--<div class="competencia2 comp">
-			<a href="#" id="ar1_comp4"><b>2.1. </b>Interacción mediante tecnologías digitales.</a><br>
-			<br>
-			<a href="#" id="ar1_comp5"><b>2.2. </b>Difusión mediante tecnologías digitales.</a><br>
-			<br>
-			<a href="#" id="ar2_comp3"><b>2.3. </b>Participación ciudadana mediante tecnologías digitales.</a><br>
-			<br>
-			<a href="#" id="ar2_comp4"><b>2.4. </b>Colaboración mediante tecnologías digitales.</a><br>
-			<br>
-			<a href="#" id="ar2_comp5"><b>2.5. </b>Comportamiento en internet.</a><br>
-			<br>
-			<a href="#" id="ar2_comp6"><b>2.6. </b>Gestión de la identidad digital.</a><br>
-		</div>-->
 	</div>
 	<div class="cont_area3">
 		<div class="area3">
 			<a href="#" id="area3">3. Creación de contenidos digitales.</a><br>
 		</div>
-		<!--<div class="competencia3 comp">
-			<a href="#" id="ar3_comp1"><b>3.1. </b>Desarrollo de contenidos digitales.</a><br>
-			<br>
-			<a href="#" id="ar3_comp2"><b>3.2. </b>Integración y reelaboración de contenidos digitales.</a><br>
-			<br>
-			<a href="#" id="ar3_comp3"><b>3.3. </b>Derechos de autor y licencias.</a><br>
-			<br>
-			<a href="#" id="ar3_comp4"><b>3.4. </b>Programación.</a><br>
-		</div>-->
 	</div>
 	<div class="cont_area4">
 		<div class="area4">
 			<a href="#" id="area4">4. Seguridad.</a><br>
 		</div>
-		<!--<div class="competencia4 comp">
-			<a href="#" id="ar4_comp1"><b>4.1. </b>Protección de dispositivos.</a><br>
-			<br>
-			<a href="#" id="ar4_comp2"><b>4.2. </b>Protección de datos personales y privacidad.</a><br>
-			<br>
-			<a href="#" id="ar4_comp3"><b>4.3. </b>Protección de la salud y bienestar.</a><br>
-			<br>
-			<a href="#" id="ar4_comp4"><b>4.4. </b>Protección del entorno.</a><br>
-		</div>-->
 	</div>
 	<div class="cont_area5">
 		<div class="area5">
 			<a href="#" id="area5">5. Resolución de problemas.</a><br>
 		</div>
-		<!--<div class="competencia5 comp">
-			<a href="#" id="ar5_comp1"><b>5.1.</b>Resolución de problemas técnicos.</a><br>
-			<br>
-			<a href="#" id="ar5_comp2"><b>5.2.</b>Identificación de necesidades y soluciones tecnológicas.</a><br>
-			<br>
-			<a href="#" id="ar5_comp3"><b>5.3.</b>Creatividad utilizando tecnologías digitales.</a><br>
-			<br>
-			<a href="#" id="ar5_comp4"><b>5.4.</b>Identificación de carencias en la competencia digital.</a><br>
-		</div>-->
-	</div>			
+	</div>-->			
 </div>

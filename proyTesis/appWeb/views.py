@@ -23,10 +23,6 @@ def index(request):
     return render(request, "index.html")
 
 
-def informacion(request):
-    return render(request, "informacion.html")
-
-
 def proposito(request):
     return render(request, "proposito.html")
 
@@ -80,3 +76,9 @@ class UpdateUserView(UpdateView):
     form_class = UserUpdateForm
     template_name = "cuestionario/user.html"
     success_url = "/login/cuestionario/"
+
+class Informacion(ListView):
+    model = Area_Competencia
+    template_name = "informacion.html" 
+
+        
