@@ -68,6 +68,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "proyTesis.session_custom.SessionIdleMiddleware"
 ]
 
 ROOT_URLCONF = "proyTesis.urls"
@@ -187,3 +188,6 @@ IMAGE_CROPPING_THUMB_SIZE = (350, 350)
 
 TEMPORIZADOR_ALL = 2700
 TEMPORIZADOR = 900
+
+# SESSION_COOKIE_AGE (minutos * segundos)
+SESSION_COOKIE_AGE = 180 * 60

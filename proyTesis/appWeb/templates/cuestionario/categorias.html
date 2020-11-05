@@ -2,108 +2,161 @@
 {% load static %}
 {% load filtros %}
 {% block body %}
-<style>
-    .overlay {
-        position: absolute;
-        top: 0px;
-        bottom: 0px;
-        left: 10px;
-        right: -50px;
-        height: 100%;
-        width: 100%;
-        opacity: 0;
-        transition: .3s ease;
-        background-color: rgba(235, 239, 242, 0.42);
-    }
+    <style>
+        .overlay {
+            position: absolute;
+            top: 0px;
+            bottom: 0px;
+            left: 10px;
+            right: -50px;
+            height: 100%;
+            width: 100%;
+            opacity: 0;
+            transition: .3s ease;
+            background-color: rgba(235, 239, 242, 0.42);
+        }
 
-    .containers:hover .overlay {
-        opacity: 1;
-    }
+        .containers:hover .overlay {
+            opacity: 1;
+        }
 
-    .icon {
-        color: #000000;
-        font-size: 100px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-        text-align: center;
-    }
-    .fa-check-circle{
-        color: #0da357;
-    }
-</style>
-<div class="row m-t-20">
-    {% if object_area %}
-    <div class="col-md-4 containers">
-        <a href="{% url 'cuestionario' 0 'cuestionario-de-repaso-basico' 'basic' %}">
-            <img src="{% static 'images/basico.jpg' %}" alt="Cuestionario de repaso" width="103%">
-        </a>
-        <div class="card-box">
-            <h5 class="title">
-                <a href="{% url 'cuestionario' 0 'cuestionario-de-repaso-basico' 'basic' %}">Cuestionario de práctica
-                    {% if not disabled_all %}
-                    <i class="fa fa-check-circle"></i>
-                    {% endif %}
+        .icon {
+            color: #000000;
+            font-size: 100px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .fa-check-circle {
+            color: #0da357;
+        }
+    </style>
+    <div class="row m-t-20">
+
+        {% if object_area %}
+            <div class="col-md-4 containers">
+                <a href="{% url 'cuestionario' 0 'cuestionario-de-repaso-basico' 'basic' %}" data-toggle="modal"
+                   data-target="#exampleModal" data-title="Cuestionario de práctica"
+                   data-description="<ul><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li></ul>">
+                    <img src="{% static 'images/basico.jpg' %}" alt="Cuestionario de repaso" width="103%">
                 </a>
-            </h5>
-        </div>
-    </div>
-    <div class="col-md-4 {% if disabled_all %} containers {% endif %}">
-        <a href="{% url 'cuestionario' 0 'todas-las-areas-de-competencias-digitales' 'all' %}" >
-            <img src="{% static 'images/competencia_digital.jpeg' %}" alt="Cuestionario completo" width="100%">
-        </a>
-        <div class="card-box">
-            <h5 class="title">
-                <a href="{% url 'cuestionario' 0 'todas-las-areas-de-competencias-digitales' 'all' %}">Todas las áreas
-                    de competencias digitales
-                    {% if not disabled_area %}
-                    <i class="fa fa-check-circle"></i>
-                    {% endif %}
-                </a>
-            </h5>
-        </div>
-        {% if disabled_all %}
-            <div class="overlay">
-                <a href="javascript:void(0)" class="icon" title="User Profile">
-                    <i class="fa fa-lock"></i>
-                </a>
+                <div class="card-box">
+                    <h5 class="title">
+                        <a href="{% url 'cuestionario' 0 'cuestionario-de-repaso-basico' 'basic' %}" data-toggle="modal"
+                           data-target="#exampleModal" data-title="Cuestionario de práctica"
+                           data-description="<ul><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li></ul>">
+                            Cuestionario de práctica
+                            {% if not disabled_all %}
+                                <i class="fa fa-check-circle"></i>
+                            {% endif %}
+                        </a>
+                    </h5>
+                </div>
             </div>
+            <div class="col-md-4 {% if disabled_all %} containers {% endif %}">
+                <a href="{% url 'cuestionario' 0 'todas-las-areas-de-competencias-digitales' 'all' %}"
+                   data-toggle="modal" data-target="#exampleModal"
+                   data-title="Todas las áreas de competencias digitales"
+                   data-description="<ul><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li></ul>">
+                    <img src="{% static 'images/competencia_digital.jpeg' %}" alt="Cuestionario completo" width="100%">
+                </a>
+                <div class="card-box">
+                    <h5 class="title">
+                        <a href="{% url 'cuestionario' 0 'todas-las-areas-de-competencias-digitales' 'all' %}"
+                           data-toggle="modal" data-target="#exampleModal"
+                           data-title="Todas las áreas de competencias digitales"
+                           data-description="<ul><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li></ul>">
+                            Todas las áreas de competencias digitales
+                            {% if not disabled_area %}
+                                <i class="fa fa-check-circle"></i>
+                            {% endif %}
+                        </a>
+                    </h5>
+                </div>
+                {% if disabled_all %}
+                    <div class="overlay">
+                        <a href="javascript:void(0)" class="icon" title="User Profile">
+                            <i class="fa fa-lock"></i>
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+{#            {% for area in object_area %}#}
+{#                <div class="col-md-4  {% if disabled_area %} containers {% endif %}">#}
+{#                    <a href="{% url 'cuestionario' area.pk area.nombAreaCompetencia|slugify area.pk %}"#}
+{#                       data-toggle="modal" data-target="#exampleModal"#}
+{#                       data-title="{{ area.nombAreaCompetencia }}"#}
+{#                       data-description="{{ area.nombAreaCompetencia }}">#}
+{#                        {% if area.image %}#}
+{#                            <img src="{{ area.image.url }}" alt="{{ area.nombAreaCompetencia }}" width="100%">#}
+{#                        {% else %}#}
+{#                            <img src="https://freebw.com/templates/smartedu/images/home2-course-1.jpg"#}
+{#                                 alt="{{ area.nombAreaCompetencia }}" width="100%">#}
+{#                        {% endif %}#}
+{#                    </a>#}
+{#                    <div class="card-box">#}
+{#                        <h5 class="title">#}
+{#                            <a href="{% url 'cuestionario' area.pk area.nombAreaCompetencia|slugify area.pk %}"#}
+{#                               data-toggle="modal" data-target="#exampleModal"#}
+{#                               data-title="{{ area.nombAreaCompetencia }}"#}
+{#                               data-description="{{ area.nombAreaCompetencia }}">Área.#}
+{#                                {{ area.nombAreaCompetencia }}#}
+{#                                {% status_cuestionario area.pk request.user as area_status %}#}
+{#                                {% if area_status %}#}
+{#                                    <i class="fa fa-check-circle"></i>#}
+{#                                {% endif %}#}
+{#                            </a>#}
+{#                        </h5>#}
+{#                    </div>#}
+{#                    {% if disabled_area %}#}
+{#                        <div class="overlay">#}
+{#                            <a href="javascript:void(0)" class="icon" title="User Profile">#}
+{#                                <i class="fa fa-lock"></i>#}
+{#                            </a>#}
+{#                        </div>#}
+{#                    {% endif %}#}
+{#                </div>#}
+{#            {% endfor %}#}
+
         {% endif %}
     </div>
-    {% for area in object_area %}
-    <div class="col-md-4  {% if disabled_area %} containers {% endif %}">
-        <a href="{% url 'cuestionario' area.pk area.nombAreaCompetencia|slugify area.pk %}">
-            {% if area.image %}
-            <img src="{{ area.image.url }}" alt="{{ area.nombAreaCompetencia }}" width="100%">
-            {% else %}
-            <img src="https://freebw.com/templates/smartedu/images/home2-course-1.jpg"
-                 alt="{{ area.nombAreaCompetencia }}" width="100%">
-            {% endif %}
-        </a>
-        <div class="card-box">
-            <h5 class="title">
-                <a href="{% url 'cuestionario' area.pk area.nombAreaCompetencia|slugify area.pk %}">Área.
-                    {{area.nombAreaCompetencia}}
-                    {% status_cuestionario area.pk request.user as area_status %}
-                    {% if area_status %}
-                    <i class="fa fa-check-circle"></i>
-                    {% endif %}
-                </a>
-            </h5>
-        </div>
-        {% if disabled_area %}
-            <div class="overlay">
-                <a href="javascript:void(0)" class="icon" title="User Profile">
-                    <i class="fa fa-lock"></i>
-                </a>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h5 class="text-center">Instrucciones</h5>
+                    <div class="me-content"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <a href="" class="btn btn-primary me-btn-custom">Ir a cuestionario</a>
+                </div>
             </div>
-        {% endif %}
-
+        </div>
     </div>
-    {% endfor %}
-
-    {% endif %}
-</div>
+{% endblock %}
+{% block script %}
+    <script>
+        $('#exampleModal').on('show.bs.modal', function (event) {
+            let button = $(event.relatedTarget)
+            let recipient = button.data('title')
+            let description = button.data('description')
+            let url = button.attr('href')
+            let modal = $(this)
+            modal.find('.modal-title').text(recipient)
+            modal.find('.me-content').html(description)
+            modal.find('.me-btn-custom').attr("href", url);
+        })
+    </script>
 {% endblock %}
