@@ -43,7 +43,7 @@ urlpatterns += [
         name="repuestas_usuario",
     ),
     path(
-        route="pregunta/ajax/<int:id_preguntas>/<str:cuestionario>/",
+        route="pregunta/ajax/<int:id_preguntas>/<str:cuestionario>/<str:tipo>/",
         view=pregunta_ajax,
         name="pregunta_ajax",
     ),

@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.models import Group
 from . import models
 
-from appWeb.models import Pregunta, Respuesta
+from appWeb.models import Pregunta, Respuesta, RespuestaCuestionarioGeneral
 from image_cropping import ImageCroppingMixin
 
 # Register your models here.
@@ -117,6 +117,16 @@ class NivelAdmin(admin.ModelAdmin):
     )
 
 
+class RespuestaCuestionarioGeneralInline(ImageCroppingMixin, admin.StackedInline):
+    model = RespuestaCuestionarioGeneral
+    extra = 4
+
+
+class PreguntaCuestionarioGeneralAdmin(admin.ModelAdmin):
+    list_display = ("id", "pregunta", "ayuda")
+    inlines = [RespuestaCuestionarioGeneralInline]
+
+
 def _register(model, admin_class):
     admin.site.register(model, admin_class)
 
@@ -134,8 +144,10 @@ _register(models.Recomendacion, RecomendacionAdmin)
 _register(models.Respuesta, RespuestaAdmin)
 _register(models.RtaUsr, RtaUsrAdmin)
 _register(models.Nivel, NivelAdmin)
+_register(models.PreguntaCuestionarioGeneral, PreguntaCuestionarioGeneralAdmin)
 
 admin.site.unregister(Group)
 
 admin.site.register(models.Profile)
 admin.site.register(models.HistoricoEvaluacion)
+admin.site.register(models.RtaUsrGeneral)

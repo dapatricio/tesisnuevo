@@ -363,21 +363,21 @@
                             if (id_opcion == id_opciones) {
                                 if (imagen !== "none") {
                                     $("#opciones").append(
-                                        `<div class='radio radio-primary ml-5 opcion m-t-20' style='align:center;'><input class='form-check-input' name='opciones' type='radio' value='${correcta}' id='defaultCheck1' onchange='CambiarEstado(${numero_pregunta},${id_opcion},${id_pregunta},${correcta})' checked='checked'><label class='form-check-label' for='opcion${id_opcion}'>${opcion}<img src='${imagen}'></label></div><btn-rounded>`
+                                        `<div class='radio radio-primary ml-5 opcion m-t-20' style='align:center;'><input class='form-check-input' name='opciones' type='radio' value='"${correcta}"' id='defaultCheck1' onchange='CambiarEstado(${numero_pregunta},${id_opcion},${id_pregunta},"${correcta}")' checked='checked'><label class='form-check-label' for='opcion${id_opcion}'>${opcion}<img src='${imagen}'></label></div><btn-rounded>`
                                     );
                                 } else {
                                     $("#opciones").append(
-                                        `<div class='radio radio-primary ml-5 opcion m-t-20'><input class='form-check-input' name='opciones' type='radio' value='${correcta}' id='opcion${id_opcion}' onchange='CambiarEstado(${numero_pregunta},${id_opcion},${id_pregunta},${correcta})' checked='checked'><label class='form-check-label' for='opcion${id_opcion}'>${opcion}</label></div>`
+                                        `<div class='radio radio-primary ml-5 opcion m-t-20'><input class='form-check-input' name='opciones' type='radio' value='"${correcta}"' id='opcion${id_opcion}' onchange='CambiarEstado(${numero_pregunta},${id_opcion},${id_pregunta},"${correcta}")' checked='checked'><label class='form-check-label' for='opcion${id_opcion}'>${opcion}</label></div>`
                                     );
                                 }
                             } else {
                                 if (imagen !== "none") {
                                     $("#opciones").append(
-                                        `<div class='radio radio-primary ml-5 opcion m-t-20'><input class='form-check-input' name='opciones' type='radio' value='${correcta}' id='opcion${id_opcion}' onchange='CambiarEstado(${numero_pregunta},${id_opcion},${id_pregunta},${correcta})'><label class='form-check-label' for='opcion${id_opcion}'>${opcion}<img src='${imagen}'></label></div><btn-rounded>`
+                                        `<div class='radio radio-primary ml-5 opcion m-t-20'><input class='form-check-input' name='opciones' type='radio' value='"${correcta}"' id='opcion${id_opcion}' onchange='CambiarEstado(${numero_pregunta},${id_opcion},${id_pregunta},"${correcta}")'><label class='form-check-label' for='opcion${id_opcion}'>${opcion}<img src='${imagen}'></label></div><btn-rounded>`
                                     );
                                 } else {
                                     $("#opciones").append(
-                                        `<div class='radio radio-primary ml-5 opcion m-t-20'><input class='form-check-input' name='opciones' type='radio' value='${correcta}' id='opcion${id_opcion}' onchange='CambiarEstado(${numero_pregunta},${id_opcion},${id_pregunta},${correcta})'><label class='form-check-label' for='opcion${id_opcion}'>${opcion}</label></div>`
+                                        `<div class='radio radio-primary ml-5 opcion m-t-20'><input class='form-check-input' name='opciones' type='radio' value='"${correcta}"' id='opcion${id_opcion}' onchange='CambiarEstado(${numero_pregunta},${id_opcion},${id_pregunta},"${correcta}")'><label class='form-check-label' for='opcion${id_opcion}'>${opcion}</label></div>`
                                     );
                                 }
                             }

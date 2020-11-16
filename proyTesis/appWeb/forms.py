@@ -62,12 +62,6 @@ class ProfileForm(forms.ModelForm):
             "genero",
             "id_tipoUsr",
             "id_dependencia",
-            "ancho_banda",
-            "tipo_computador",
-            "tiempo_dispositivo_movil",
-            "tipo_movil",
-            "numero_computador",
-            "numero_moviles",
         )
 
 

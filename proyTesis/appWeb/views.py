@@ -2,17 +2,41 @@
 import datetime
 import pytz
 from datetime import datetime
+
 # Django core
-from django.contrib.auth import authenticate, authenticate, get_user_model, login, login, logout, logout
+from django.contrib.auth import (
+    authenticate,
+    authenticate,
+    get_user_model,
+    login,
+    login,
+    logout,
+    logout,
+)
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage, send_mail
-from django.http import Http404, HttpResponse, HttpResponse, HttpResponseRedirect, JsonResponse
-from django.shortcuts import get_object_or_404, redirect, redirect, render, render, render, render_to_response
+from django.http import (
+    Http404,
+    HttpResponse,
+    HttpResponse,
+    HttpResponseRedirect,
+    JsonResponse,
+)
+from django.shortcuts import (
+    get_object_or_404,
+    redirect,
+    redirect,
+    render,
+    render,
+    render,
+    render_to_response,
+)
 from django.template import RequestContext
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
+
 # Local Apps
 from .forms import ContactoForm, ProfileForm, UserForm, UserLoginForm, UserUpdateForm
 from .models import *
@@ -77,8 +101,7 @@ class UpdateUserView(UpdateView):
     template_name = "cuestionario/user.html"
     success_url = "/login/cuestionario/"
 
+
 class Informacion(ListView):
     model = Area_Competencia
-    template_name = "informacion.html" 
-
-        
+    template_name = "informacion.html"

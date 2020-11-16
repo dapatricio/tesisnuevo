@@ -73,13 +73,14 @@ def cuestionarios(request, **kwargs):
         for c in categorias:
             lista_preguntas = []
             preguntas = Pregunta.objects.filter(id_tipoCuest=c.pk).order_by("?")
-            if area_competencia == "basic":
-                preguntas = preguntas[:10]
-
             if area_competencia != "all" and area_competencia != "basic":
                 preguntas = preguntas.filter(
                     id_competencia__id_area_competencia__pk=area_competencia
                 )
+
+            if area_competencia == "basic":
+                preguntas = PreguntaCuestionarioGeneral.objects.all().order_by("?")
+
             for d in preguntas:
                 contador = contador + 1
                 total = 1 + total
@@ -92,9 +93,7 @@ def cuestionarios(request, **kwargs):
                         "opcion": 0,
                     }
                 )
-            lista.append(
-                {"categorias": c.nombCuest, "preguntas": lista_preguntas,}
-            )
+            lista.append({"categorias": c.nombCuest, "preguntas": lista_preguntas})
             request.session["cuestionario_iniciado" + ide_cuestionario] = True
         request.session["total" + ide_cuestionario] = total
         total = 0
@@ -118,15 +117,27 @@ def cuestionarios(request, **kwargs):
         )
         for x in request.session["lista" + ide_cuestionario]:
             for n in x["preguntas"]:
-                pg = Pregunta.objects.get(pk=n["id_preguntas"])
-                RtaUsr.objects.create(
-                    rtaUser=n["correcta"],
-                    id_pregunta=pg,
-                    id_usr=request.user,
-                    historico=objHistorico,
-                )
-                if str(n["correcta"]) == "1":
-                    calificacion = calificacion + 1
+                if area_competencia != "basic":
+                    pg = Pregunta.objects.get(pk=n["id_preguntas"])
+                    RtaUsr.objects.create(
+                        rtaUser=n["correcta"],
+                        id_pregunta=pg,
+                        id_usr=request.user,
+                        historico=objHistorico,
+                    )
+                    if str(n["correcta"]) == "1":
+                        calificacion = calificacion + 1
+                else:
+                    pg = PreguntaCuestionarioGeneral.objects.get(pk=n["id_preguntas"])
+                    RtaUsrGeneral.objects.create(
+                        rta_user=n["correcta"],
+                        id_pregunta=pg,
+                        id_usr=request.user,
+                        historico=objHistorico,
+                    )
+                    if str(n["correcta"]):
+                        calificacion = calificacion + 1
+
         request.session["calificacion" + ide_cuestionario] = calificacion
         request.session["cuestionario_terminado" + ide_cuestionario] = True
 
@@ -167,51 +178,92 @@ def cuestionarios(request, **kwargs):
             else settings.TEMPORIZADOR
         ),
         "status": status,
+        "tipo": area_competencia,
     }
+    if area_competencia == "basic":
+        return render(request, "cuestionario/cuestionario2.html", ctx)
     return render(request, "cuestionario/cuestionario.html", ctx)
 
 
 from easy_thumbnails.files import get_thumbnailer
 
 
-def pregunta_ajax(request, id_preguntas, cuestionario):
+def pregunta_ajax(request, id_preguntas, cuestionario, tipo):
     lista = []
-    preguntas = Pregunta.objects.get(pk=id_preguntas)
-    opciones = Respuesta.objects.filter(id_pregunta=id_preguntas)
-    for c in opciones:
-        try:
-            imagen_crop = (
-                get_thumbnailer(c.imagen)
-                .get_thumbnail(
-                    {
-                        "size": (300, 150),
-                        "box": c.imagen_crop,
-                        "crop": False,
-                        "detail": True,
-                    }
+    if tipo != "basic":
+        preguntas = Pregunta.objects.get(pk=id_preguntas)
+        opciones = Respuesta.objects.filter(id_pregunta=id_preguntas)
+        for c in opciones:
+            try:
+                imagen_crop = (
+                    get_thumbnailer(c.imagen)
+                    .get_thumbnail(
+                        {
+                            "size": (300, 150),
+                            "box": c.imagen_crop,
+                            "crop": False,
+                            "detail": True,
+                        }
+                    )
+                    .url
                 )
-                .url
+            except Exception as e:
+                imagen_crop = "none"
+            lista.append(
+                {
+                    "enunciado": c.respuesta,
+                    "correcta": c.valorRta,
+                    "imagen": imagen_crop,
+                    "id_opciones": c.pk,
+                }
             )
-        except Exception as e:
-            imagen_crop = "none"
-        lista.append(
-            {
-                "enunciado": c.respuesta,
-                "correcta": c.valorRta,
-                "imagen": imagen_crop,
-                "id_opciones": c.pk,
-            }
-        )
-    ctx = {
-        "area": preguntas.id_competencia.id_area_competencia.nombAreaCompetencia,
-        "digital": preguntas.id_competencia.nombCompetencia,
-        "pregunta": preguntas.pregunta,
-        "ayuda": preguntas.ayuda,
-        "opciones": list(lista),
-        "cuestionario_terminado": request.session[
-            "cuestionario_terminado" + str(cuestionario)
-        ],
-    }
+        ctx = {
+            "area": preguntas.id_competencia.id_area_competencia.nombAreaCompetencia,
+            "digital": preguntas.id_competencia.nombCompetencia,
+            "pregunta": preguntas.pregunta,
+            "ayuda": preguntas.ayuda,
+            "opciones": list(lista),
+            "cuestionario_terminado": request.session[
+                "cuestionario_terminado" + str(cuestionario)
+            ],
+        }
+    else:
+        preguntas = PreguntaCuestionarioGeneral.objects.get(pk=id_preguntas)
+        opciones = RespuestaCuestionarioGeneral.objects.filter(pregunta=id_preguntas)
+        for c in opciones:
+            try:
+                imagen_crop = (
+                    get_thumbnailer(c.imagen)
+                    .get_thumbnail(
+                        {
+                            "size": (300, 150),
+                            "box": c.imagen_crop,
+                            "crop": False,
+                            "detail": True,
+                        }
+                    )
+                    .url
+                )
+            except Exception as e:
+                imagen_crop = "none"
+            lista.append(
+                {
+                    "enunciado": c.respuesta,
+                    "correcta": c.valorRta,
+                    "imagen": imagen_crop,
+                    "id_opciones": c.pk,
+                }
+            )
+        ctx = {
+            "area": "Cuestionario General",
+            "digital": "",
+            "pregunta": preguntas.pregunta,
+            "ayuda": preguntas.ayuda,
+            "opciones": list(lista),
+            "cuestionario_terminado": request.session[
+                "cuestionario_terminado" + str(cuestionario)
+            ],
+        }
     return JsonResponse(ctx, safe=False)
 
 
