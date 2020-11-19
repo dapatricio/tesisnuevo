@@ -344,11 +344,6 @@ def repuestas_usuario(request, **kwargs):
                     text = recomendaciones.first().contenido
             else:
                 text = "Alcanzo el nivel maximo en esta competencia"
-            print(id, nivel, text)
-            print(value["competencia"])
-            print(value["sumatoria"])
-            print(value["recomendado"])
-            print(ar["p"])
             list.append(
                 {
                     "competencia": value["competencia"],
