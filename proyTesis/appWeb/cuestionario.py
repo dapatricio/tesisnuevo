@@ -322,8 +322,6 @@ def repuestas_usuario(request, **kwargs):
         )
         .values("competencia", "ide", "sumatoria", "area", "recomendado")
     )
-    print(rpst)
-    ff(rpst)
     list, Rarea = [], []
     for value in rpst:
         ar = (
@@ -333,8 +331,6 @@ def repuestas_usuario(request, **kwargs):
             .values("id_usr", "s")
             .aggregate(p=Round(Avg("s")))
         )
-        print(ar)
-        ff(ar)
         try:
             id = value["ide"]
             nivel = int(choices[str(lista[int(value["sumatoria"])])]) + 1
@@ -349,6 +345,10 @@ def repuestas_usuario(request, **kwargs):
             else:
                 text = "Alcanzo el nivel maximo en esta competencia"
             print(id, nivel, text)
+            print(value["competencia"])
+            print(value["sumatoria"])
+            print(value["recomendado"])
+            print(ar["p"])
             list.append(
                 {
                     "competencia": value["competencia"],
@@ -358,7 +358,6 @@ def repuestas_usuario(request, **kwargs):
                     "subir": text,
                 }
             )
-            print(list)
             Rarea.append(int(ar["p"]))
         except Exception as e:
             print(e)
