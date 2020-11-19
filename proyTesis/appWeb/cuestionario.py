@@ -293,19 +293,26 @@ def repuestas_usuario(request, **kwargs):
     area = kwargs.get("area", None)
     profile = Profile.objects.get(user=request.user)
     base_query = RtaUsr.objects.exclude(historico__code_uuid="basic")
+    print(base_query)
     query = base_query.filter(id_usr__profile__id_dependencia=profile.id_dependencia)
+    print(query)
     querySet = base_query.filter(id_usr=request.user)
+    print(querySet)
     if area:
         if area == "all":
             querySet = querySet.filter(historico__code_uuid="all")
+            print(querySet)
             query = query.filter(historico__code_uuid="all")
+            print(query)
         else:
             querySet = querySet.filter(
                 id_pregunta__id_competencia__id_area_competencia=area
             )
+            print(querySet)
             query = RtaUsr.objects.filter(
                 id_pregunta__id_competencia__id_area_competencia=area
             )
+            print(query)
     rpst = (
         querySet.order_by(
             "id_pregunta__id_competencia__id_area_competencia",
