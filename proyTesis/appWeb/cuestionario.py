@@ -339,6 +339,7 @@ def repuestas_usuario(request, **kwargs):
             id = value["ide"]
             nivel = int(choices[str(lista[int(value["sumatoria"])])]) + 1
             text = "Sin registro"
+            print(id, nivel, text)
             if not nivel > 2:
                 nivel = choices2[int(nivel)]
                 recomendaciones = Recomendaciones.objects.filter(
