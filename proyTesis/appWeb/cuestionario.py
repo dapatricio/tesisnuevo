@@ -293,26 +293,19 @@ def repuestas_usuario(request, **kwargs):
     area = kwargs.get("area", None)
     profile = Profile.objects.get(user=request.user)
     base_query = RtaUsr.objects.exclude(historico__code_uuid="basic")
-    ff(base_query)
     query = base_query.filter(id_usr__profile__id_dependencia=profile.id_dependencia)
-    ff(query)
     querySet = base_query.filter(id_usr=request.user)
-    ff(querySet)
     if area:
         if area == "all":
             querySet = querySet.filter(historico__code_uuid="all")
-            ff(querySet)
             query = query.filter(historico__code_uuid="all")
-            ff(query)
         else:
             querySet = querySet.filter(
                 id_pregunta__id_competencia__id_area_competencia=area
             )
-            ff(querySet)
             query = RtaUsr.objects.filter(
                 id_pregunta__id_competencia__id_area_competencia=area
             )
-            ff(query)
     rpst = (
         querySet.order_by(
             "id_pregunta__id_competencia__id_area_competencia",
@@ -329,6 +322,8 @@ def repuestas_usuario(request, **kwargs):
         )
         .values("competencia", "ide", "sumatoria", "area", "recomendado")
     )
+    print(rpst)
+    ff(rpst)
     list, Rarea = [], []
     for value in rpst:
         ar = (
@@ -381,6 +376,7 @@ def repuestas_usuario(request, **kwargs):
 
 
 def ff(query):
+    print("=====a====")
     for q in query:
         print(q)
     return True
