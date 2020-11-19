@@ -333,6 +333,8 @@ def repuestas_usuario(request, **kwargs):
             .values("id_usr", "s")
             .aggregate(p=Round(Avg("s")))
         )
+        print(ar)
+        ff(ar)
         try:
             id = value["ide"]
             nivel = int(choices[str(lista[int(value["sumatoria"])])]) + 1
