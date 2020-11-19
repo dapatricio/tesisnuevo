@@ -339,7 +339,6 @@ def repuestas_usuario(request, **kwargs):
             id = value["ide"]
             nivel = int(choices[str(lista[int(value["sumatoria"])])]) + 1
             text = "Sin registro"
-            print(id, nivel, text)
             if not nivel > 2:
                 nivel = choices2[int(nivel)]
                 recomendaciones = Recomendaciones.objects.filter(
@@ -349,7 +348,7 @@ def repuestas_usuario(request, **kwargs):
                     text = recomendaciones.first().contenido
             else:
                 text = "Alcanzo el nivel maximo en esta competencia"
-
+            print(id, nivel, text)
             list.append(
                 {
                     "competencia": value["competencia"],
@@ -359,6 +358,7 @@ def repuestas_usuario(request, **kwargs):
                     "subir": text,
                 }
             )
+            print(list)
             Rarea.append(int(ar["p"]))
         except Exception as e:
             print(e)
