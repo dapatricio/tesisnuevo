@@ -35,20 +35,20 @@
             color: #0da357;
         }
     </style>
-    <div class="row m-t-20">
+     <div class="row m-t-20">
 
         {% if object_area %}
             <div class="col-md-4 containers">
                 <a href="{% url 'cuestionario' 0 'cuestionario-de-repaso-basico' 'basic' %}" data-toggle="modal"
                    data-target="#exampleModal" data-title="Cuestionario de práctica"
-                   data-description="<ul><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li></ul>">
+                   data-description="<ul><li>Este cuestionario contiene preguntas generales no calificadas ni puntuadas.</li><li>Este cuestionario puede ser respondido las veces que sea necesario o cuando necesite actualizar la información solicitada.</li><li>Las preguntas presentadas ayudaran a establecer comparativas entre los resultados finales obtenidos.</li><li>Usted dispondrá de un tiempo determinado máximo para responder este cuestionario general.</li></ul>">
                     <img src="{% static 'images/basico.jpg' %}" alt="Cuestionario de repaso" width="103%">
                 </a>
                 <div class="card-box">
                     <h5 class="title">
                         <a href="{% url 'cuestionario' 0 'cuestionario-de-repaso-basico' 'basic' %}" data-toggle="modal"
                            data-target="#exampleModal" data-title="Cuestionario de práctica"
-                           data-description="<ul><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li></ul>">
+                           data-description="<ul><li>Este cuestionario contiene preguntas generales no calificadas ni puntuadas.</li><li>Este cuestionario puede ser respondido las veces que sea necesario o cuando necesite actualizar la información solicitada.</li><li>Las preguntas presentadas ayudaran a establecer comparativas entre los resultados finales obtenidos.</li><li>Usted dispondrá de un tiempo determinado máximo para responder este cuestionario general.</li></ul>">
                             Cuestionario de práctica
                             {% if not disabled_all %}
                                 <i class="fa fa-check-circle"></i>
@@ -61,7 +61,7 @@
                 <a href="{% url 'cuestionario' 0 'todas-las-areas-de-competencias-digitales' 'all' %}"
                    data-toggle="modal" data-target="#exampleModal"
                    data-title="Todas las áreas de competencias digitales"
-                   data-description="<ul><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li></ul>">
+                   data-description="<ul><li>Este cuestionario medirá su nivel de conocimiento en cada área de competencia digital, no se asignara una calificación por las respuestas.</li><li>Procure ser lo más sincero al responder las preguntas, para establecer un nivel de conocimiento verdadero de sus competencias digitales.</li><li>Son preguntas en las que hay cuatro respuestas posibles y tienes que elegir y marcar la letra que creas que es la correcta.</li><li>Usted dispondrá de un tiempo limitado para realizar el cuestionario en su totalidad.</li><li>Al finalizar el cuestionario, pulse sobre el botón de 'Terminar' para guardar sus respuestas.</li></ul>">
                     <img src="{% static 'images/competencia_digital.jpeg' %}" alt="Cuestionario completo" width="100%">
                 </a>
                 <div class="card-box">
@@ -69,7 +69,7 @@
                         <a href="{% url 'cuestionario' 0 'todas-las-areas-de-competencias-digitales' 'all' %}"
                            data-toggle="modal" data-target="#exampleModal"
                            data-title="Todas las áreas de competencias digitales"
-                           data-description="<ul><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li></ul>">
+                           data-description="<ul><li>Este cuestionario medirá su nivel de conocimiento en cada área de competencia digital, no se asignara una calificación por las respuestas.</li><li>Procure ser lo más sincero al responder las preguntas, para establecer un nivel de conocimiento verdadero de sus competencias digitales.</li><li>Son preguntas en las que hay cuatro respuestas posibles y tienes que elegir y marcar la letra que creas que es la correcta.</li><li>Usted dispondrá de un tiempo limitado para realizar el cuestionario en su totalidad.</li><li>Al finalizar el cuestionario, pulse sobre el botón de 'Terminar' para guardar sus respuestas.</li></ul>>">
                             Todas las áreas de competencias digitales
                             {% if not disabled_area %}
                                 <i class="fa fa-check-circle"></i>
