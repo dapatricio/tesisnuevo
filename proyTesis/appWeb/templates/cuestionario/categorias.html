@@ -40,14 +40,14 @@
         {% if object_area %}
             <div class="col-md-4 containers">
                 <a href="{% url 'cuestionario' 0 'cuestionario-de-repaso-basico' 'basic' %}" data-toggle="modal"
-                   data-target="#exampleModal" data-title="Cuestionario de práctica"
+                   data-target="#exampleModal" data-title="Información General"
                    data-description="<ul><li>Este cuestionario contiene preguntas generales no calificadas ni puntuadas.</li><li>Este cuestionario puede ser respondido las veces que sea necesario o cuando necesite actualizar la información solicitada.</li><li>Las preguntas presentadas ayudaran a establecer comparativas entre los resultados finales obtenidos.</li><li>Usted dispondrá de un tiempo determinado máximo para responder este cuestionario general.</li></ul>">
-                    <img src="{% static 'images/basico.jpg' %}" alt="Cuestionario de repaso" width="103%">
+                    <img src="{% static 'images/basico.jpg' %}" alt="Información General" width="103%">
                 </a>
                 <div class="card-box">
                     <h5 class="title">
                         <a href="{% url 'cuestionario' 0 'cuestionario-de-repaso-basico' 'basic' %}" data-toggle="modal"
-                           data-target="#exampleModal" data-title="Cuestionario de práctica"
+                           data-target="#exampleModal" data-title="Información General"
                            data-description="<ul><li>Este cuestionario contiene preguntas generales no calificadas ni puntuadas.</li><li>Este cuestionario puede ser respondido las veces que sea necesario o cuando necesite actualizar la información solicitada.</li><li>Las preguntas presentadas ayudaran a establecer comparativas entre los resultados finales obtenidos.</li><li>Usted dispondrá de un tiempo determinado máximo para responder este cuestionario general.</li></ul>">
                             Cuestionario de práctica
                             {% if not disabled_all %}
