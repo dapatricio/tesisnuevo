@@ -9,6 +9,8 @@ from django.views.generic import TemplateView, View
 # Local apps
 from .models import *
 
+from datetime import datetime, timedelta
+
 
 class CategoriaTemplateView(LoginRequiredMixin, TemplateView):
     template_name = "cuestionario/categorias.html"
@@ -16,12 +18,15 @@ class CategoriaTemplateView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         object_area_competencia = Area_Competencia.objects.all()
-        disabled_all = not HistoricoEvaluacion.objects.filter(
+        now = datetime.now()
+        object_basic = HistoricoEvaluacion.objects.filter(
             id_usr=self.request.user, code_uuid="basic"
-        ).exists()
-        disabled_area = not HistoricoEvaluacion.objects.filter(
+        ).order_by("create_date")
+        object_all = HistoricoEvaluacion.objects.filter(
             id_usr=self.request.user, code_uuid="all"
-        ).exists()
+        ).order_by("create_date")
+        disabled_all = not object_basic.exists()
+        disabled_area = not object_all.exists()
         context.update(
             {
                 "object_area": object_area_competencia,
@@ -29,6 +34,32 @@ class CategoriaTemplateView(LoginRequiredMixin, TemplateView):
                 "disabled_area": disabled_area,
             }
         )
+
+        format = "%Y-%m-%d %H:%M:%S.%f+00:00"
+        # Date basic
+        last_object_basic = object_basic.last()
+        if last_object_basic:
+            date_last = datetime.strptime(str(last_object_basic.create_date), format)
+            date_last = date_last + timedelta(hours=24)
+            basic = (date_last > now)
+            if not basic:
+                value = f"cuestionario_iniciado_{self.request.user}_basic"
+                if value in self.request.session:
+                    self.request.session[value] = False
+
+            context.update({"basic": basic, "basic_date": date_last})
+
+        # Date all
+        last_object_all = object_all.last()
+        if last_object_all:
+            date_last_all = datetime.strptime(str(last_object_all.create_date), format)
+            date_last_all = date_last_all + timedelta(hours=24)
+            all = (date_last_all > now)
+            if not all:
+                value = f"cuestionario_iniciado_{self.request.user}_all"
+                if value in self.request.session:
+                    self.request.session[value] = False
+            context.update({"all": all, "all_date": date_last_all})
         return context
 
 
@@ -142,8 +173,7 @@ def cuestionarios(request, **kwargs):
         request.session["cuestionario_terminado" + ide_cuestionario] = True
 
     if request.method == "POST" and "btn_nuevocuestionario" in request.POST:
-        del request.session["cuestionario_iniciado" + ide_cuestionario]
-        # return redirect("/cuestionario/categoria/")
+        request.session["cuestionario_iniciado" + ide_cuestionario] = False
 
     if request.method == "POST" and "btn_cambiarestado" in request.POST:
         request.session["bloqueo" + ide_cuestionario] = request.POST["bloqueo"]
@@ -165,7 +195,7 @@ def cuestionarios(request, **kwargs):
     ctx = {
         "cuestionario_terminado": request.session[
             "cuestionario_terminado" + ide_cuestionario
-        ],
+            ],
         "calificacion": request.session["calificacion" + ide_cuestionario],
         "categorias": categorias,
         "lista": request.session["lista" + ide_cuestionario],
@@ -197,7 +227,7 @@ def pregunta_ajax(request, id_preguntas, cuestionario, tipo):
             try:
                 imagen_crop = (
                     get_thumbnailer(c.imagen)
-                    .get_thumbnail(
+                        .get_thumbnail(
                         {
                             "size": (300, 150),
                             "box": c.imagen_crop,
@@ -205,7 +235,7 @@ def pregunta_ajax(request, id_preguntas, cuestionario, tipo):
                             "detail": True,
                         }
                     )
-                    .url
+                        .url
                 )
             except Exception as e:
                 imagen_crop = "none"
@@ -225,7 +255,7 @@ def pregunta_ajax(request, id_preguntas, cuestionario, tipo):
             "opciones": list(lista),
             "cuestionario_terminado": request.session[
                 "cuestionario_terminado" + str(cuestionario)
-            ],
+                ],
         }
     else:
         preguntas = PreguntaCuestionarioGeneral.objects.get(pk=id_preguntas)
@@ -234,7 +264,7 @@ def pregunta_ajax(request, id_preguntas, cuestionario, tipo):
             try:
                 imagen_crop = (
                     get_thumbnailer(c.imagen)
-                    .get_thumbnail(
+                        .get_thumbnail(
                         {
                             "size": (300, 150),
                             "box": c.imagen_crop,
@@ -242,7 +272,7 @@ def pregunta_ajax(request, id_preguntas, cuestionario, tipo):
                             "detail": True,
                         }
                     )
-                    .url
+                        .url
                 )
             except Exception as e:
                 imagen_crop = "none"
@@ -262,7 +292,7 @@ def pregunta_ajax(request, id_preguntas, cuestionario, tipo):
             "opciones": list(lista),
             "cuestionario_terminado": request.session[
                 "cuestionario_terminado" + str(cuestionario)
-            ],
+                ],
         }
     return JsonResponse(ctx, safe=False)
 
@@ -311,8 +341,8 @@ def repuestas_usuario(request, **kwargs):
             "id_pregunta__id_competencia__id_area_competencia",
             "id_pregunta__id_competencia",
         )
-        .values(competencia=F("id_pregunta__id_competencia__nombCompetencia"))
-        .annotate(
+            .values(competencia=F("id_pregunta__id_competencia__nombCompetencia"))
+            .annotate(
             ide=F("id_pregunta__id_competencia__id_competencia"),
             sumatoria=Sum("rtaUser"),
             area=F(
@@ -320,16 +350,16 @@ def repuestas_usuario(request, **kwargs):
             ),
             recomendado=F("id_pregunta__id_competencia__nivel__nivel"),
         )
-        .values("competencia", "ide", "sumatoria", "area", "recomendado")
+            .values("competencia", "ide", "sumatoria", "area", "recomendado")
     )
     list, Rarea = [], []
     for value in rpst:
         ar = (
             query.filter(id_pregunta__id_competencia__id_competencia=value["ide"])
-            .values("id_usr")
-            .annotate(s=Sum("rtaUser"))
-            .values("id_usr", "s")
-            .aggregate(p=Round(Avg("s")))
+                .values("id_usr")
+                .annotate(s=Sum("rtaUser"))
+                .values("id_usr", "s")
+                .aggregate(p=Round(Avg("s")))
         )
         try:
             id = value["ide"]

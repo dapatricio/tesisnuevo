@@ -51,14 +51,11 @@ class UserForm(UserCreationForm):
 
 
 class ProfileForm(forms.ModelForm):
-    cedula = forms.CharField(
-        label="Cédula", widget=forms.TextInput(attrs={"placeholder": " 1101010101"})
-    )
+
 
     class Meta:
         model = Profile
         fields = (
-            "cedula",
             "genero",
             "id_tipoUsr",
             "id_dependencia",

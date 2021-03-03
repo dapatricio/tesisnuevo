@@ -320,7 +320,6 @@ class Nivel(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    cedula = models.CharField(max_length=11, verbose_name="Cédula usuario:")
     codigo = models.CharField(max_length=75, verbose_name="Codigo:")
 
     estado_codigo = models.BooleanField(null=True)

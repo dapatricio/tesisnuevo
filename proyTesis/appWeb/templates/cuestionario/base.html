@@ -23,7 +23,9 @@
     <link href="{% static 'wp-admin-light/plugins/custombox/dist/custombox.min.css' %}" rel="stylesheet">
 
     <script src="{% static 'wp-admin-light/js/modernizr.min.js' %}"></script>
-
+    {% block extra_head %}
+    
+    {% endblock %}
 </head>
 
 <body>
@@ -85,16 +87,17 @@
                         <a href="{% url 'informacion' %}"><i class="mdi mdi-home"></i> <span> Información</span> </a>
                     </li>
                     <li class="has-submenu">
-                        <a href="{% url 'proposito' %}"><i class="mdi mdi-home"></i> <span> Proposito</span> </a>
+                        <a href="{% url 'proposito' %}"><i class="mdi mdi-home"></i> <span> Propósito</span> </a>
                     </li>
                     <li class="has-submenu">
-                        <a href="{% url 'contacto' %}"><i class="mdi mdi-home"></i> <span> Contáctanos</span> </a>
+                        <a href="{% url 'contacto' %}"><i class="mdi mdi-home"></i> <span> Contáctenos</span> </a>
                     </li>
                     <li class="has-submenu">
-                        <a href="{% url 'categoria' %}"><i class="mdi mdi-home"></i> <span> Cuestionarios</span> </a>
+                        <a href="{% url 'categoria' %}"><i class="mdi mdi-book"></i> <span> Cuestionarios</span> </a>
                     </li>
                     <li class="has-submenu">
-                        <a href="{% url 'historico' %}"><i class="mdi mdi-home"></i> <span> Historial</span> </a>
+                        <a href="{% url 'historico' %}"><i class="mdi mdi-download"></i> <span> Descargar Informe</span>
+                        </a>
                     </li>
                 </ul>
                 <!-- End navigation menu -->
@@ -145,22 +148,22 @@
                                 <tr>
                                     <th style="padding: 0" scope="row">1</th>
                                     <td style="padding: 0">BASICO
-                                    </th>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th style="padding: 0" scope="row">2</th>
                                     <td style="padding: 0">INTERMEDIO
-                                    </th>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th style="padding: 0" scope="row">3</th>
                                     <td style="padding: 0">INTERMEDIO
-                                    </th>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th style="padding: 0" scope="row">4</th>
                                     <td style="padding: 0">AVANZADO
-                                    </th>
+                                    </td>
                                 </tr>
 
                                 </tbody>
@@ -188,8 +191,7 @@
                                 {% for r in rpst %}
                                     <tr>
                                         <th style="padding: 0" scope="row">C{{ forloop.counter }}</th>
-                                        <td style="padding: 0">
-                                        {{ r.competencia }}</th>
+                                        <td style="padding: 0">{{ r.competencia }}</td>
                                         <td class="text-center" style="padding: 0">{{ r.sumatoria }}</td>
                                         <td class="text-center" style="padding: 0">{{ r.recomendado }}</td>
                                         <td class="text-center" style="padding: 0">{{ r.area }}</td>
@@ -264,14 +266,18 @@
 </script>
 {% block super %}
     <script type="text/javascript">
-        const labels =
-        {{lista|safe}}
-        const rp =
-        {{resul_personal|safe}}
-        const rr =
-        {{resul_recomendado|safe}}
-        const ra =
-        {{resul_area|safe}}
+        {% if lista %}
+            const labels ={{lista|safe}}
+        {% endif %}
+        {% if resul_personal %}
+            const rp ={{resul_personal|safe}}
+        {% endif %}
+        {% if resul_recomendado %}
+            const rr ={{resul_recomendado|safe}}
+        {% endif %}
+        {% if resul_area %}
+            const ra ={{resul_area|safe}}
+        {% endif %}
         const user = "{{request.user}}"
     </script>
 {% endblock %}
@@ -285,8 +291,8 @@
 
 <!-- KNOB JS -->
 <!--[if IE]>
-            <script type="text/javascript" src="{% static 'wp-admin-light/plugins/jquery-knob/excanvas.js' %}"></script>
-            <![endif]-->
+<script type="text/javascript" src="{% static 'wp-admin-light/plugins/jquery-knob/excanvas.js' %}"></script>
+<![endif]-->
 <script src="{% static 'wp-admin-light/plugins/jquery-knob/jquery.knob.js' %}"></script>
 <script src="{% static 'wp-admin-light/plugins/chart.js/Chart.bundle.min.js' %}"></script>
 
@@ -303,11 +309,7 @@
 <script src="{% static 'wp-admin-light/js/jquery.app.js' %}"></script>
 <script src="{% static 'wp-admin-light/plugins/sweet-alert/sweetalert2.min.js' %}"></script>
 <script src="{% static 'wp-admin-light/plugins/toastr/toastr.min.js' %}"></script>
-{% block script %}
-
-
-{% endblock %}
+{% block script %}{% endblock %}
 
 </body>
-
 </html>

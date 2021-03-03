@@ -1,7 +1,12 @@
 {% extends 'cuestionario/base.html' %}
 {% load static %}
 {% load filtros %}
+{% block extra_head %}
+
+
+{% endblock %}
 {% block body %}
+
     <style>
         .overlay {
             position: absolute;
@@ -35,7 +40,7 @@
             color: #0da357;
         }
     </style>
-     <div class="row m-t-20">
+    <div class="row m-t-20">
 
         {% if object_area %}
             <div class="col-md-4 containers">
@@ -54,10 +59,24 @@
                                 <i class="fa fa-check-circle"></i>
                             {% endif %}
                         </a>
+                        {% if basic %}
+                            <div>
+                                <span>Nuevo intento disponible en: </span>
+                                <span id="id_countdown_basic"></span>
+                            </div>
+                        {% endif %}
                     </h5>
                 </div>
+                {% if basic %}
+                    <div class="overlay">
+                        <a href="javascript:void(0)" class="icon" title="User Profile">
+                            <i class="fa fa-lock"></i>
+                        </a>
+                    </div>
+                {% endif %}
             </div>
-            <div class="col-md-4 {% if disabled_all %} containers {% endif %}">
+
+            <div class="col-md-4 {% if disabled_all %} containers {% elif not disabled_all and all %}containers{% endif %}">
                 <a href="{% url 'cuestionario' 0 'todas-las-areas-de-competencias-digitales' 'all' %}"
                    data-toggle="modal" data-target="#exampleModal"
                    data-title="Todas las áreas de competencias digitales"
@@ -75,6 +94,12 @@
                                 <i class="fa fa-check-circle"></i>
                             {% endif %}
                         </a>
+                        {% if all %}
+                            <div>
+                                <span>Nuevo intento disponible en: </span>
+                                <span id="id_countdown_all"></span>
+                            </div>
+                        {% endif %}
                     </h5>
                 </div>
                 {% if disabled_all %}
@@ -83,44 +108,52 @@
                             <i class="fa fa-lock"></i>
                         </a>
                     </div>
+                {% elif not disabled_all and all %}
+                    <div class="overlay">
+                        <a href="javascript:void(0)" class="icon" title="User Profile">
+                            <i class="fa fa-lock"></i>
+                        </a>
+                    </div>
                 {% endif %}
+
             </div>
-{#            {% for area in object_area %}#}
-{#                <div class="col-md-4  {% if disabled_area %} containers {% endif %}">#}
-{#                    <a href="{% url 'cuestionario' area.pk area.nombAreaCompetencia|slugify area.pk %}"#}
-{#                       data-toggle="modal" data-target="#exampleModal"#}
-{#                       data-title="{{ area.nombAreaCompetencia }}"#}
-{#                       data-description="{{ area.nombAreaCompetencia }}">#}
-{#                        {% if area.image %}#}
-{#                            <img src="{{ area.image.url }}" alt="{{ area.nombAreaCompetencia }}" width="100%">#}
-{#                        {% else %}#}
-{#                            <img src="https://freebw.com/templates/smartedu/images/home2-course-1.jpg"#}
-{#                                 alt="{{ area.nombAreaCompetencia }}" width="100%">#}
-{#                        {% endif %}#}
-{#                    </a>#}
-{#                    <div class="card-box">#}
-{#                        <h5 class="title">#}
-{#                            <a href="{% url 'cuestionario' area.pk area.nombAreaCompetencia|slugify area.pk %}"#}
-{#                               data-toggle="modal" data-target="#exampleModal"#}
-{#                               data-title="{{ area.nombAreaCompetencia }}"#}
-{#                               data-description="{{ area.nombAreaCompetencia }}">Área.#}
-{#                                {{ area.nombAreaCompetencia }}#}
-{#                                {% status_cuestionario area.pk request.user as area_status %}#}
-{#                                {% if area_status %}#}
-{#                                    <i class="fa fa-check-circle"></i>#}
-{#                                {% endif %}#}
-{#                            </a>#}
-{#                        </h5>#}
-{#                    </div>#}
-{#                    {% if disabled_area %}#}
-{#                        <div class="overlay">#}
-{#                            <a href="javascript:void(0)" class="icon" title="User Profile">#}
-{#                                <i class="fa fa-lock"></i>#}
-{#                            </a>#}
-{#                        </div>#}
-{#                    {% endif %}#}
-{#                </div>#}
-{#            {% endfor %}#}
+
+            {#            {% for area in object_area %}#}
+            {#                <div class="col-md-4  {% if disabled_area %} containers {% endif %}">#}
+            {#                    <a href="{% url 'cuestionario' area.pk area.nombAreaCompetencia|slugify area.pk %}"#}
+            {#                       data-toggle="modal" data-target="#exampleModal"#}
+            {#                       data-title="{{ area.nombAreaCompetencia }}"#}
+            {#                       data-description="{{ area.nombAreaCompetencia }}">#}
+            {#                        {% if area.image %}#}
+            {#                            <img src="{{ area.image.url }}" alt="{{ area.nombAreaCompetencia }}" width="100%">#}
+            {#                        {% else %}#}
+            {#                            <img src="https://freebw.com/templates/smartedu/images/home2-course-1.jpg"#}
+            {#                                 alt="{{ area.nombAreaCompetencia }}" width="100%">#}
+            {#                        {% endif %}#}
+            {#                    </a>#}
+            {#                    <div class="card-box">#}
+            {#                        <h5 class="title">#}
+            {#                            <a href="{% url 'cuestionario' area.pk area.nombAreaCompetencia|slugify area.pk %}"#}
+            {#                               data-toggle="modal" data-target="#exampleModal"#}
+            {#                               data-title="{{ area.nombAreaCompetencia }}"#}
+            {#                               data-description="{{ area.nombAreaCompetencia }}">Área.#}
+            {#                                {{ area.nombAreaCompetencia }}#}
+            {#                                {% status_cuestionario area.pk request.user as area_status %}#}
+            {#                                {% if area_status %}#}
+            {#                                    <i class="fa fa-check-circle"></i>#}
+            {#                                {% endif %}#}
+            {#                            </a>#}
+            {#                        </h5>#}
+            {#                    </div>#}
+            {#                    {% if disabled_area %}#}
+            {#                        <div class="overlay">#}
+            {#                            <a href="javascript:void(0)" class="icon" title="User Profile">#}
+            {#                                <i class="fa fa-lock"></i>#}
+            {#                            </a>#}
+            {#                        </div>#}
+            {#                    {% endif %}#}
+            {#                </div>#}
+            {#            {% endfor %}#}
 
         {% endif %}
     </div>
@@ -147,7 +180,32 @@
     </div>
 {% endblock %}
 {% block script %}
+    <script type="text/javascript" src="{% static 'dest/jquery.countdown.js' %}"></script>
+    <script type="text/javascript">
+        {% if basic and basic_date%}
+            var label = `#id_countdown_basic`;
+            var dt = "{{ basic_date|date:'Y/m/d H:i:s' }}"
+            console.log(dt)
+            $(label).countdown(dt, function (event) {
+                console.log()
+                $(this).text(
+                    event.strftime('%D Dias %H:%M:%S')
+                );
+            });
+        {% endif %}
+        {% if all and all_date %}
+            var label = `#id_countdown_all`;
+            var dt = "{{ all_date|date:'Y/m/d H:i:s' }}"
+            $(label).countdown(dt, function (event) {
+                console.log()
+                $(this).text(
+                    event.strftime('%D Dias %H:%M:%S')
+                );
+            });
+        {% endif %}
+    </script>
     <script>
+
         $('#exampleModal').on('show.bs.modal', function (event) {
             let button = $(event.relatedTarget)
             let recipient = button.data('title')
