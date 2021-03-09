@@ -47,4 +47,14 @@ urlpatterns += [
         view=pregunta_ajax,
         name="pregunta_ajax",
     ),
+    path(
+        route="cuestionario/respuestas/<int:pk>/",
+        view=repuestas_usuario_historico,
+        name="repuestas_usuario_historico",
+    ),
+    path(
+        route="pdf/report/<int:pk>/",
+        view=MyModelDownloadView.as_view(),
+        name="pdf_report",
+    ),
 ]

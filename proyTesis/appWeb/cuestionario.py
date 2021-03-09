@@ -1,12 +1,21 @@
 # Django core
+import functools
+import ssl
+import tempfile
+
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import redirect, render, render, reverse
-from django.views.generic import TemplateView, View
+from django.template.loader import render_to_string
+from django.views.generic import TemplateView, View, DetailView
 
 # Local apps
+from django_weasyprint import WeasyTemplateResponse, WeasyTemplateResponseMixin
+from django_weasyprint.utils import django_url_fetcher
+from weasyprint import HTML
+
 from .models import *
 
 from datetime import datetime, timedelta
@@ -407,3 +416,139 @@ def ff(query):
     for q in query:
         print(q)
     return True
+
+
+def repuestas_usuario_historico(request, **kwargs):
+    lista = {
+        0: "Basico",
+        1: "Basico",
+        2: "Intermedio",
+        3: "Intermedio",
+        4: "Avanzado",
+    }
+    choices = {
+        "Basico": 0,
+        "Intermedio": 1,
+        "Avanzado": 2,
+    }
+    choices2 = {
+        0: "Basico",
+        1: "Intermedio",
+        2: "Avanzado",
+    }
+
+    id_historico = kwargs.get("pk", None)
+    ojk = HistoricoEvaluacion.objects.get(pk=id_historico)
+    profile = Profile.objects.get(user=request.user)
+    base_query = RtaUsr.objects.exclude(historico__code_uuid="basic")
+    query = base_query.filter(id_usr__profile__id_dependencia=profile.id_dependencia)
+    querySet = base_query.filter(id_usr=request.user)
+    rpst = (
+        querySet.order_by(
+            "id_pregunta__id_competencia__id_area_competencia",
+            "id_pregunta__id_competencia",
+        )
+            .values(competencia=F("id_pregunta__id_competencia__nombCompetencia"))
+            .annotate(
+            ide=F("id_pregunta__id_competencia__id_competencia"),
+            sumatoria=Sum("rtaUser"),
+            area=F(
+                "id_pregunta__id_competencia__id_area_competencia__nombAreaCompetencia"
+            ),
+            recomendado=F("id_pregunta__id_competencia__nivel__nivel"),
+        )
+            .values("competencia", "ide", "sumatoria", "area", "recomendado")
+    )
+    list, Rarea = [], []
+    for value in rpst:
+        ar = (
+            query.filter(id_pregunta__id_competencia__id_competencia=value["ide"])
+                .values("id_usr")
+                .annotate(s=Sum("rtaUser"))
+                .values("id_usr", "s")
+                .aggregate(p=Round(Avg("s")))
+        )
+        try:
+            id = value["ide"]
+            nivel = int(choices[str(lista[int(value["sumatoria"])])]) + 1
+            text = "Sin registro"
+            if not nivel > 2:
+                nivel = choices2[int(nivel)]
+                recomendaciones = Recomendaciones.objects.filter(
+                    competencia__id_competencia=id, nivel=nivel
+                )
+                if recomendaciones.exists():
+                    text = recomendaciones.first().contenido
+            else:
+                text = "Alcanzo el nivel maximo en esta competencia"
+            list.append(
+                {
+                    "competencia": value["competencia"],
+                    "sumatoria": lista[int(value["sumatoria"])],
+                    "recomendado": lista[int(value["recomendado"])],
+                    "area": lista[int(ar["p"])],
+                    "subir": text,
+                }
+            )
+            Rarea.append(int(ar["p"]))
+        except Exception as e:
+            print(e)
+
+    c = rpst.count()
+    competencia = [f"C{value + 1}" for value in range(c)]
+    Rpersonal = [value["sumatoria"] for value in rpst]
+    Rrecomendado = [value["recomendado"] for value in rpst]
+
+    ctx = {
+        "rpst": list,
+        "lista": competencia,
+        "resul_personal": Rpersonal,
+        "resul_recomendado": Rrecomendado,
+        "resul_area": Rarea,
+        "id": id_historico
+    }
+    return render(request, "cuestionario/base.html", ctx)
+
+
+class MyModelView(DetailView):
+    # vanilla Django DetailView
+    model = HistoricoEvaluacion
+    template_name = 'report/pdf.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        lista = {
+            0: "Basico",
+            1: "Basico",
+            2: "Intermedio",
+            3: "Intermedio",
+            4: "Avanzado",
+        }
+        area_competencia = Area_Competencia.objects.all()
+        competencia = Competencia.objects.all().order_by("id_area_competencia__pk")
+        rtausr = RtaUsr.objects.filter(historico=self.object).order_by(
+            "id_pregunta__id_competencia__id_area_competencia",
+            "id_pregunta__id_competencia",
+        ).values(
+            competencia=F("id_pregunta__id_competencia__nombCompetencia")
+        ).annotate(
+            ide=F("id_pregunta__id_competencia__id_competencia"),
+            sumatoria=Sum("rtaUser"),
+            area=F(
+                "id_pregunta__id_competencia__id_area_competencia__nombAreaCompetencia"
+            )
+        )
+        rtas = []
+        for rta in rtausr:
+            rtas.append({
+                "area": rta.get("area"),
+                "competencia": rta.get("competencia"),
+                "sumatoria": lista.get(rta.get("sumatoria", 0))
+            })
+        context.update({"area_competencia": area_competencia, "competencia": competencia, "rtausr": rtas})
+        return context
+
+
+class MyModelDownloadView(WeasyTemplateResponseMixin, MyModelView):
+    # suggested filename (is required for attachment/download!)
+    pdf_filename = 'reporte.pdf'

@@ -228,6 +228,10 @@
             <br><br>
             <a href="javascript:window.print()" class="btn btn-primary waves-effect waves-light"><i
                     class="mdi mdi-printer mr-1"></i> IMPRIMIR</a>
+            {% if id %}
+            <a href="{% url 'pdf_report'  id %}" class="btn btn-primary waves-effect waves-light"><i
+                    class="mdi mdi-printer mr-1"></i> DESCARGAR INFORME</a>
+            {% endif %}
             <br><br>
             <!-- end row -->
         {% endblock %}

@@ -1,0 +1,74 @@
+{% load static %}
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link href="{% static "weasyprint/report.css" %}" rel="stylesheet">
+    <title>Report</title>
+    <meta name="description" content="Report example">
+</head>
+
+<body>
+<article id="cover">
+    <h1>Perfil digital personal <br>Autodiagnóstico</h1>
+    <address>
+        Usuario: {{ object.id_usr }}
+        {{ object.id_usr.last_name }} {{ object.id_usr.first_name }}
+        {{ object.id_usr.email }}
+    </address>
+    <address>
+
+    </address>
+</article>
+<article id="competences">
+    <h2 id="competences-title">Estos son tus resultados por competencias digitales</h2>
+    <table>
+        <thead>
+        <th>Area</th>
+        <th>Competencia</th>
+        <th>Descripción</th>
+        </thead>
+        <tbody>
+        {% for comp in rtausr %}
+            <tr style="padding: 0px">
+                <td style="padding: 5px;font-size: 10px;text-align: left">{{ comp.area }}</td>
+                <td style="padding: 5px;font-size: 10px;text-align: left; padding-left: 20px">{{ comp.competencia }}</td>
+                <td style="padding: 5px;font-size: 10px">{{ comp.sumatoria }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</article>
+<article id="competences">
+    <h2 id="competences-title">Descripción de las áreas de las competencias digitales</h2>
+
+    <h3></h3>
+    {% for area in area_competencia %}
+        <section id="table-content">
+            <h4>{{ area.nombAreaCompetencia }}</h4>
+            <p style="font-size: 10px;text-align: justify">{{ area.detalle_area_competencia }}</p>
+        </section>
+    {% endfor %}
+</article>
+
+<article id="competences">
+    <h2 id="competences-title">Descripción de las áreas de las competencias digitales</h2>
+    <table>
+        <thead>
+        <th>Area</th>
+        <th>Competencia</th>
+        <th>Descripción</th>
+        </thead>
+        <tbody>
+        {% for comp in competencia %}
+            <tr>
+                <td style="padding: 5px;font-size: 10px">{{ comp.id_area_competencia }}</td>
+                <td style="padding: 5px;font-size: 10px;padding-left: 20px">{{ comp.nombCompetencia }}</td>
+                <td style="padding: 5px;font-size: 10px;text-align: justify;padding-left: 20px">{{ comp.detalle_competencia }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</article>
+</body>
+</html>
