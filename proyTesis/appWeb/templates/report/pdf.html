@@ -1,11 +1,12 @@
 {% load static %}
+
 <!doctype html>
 <html>
 <head>
     <meta charset="utf-8">
     <link href="{% static "weasyprint/report.css" %}" rel="stylesheet">
-    <title>Report</title>
-    <meta name="description" content="Report example">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/theus/chart.css/v1.0.0/dist/chart.css" />
+    <title>Reporte</title>
 </head>
 
 <body>
@@ -69,6 +70,19 @@
         {% endfor %}
         </tbody>
     </table>
+
+      
 </article>
+
+<article>
+
+    <h3>Grafico Matplotlib</h3>
+    <center>
+        <img class="img_graph" src="../../static/graphimages/saved_figure.png">
+    </center>
+    
+</article>
+
+
 </body>
 </html>

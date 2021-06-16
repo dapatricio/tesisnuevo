@@ -12,6 +12,8 @@ from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.utils.text import slugify
 
+from django_matplotlib.fields import MatplotlibFigureField
+
 
 class Area(models.Model):
     id_area = models.AutoField(primary_key=True)
@@ -467,3 +469,9 @@ class RtaUsrGeneral(models.Model):
 
     def __str__(self):
         return "%s" % self.rta_user
+
+class CompositeModel(models.Model):
+    
+    # Plot piecewise line
+    line_plot = MatplotlibFigureField(figure='plot_line',
+                                      verbose_name='Line', silent=True)

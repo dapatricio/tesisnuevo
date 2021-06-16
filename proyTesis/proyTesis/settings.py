@@ -40,6 +40,7 @@ ALLOWED_HOSTS = [
     "192.168.100.16",
     "192.168.100.2",
     "161.35.51.253",
+    "127.0.0.1",
 ]
 
 # Application definition
@@ -54,6 +55,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.auth",
     "appWeb",
+    "django_matplotlib",
     "image_cropping",
     "easy_thumbnails",
     "ckeditor",

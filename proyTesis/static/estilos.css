@@ -708,6 +708,9 @@ footer{
 	padding: 4em 0em;
 }
 
+.img_graph{
+	padding-left: -200px;
+}
 
 @media screen and (max-width: 1750px){
 

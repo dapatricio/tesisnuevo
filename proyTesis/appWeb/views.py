@@ -41,6 +41,10 @@ from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from .forms import ContactoForm, ProfileForm, UserForm, UserLoginForm, UserUpdateForm
 from .models import *
 
+#Imports para la grafica
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib import pyplot as plt
 
 # Create your views here.
 def index(request):
@@ -94,7 +98,6 @@ def registro(request):
         request, "registro.html", {"user_form": user_form, "profile_form": profile_form}
     )
 
-
 class UpdateUserView(UpdateView):
     model = User
     form_class = UserUpdateForm
@@ -105,3 +108,30 @@ class UpdateUserView(UpdateView):
 class Informacion(ListView):
     model = Area_Competencia
     template_name = "informacion.html"
+
+def graphica(request):
+
+    labels = ['C1', 'C2', 'C3', 'C4', 'C5']
+    men_means = [20, 34, 30, 35, 27]
+    women_means = [25, 32, 34, 20, 25]
+
+    x = np.arange(len(labels))  # the label locations
+    width = 0.35  # the width of the bars
+
+    fig, ax = plt.subplots()
+    rects1 = ax.bar(x - width/2, men_means, width, label='Nivel Obtenidoooo')
+    rects2 = ax.bar(x + width/2, women_means, width, label='Nivel Recomendadooooo')
+
+    # Add some text for labels, title and custom x-axis tick labels, etc.
+    ax.set_ylabel('Nivel')
+    ax.set_title('Resultado vs Recomendado')
+    ax.set_xticks(x)
+    ax.set_xticklabels(labels)
+    ax.legend()
+
+    fig.tight_layout()
+
+    #plt.show()
+    plt.savefig('../static/graphimages/saved_figure.png')
+
+    return render(request, 'pdf.html',{'graphica':graphica})
