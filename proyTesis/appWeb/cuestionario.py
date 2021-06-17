@@ -528,7 +528,7 @@ def repuestas_usuario_historico(request, **kwargs):
     if request.method == "POST":
         print(sumatoria)
         print(recomendado_graph)
-        labels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17] 
+        labels = labels
         men_means = sumatoria
         women_means = recomendado_graph
 
