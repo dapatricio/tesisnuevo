@@ -552,7 +552,7 @@ def repuestas_usuario_historico(request, **kwargs):
         #plt.show()
         fig.set_figheight(3.5)
         fig.set_figwidth(7)
-        plt.savefig(settings.STATICFILES_DIRS[0] + 'graphimages/saved_figure.png')
+        plt.savefig('/home/tesisnuevo/proyTesis/static/graphimages/saved_figure.png')
         pdf_id = request.POST.get("submit_btn")
         return redirect('pdf_report', pk=pdf_id)
 
