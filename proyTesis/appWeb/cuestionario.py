@@ -10,7 +10,9 @@ from django.http import JsonResponse, HttpResponse
 from django.shortcuts import redirect, render, render, reverse
 from django.template.loader import render_to_string
 from django.views.generic import TemplateView, View, DetailView
-
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib import pyplot as plt
 # Local apps
 from django_weasyprint import WeasyTemplateResponse, WeasyTemplateResponseMixin
 from django_weasyprint.utils import django_url_fetcher
@@ -308,6 +310,13 @@ def pregunta_ajax(request, id_preguntas, cuestionario, tipo):
 
 from django.db.models import F, Func, OuterRef, Subquery, Avg, Count, Min, Sum
 from django.db.models.functions import Round
+from django.http import HttpResponseRedirect
+
+def redirect_user_to_pdf(request):
+    if request.method == "POST":
+        value = 9
+        return HttpResponseRedirect('/pdf/report/9/')
+
 
 
 def repuestas_usuario(request, **kwargs):
@@ -408,6 +417,7 @@ def repuestas_usuario(request, **kwargs):
         "resul_recomendado": Rrecomendado,
         "resul_area": Rarea,
     }
+
     return render(request, "cuestionario/base.html", ctx)
 
 
@@ -460,7 +470,13 @@ def repuestas_usuario_historico(request, **kwargs):
             .values("competencia", "ide", "sumatoria", "area", "recomendado")
     )
     list, Rarea = [], []
+    counter_rpst = 0
+    labels = []
+    sumatoria = []
+    recomendado_graph = []
     for value in rpst:
+        counter_rpst += 1
+        labels.append("C"+str(counter_rpst))
         ar = (
             query.filter(id_pregunta__id_competencia__id_competencia=value["ide"])
                 .values("id_usr")
@@ -481,6 +497,8 @@ def repuestas_usuario_historico(request, **kwargs):
                     text = recomendaciones.first().contenido
             else:
                 text = "Alcanzo el nivel maximo en esta competencia"
+            sumatoria.append(int(value["sumatoria"]))
+            recomendado_graph.append(int(value["recomendado"]))
             list.append(
                 {
                     "competencia": value["competencia"],
@@ -507,6 +525,37 @@ def repuestas_usuario_historico(request, **kwargs):
         "resul_area": Rarea,
         "id": id_historico
     }
+    if request.method == "POST":
+        print(sumatoria)
+        print(recomendado_graph)
+        labels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17] 
+        men_means = sumatoria
+        women_means = recomendado_graph
+
+        x = np.arange(len(labels))  # the label locations
+        width = 0.25  # the width of the bars
+
+        fig, ax = plt.subplots()
+        rects1 = ax.bar(x - width/2, men_means, width, label='Nivel Obtenido')
+        rects2 = ax.bar(x + width/2, women_means, width, label='Nivel Recomendado')
+
+        # Add some text for labels, title and custom x-axis tick labels, etc.
+        ax.set_ylabel('Nivel')
+        ax.set_title('Nivel Obtenido vs Nivel Recomendado')
+        ax.set_xticks(x)
+        ax.set_xticklabels(labels)
+        ax.legend()
+        plt.tick_params(labelsize=8)
+
+        fig.tight_layout()
+
+        #plt.show()
+        fig.set_figheight(3.5)
+        fig.set_figwidth(7)
+        plt.savefig('C:/Users/dapat/Dropbox/proyActualizado/tesisnuevo/proyTesis/static/graphimages/saved_figure.png')
+        pdf_id = request.POST.get("submit_btn")
+        return redirect('pdf_report', pk=pdf_id)
+
     return render(request, "cuestionario/base.html", ctx)
 
 

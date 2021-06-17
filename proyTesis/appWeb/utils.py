@@ -8,7 +8,7 @@ men_means = [1, 4, 3, 1, 3, 3, 2, 4, 4, 1, 2, 3, 3, 1, 4, 2, 2, 3, 2, 4, 1]
 women_means = [1, 2, 4, 4, 2, 2, 3, 4, 1, 3, 4, 2, 1, 2, 3, 4, 2, 3, 4, 1, 4]
 
 x = np.arange(len(labels))  # the label locations
-width = 0.2  # the width of the bars
+width = 0.25  # the width of the bars
 
 fig, ax = plt.subplots()
 rects1 = ax.bar(x - width/2, men_means, width, label='Nivel Obtenido')

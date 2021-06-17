@@ -227,8 +227,15 @@
             </div>
             <br><br>
             {% if id %}
-            <a href="{% url 'pdf_report'  id %}" class="btn btn-primary waves-effect waves-light"><i
+            <form action="" method="POST" accept-charset="utf-8">
+                {%csrf_token%}
+                <button type="submit" class="btn btn-primary waves-effect waves-light" value="{{id}}" name="submit_btn">
+                    <i
                     class="mdi mdi-printer mr-1"></i> DESCARGAR INFORME</a>
+                </button>
+            </form>
+<!--            <a href="{% url 'pdf_report'  id %}" class="btn btn-primary waves-effect waves-light"><i
+                    class="mdi mdi-printer mr-1"></i> DESCARGAR INFORME</a>-->
             {% endif %}
             <br><br>
             <!-- end row -->
