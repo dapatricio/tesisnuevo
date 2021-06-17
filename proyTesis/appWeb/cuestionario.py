@@ -526,18 +526,18 @@ def repuestas_usuario_historico(request, **kwargs):
         "id": id_historico
     }
     if request.method == "POST":
-        print(sumatoria)
-        print(recomendado_graph)
-        labels = [1, 4, 4, 4, 2, 2, 2, 3, 4, 2, 3, 3, 2, 2, 2, 4, 3]
-        men_means = [1, 4, 4, 4, 2, 2, 2, 3, 4, 2, 3, 3, 2, 2, 2, 4, 3]
-        women_means = [1, 4, 4, 4, 2, 2, 2, 3, 4, 2, 3, 3, 2, 2, 2, 4, 3]
+        #print(sumatoria)
+        #print(recomendado_graph)
+        labels = labels
+        x_means = sumatoria
+        y_means = recomendado_graph
 
         x = np.arange(len(labels))  # the label locations
         width = 0.25  # the width of the bars
 
         fig, ax = plt.subplots()
-        rects1 = ax.bar(x - width/2, men_means, width, label='Nivel Obtenido')
-        rects2 = ax.bar(x + width/2, women_means, width, label='Nivel Recomendado')
+        rects1 = ax.bar(x - width/2, x_means, width, label='Nivel Obtenido')
+        rects2 = ax.bar(x + width/2, y_means, width, label='Nivel Recomendado')
 
         # Add some text for labels, title and custom x-axis tick labels, etc.
         ax.set_ylabel('Nivel')
