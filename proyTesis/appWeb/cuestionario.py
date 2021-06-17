@@ -526,9 +526,11 @@ def repuestas_usuario_historico(request, **kwargs):
         "id": id_historico
     }
     if request.method == "POST":
-        labels = labels
-        men_means = sumatoria
-        women_means = recomendado_graph
+        print(sumatoria)
+        print(recomendado_graph)
+        labels = [1, 4, 4, 4, 2, 2, 2, 3, 4, 2, 3, 3, 2, 2, 2, 4, 3]
+        men_means = [1, 4, 4, 4, 2, 2, 2, 3, 4, 2, 3, 3, 2, 2, 2, 4, 3]
+        women_means = [1, 4, 4, 4, 2, 2, 2, 3, 4, 2, 3, 3, 2, 2, 2, 4, 3]
 
         x = np.arange(len(labels))  # the label locations
         width = 0.25  # the width of the bars
