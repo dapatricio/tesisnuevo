@@ -55,11 +55,16 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.auth",
+<<<<<<< HEAD
     "django_matplotlib",
+=======
+    "appWeb",
+>>>>>>> origin/master
     "image_cropping",
     "easy_thumbnails",
     "ckeditor",
     "ckeditor_uploader",
+    "django_matplotlib",
 ]
 
 MIDDLEWARE = [
