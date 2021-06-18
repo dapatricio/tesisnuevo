@@ -46,6 +46,7 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    "appWeb",
     "jet.dashboard",
     "jet",
     "django.contrib.admin",
@@ -54,7 +55,6 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.auth",
-    "appWeb",
     "django_matplotlib",
     "image_cropping",
     "easy_thumbnails",
@@ -97,7 +97,7 @@ WSGI_APPLICATION = "proyTesis.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
+"""
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
@@ -120,7 +120,7 @@ DATABASES = {
         "PORT": "5432",
     }
 }
-"""
+
 # DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": "mydatabase"}}
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators

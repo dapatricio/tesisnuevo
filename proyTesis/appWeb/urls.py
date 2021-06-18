@@ -1,5 +1,5 @@
 from django.urls import path
-from . import views
+from appWeb import views
 from django.views.generic.base import TemplateView
 
 urlpatterns = [

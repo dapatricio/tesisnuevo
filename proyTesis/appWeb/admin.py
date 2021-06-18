@@ -146,7 +146,7 @@ _register(models.RtaUsr, RtaUsrAdmin)
 _register(models.Nivel, NivelAdmin)
 _register(models.PreguntaCuestionarioGeneral, PreguntaCuestionarioGeneralAdmin)
 
-admin.site.unregister(Group)
+#admin.site.unregister(Group)
 
 admin.site.register(models.Profile)
 admin.site.register(models.HistoricoEvaluacion)
