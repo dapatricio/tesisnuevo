@@ -526,9 +526,9 @@ def repuestas_usuario_historico(request, **kwargs):
         "id": id_historico
     }
     if request.method == "POST":
-        #print(sumatoria)
+        print(sumatoria)
         #print(recomendado_graph)
-        labels = labels
+        labels = [1, 4, 4, 4, 2, 2, 2, 3, 4, 2, 3, 3, 2, 2, 2, 4, 3]
         x_means = sumatoria
         y_means = recomendado_graph
 
@@ -552,7 +552,7 @@ def repuestas_usuario_historico(request, **kwargs):
         #plt.show()
         fig.set_figheight(3.5)
         fig.set_figwidth(7)
-        plt.savefig('/home/tesisnuevo/proyTesis/static/graphimages/saved_figure.png')
+        plt.savefig(settings.STATICFILES_DIRS[0] + 'graphimages/saved_figure.png')
         pdf_id = request.POST.get("submit_btn")
         return redirect('pdf_report', pk=pdf_id)
 
