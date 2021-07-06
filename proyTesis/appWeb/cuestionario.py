@@ -551,7 +551,7 @@ def repuestas_usuario_historico(request, **kwargs):
 
         #plt.show()
         fig.set_figheight(3.5)
-        fig.set_figwidth(7)
+        fig.set_figwidth(6.5)
         plt.savefig(settings.STATICFILES_DIRS[0] + 'graphimages/saved_figure.png')
         pdf_id = request.POST.get("submit_btn")
         return redirect('pdf_report', pk=pdf_id)
@@ -600,4 +600,4 @@ class MyModelView(DetailView):
 
 class MyModelDownloadView(WeasyTemplateResponseMixin, MyModelView):
     # suggested filename (is required for attachment/download!)
-    pdf_filename = 'reporte.pdf'
+    pdf_filename = 'Reporte Competencias digitales UTPL.pdf'

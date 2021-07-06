@@ -28,14 +28,14 @@
 }
 @page {
   @top-left {
-    background: #fbc847;
+    background: #90AFC5;
     content: counter(page);
     height: 1cm;
     text-align: center;
     width: 1cm;
   }
   @top-center {
-    background: #fbc847;
+    background: #90AFC5;
     content: "";
     display: block;
     height: 0.05cm;
@@ -80,7 +80,7 @@
   margin: 0;
 }
 @page chapter {
-  background: #fbc847;
+  background: #90AFC5;
   margin: 0;
   @top-left {
     content: none;
@@ -93,7 +93,7 @@
   }
 }
 html {
-  color: #393939;
+  color: #2A3132;
   font-family: Fira Sans;
   font-size: 11pt;
   font-weight: 300;
@@ -104,7 +104,7 @@ html body {
   width: 100%;
 }
 html body h1 {
-  color: #fbc847;
+  color: #763626;
   font-size: 38pt;
   margin: 5cm 2cm 0 2cm;
   page: no-chapter;
@@ -133,7 +133,7 @@ html body article#cover {
   height: 297mm;
 }
 html body article#cover address {
-  background: #fbc847;
+  background: #90AFC5;
   flex: 1 50%;
   margin: 0 -2cm;
   padding: 1cm 0;
@@ -157,7 +157,7 @@ html body article#contents h3 {
   margin: 3em 0 1em;
 }
 html body article#contents h3::before {
-  background: #fbc847;
+  background: #90AFC5;
   content: "";
   display: block;
   height: 0.08cm;
@@ -174,21 +174,21 @@ html body article#contents ul li {
   padding-top: 0.25cm;
 }
 html body article#contents ul li::before {
-  color: #fbc847;
+  color: #90AFC5;
   content: "• ";
   font-size: 40pt;
   line-height: 16pt;
   vertical-align: bottom;
 }
 html body article#contents ul li a {
-  color: inherit;
+  color: #2A3132;
   text-decoration: inherit;
 }
 html body article#contents ul li a::before {
   content: target-text(attr(href));
 }
 html body article#contents ul li a::after {
-  color: #fbc847;
+  color: #90AFC5;
   content: target-counter(attr(href), page);
   float: right;
 }
@@ -204,7 +204,7 @@ html body article#columns section p:first-of-type {
   font-weight: 700;
 }
 html body article#competences h3 {
-  background: #fbc847;
+  background: #90AFC5;
   margin: 0 -3cm 1cm;
   padding: 1cm 1cm 1cm 3cm;
   width: 21cm;
@@ -213,7 +213,7 @@ html body article#competences section {
   padding: 0.5cm 0;
 }
 html body article#competences section#table-content::before {
-  background: url(table-content.svg) no-repeat center #fbc847;
+  background: url(table-content.svg) no-repeat center #90AFC5;
   background-size: 50%;
   content: "";
   display: inline-block;
@@ -224,7 +224,7 @@ html body article#competences section#table-content::before {
   width: 2cm;
 }
 html body article#competences section#heading::before {
-  background: url(heading.svg) no-repeat center #fbc847;
+  background: url(heading.svg) no-repeat center #90AFC5;
   background-size: 50%;
   content: "";
   display: inline-block;
@@ -235,7 +235,7 @@ html body article#competences section#heading::before {
   width: 2cm;
 }
 html body article#competences section#multi-columns::before {
-  background: url(multi-columns.svg) no-repeat center #fbc847;
+  background: url(multi-columns.svg) no-repeat center #90AFC5;
   background-size: 50%;
   content: "";
   display: inline-block;
@@ -246,7 +246,7 @@ html body article#competences section#multi-columns::before {
   width: 2cm;
 }
 html body article#competences section#internal-links::before {
-  background: url(internal-links.svg) no-repeat center #fbc847;
+  background: url(internal-links.svg) no-repeat center #90AFC5;
   background-size: 50%;
   content: "";
   display: inline-block;
@@ -257,7 +257,7 @@ html body article#competences section#internal-links::before {
   width: 2cm;
 }
 html body article#competences section#style::before {
-  background: url(style.svg) no-repeat center #fbc847;
+  background: url(style.svg) no-repeat center #90AFC5;
   background-size: 50%;
   content: "";
   display: inline-block;
@@ -276,18 +276,20 @@ html body article#competences section p {
 }
 html body th {
   border-bottom: 0.2mm solid #a9a;
-  color: #a9a;
-  font-size: 10pt;
-  font-weight: 400;
+  color: #763626;
+  font-size: 12pt;
+  font-weight: bold;
   padding-bottom: 0.25cm;
   text-transform: uppercase;
 }
 html body td {
   padding-top: 7mm;
+  color: #2A3132;
 }
 html body td:last-of-type {
-  color: #fbc847;
+  color: #336B87 !important;
   font-weight: bold;
+  font-size: 11pt;
   text-align: right;
 }
 html body th, html body td {
@@ -322,7 +324,7 @@ html body th#offers section ul li:not(:last-of-type), html body td#offers sectio
   margin: 0.5cm 0;
 }
 html body th#offers section p, html body td#offers section p {
-  background: #fbc847;
+  background: #90AFC5;
   display: block;
   font-size: 15pt;
   font-weight: 700;
