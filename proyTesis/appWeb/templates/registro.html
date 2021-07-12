@@ -30,3 +30,34 @@
 	<!-- Inicio Footer -->
 	{% include 'comun/footer2.html' %}
 	<!-- fin Footer -->
+<script>
+document.getElementById("id_id_dependencia").setAttribute("disabled", "disabled");
+
+document.getElementById("id_id_tipoUsr").addEventListener("change", async function(){
+	let user_type = document.getElementById("id_id_tipoUsr").value;
+	document.getElementById("id_id_dependencia").removeAttribute("disabled");
+	[...document.getElementById("id_id_dependencia").options].forEach((element)=>{
+		element.remove()
+	});
+	[...document.getElementById("id_id_dependencia").options].forEach((element)=>{
+		element.remove()
+	});
+	let dependences = await getDependencies(user_type);
+	console.log(dependences.dependency)
+	dependences.dependency.forEach((element)=>{
+		console.log(element)
+		let opt = document.createElement('option');
+    	opt.value = element.id_dependencia;
+    	opt.innerHTML = element.nombDependencia;
+		document.getElementById("id_id_dependencia").appendChild(opt);
+	});
+});
+
+async function getDependencies(id_dependency){
+	console.log(`/api/rest/dependency/${id_dependency}/`);
+	let data = await fetch(`/api/rest/dependency/${id_dependency}/`);
+	let response = await data.json();
+ 	return response;
+}
+	
+</script>

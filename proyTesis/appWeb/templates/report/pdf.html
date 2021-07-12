@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <link href="{% static "weasyprint/report.css" %}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.rawgit.com/theus/chart.css/v1.0.0/dist/chart.css" />
-    <title>Reporte</title>
+    <title>Reporte Comperencias digitales UTPL - {{ object.id_usr }}</title>
 </head>
 
 <body>
@@ -39,6 +39,10 @@
         {% endfor %}
         </tbody>
     </table>
+	<h2 id="competences-title">Gráfico resultados obtenidos</h2>
+    		<center>
+        		<img class="img_graph" src="../../static/graphimages/saved_figure.png">
+    		</center>	
 </article>
 <article id="competences">
     <h2 id="competences-title">Descripción de las áreas de las competencias digitales</h2>
@@ -53,7 +57,7 @@
 </article>
 
 <article id="competences">
-    <h2 id="competences-title">Descripción de las áreas de las competencias digitales</h2>
+    <h2 id="competences-title">Descripción de las competencias digitales</h2>
     <table>
         <thead>
         <th>Area</th>
@@ -73,16 +77,6 @@
 
       
 </article>
-
-<article>
-
-    <h3>Grafico Matplotlib</h3>
-    <center>
-        <img class="img_graph" src="../../static/graphimages/saved_figure.png">
-    </center>
-    
-</article>
-
 
 </body>
 </html>

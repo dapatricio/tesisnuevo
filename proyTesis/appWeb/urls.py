@@ -1,5 +1,5 @@
 from django.urls import path
-from . import views
+from appWeb import views
 from django.views.generic.base import TemplateView
 
 urlpatterns = [
@@ -56,5 +56,10 @@ urlpatterns += [
         route="pdf/report/<int:pk>/",
         view=MyModelDownloadView.as_view(),
         name="pdf_report",
+    ),
+    path(
+        route="api/rest/dependency/<int:id_tipodep>/",
+        view=views.dependency,
+        name="dependency",
     ),
 ]

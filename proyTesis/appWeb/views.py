@@ -45,7 +45,9 @@ from .models import *
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib import pyplot as plt
+import json
 
+from django.http import HttpResponse
 # Create your views here.
 def index(request):
     return render(request, "index.html")
@@ -135,3 +137,7 @@ def graphica(request):
     plt.savefig('../static/graphimages/saved_figure.png')
 
     return render(request, 'pdf.html',{'graphica':graphica})
+
+def dependency(request, id_tipodep):
+    dependency = Dependencia.objects.filter(id_tipoDep=id_tipodep).values("id_dependencia", "nombDependencia")
+    return JsonResponse({'dependency':list(dependency)})
