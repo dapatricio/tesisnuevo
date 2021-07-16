@@ -133,6 +133,7 @@ class Competencia(models.Model):
         db_column="id_area_competencia",
         verbose_name="Área de la competencia:",
     )
+
     image = models.ImageField(upload_to="img-competencia", blank=True)
     info_text = RichTextUploadingField(max_length=17500)
 
@@ -313,7 +314,7 @@ class Nivel(models.Model):
     )
 
     class Meta:
-        verbose_name = "Niveles requerido"
+        verbose_name = "Nivel recomendado"
         db_table = "nivel"
 
     def __str__(self):

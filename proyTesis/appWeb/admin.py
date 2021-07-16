@@ -48,9 +48,12 @@ class RSubidaInline(admin.StackedInline):
     model = models.Recomendaciones
     extra = 1
 
+class RSubidaInline2(admin.StackedInline):
+    model = models.Nivel
+    extra = 2
 
 class CompetenciaAdmin(admin.ModelAdmin):
-    inlines = [RSubidaInline]
+    inlines = [RSubidaInline, RSubidaInline2]
     list_display = (
         "nombCompetencia",
         "detalle_competencia",

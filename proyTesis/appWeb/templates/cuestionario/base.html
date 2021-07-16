@@ -124,10 +124,12 @@
                                     <h5 class="mt-0 m-b-5" style="font-size: 1.2rem;">
                                         <strong>Usuario:</strong> {{ user.username }}</h5>
                                     <p class="text-muted m-b-5 font-13"
-                                       style="font-size: 1.3rem !important;">{{ user.first_name }} {{ user.last_name }}</p>
+                                       style="font-size: 1.3rem !important;"><b>{{ user.first_name }} {{ user.last_name }}</b></p>
                                     <p class="text-muted m-b-5 font-13">{{ user.email }}</p>
+                                    <p class="text-muted m-b-5 font-15"><b>{{ request.user.profile.id_dependencia }}</b></p>
                                     <small class="badge badge-success text-white"
                                            style="font-size: 1.2rem;"><b>{{ request.user.profile.id_tipoUsr }}</b></small>
+                                    
                                 </div>
                             </div>
 
