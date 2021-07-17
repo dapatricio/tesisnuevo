@@ -343,8 +343,9 @@ def repuestas_usuario(request, **kwargs):
     profile = Profile.objects.get(user=request.user)
     base_query = RtaUsr.objects.exclude(historico__code_uuid="basic")
     query = base_query.filter(id_usr__profile__id_dependencia=profile.id_dependencia)
-    querySet = base_query.filter(id_usr=request.user)
-    querySet2 = base_query.filter(id_usr=request.user)
+    querySet = base_query.filter(id_usr=request.user,
+                id_pregunta__id_competencia__nivel__id_dependencia__pk=profile.id_dependencia.pk
+            )
     if area:
         if area == "all":
             querySet = querySet.filter(historico__code_uuid="all")
@@ -353,9 +354,7 @@ def repuestas_usuario(request, **kwargs):
             querySet = querySet.filter(
                 id_pregunta__id_competencia__id_area_competencia=area
             )
-            querySet2 = querySet2.filter(
-                id_pregunta__id_competencia__id_nivel__id_dependencia=dependencia
-            )
+            
             query = RtaUsr.objects.filter(
                 id_pregunta__id_competencia__id_area_competencia=area
             )
@@ -375,25 +374,15 @@ def repuestas_usuario(request, **kwargs):
         )
             .values("competencia", "ide", "sumatoria", "area", "recomendado")
     )
-    rpst2 = (
-        querySet2.order_by(
-            "id_pregunta__id_competencia__id_area_competencia",
-            "id_pregunta__id_competencia",
-        )
-            .values(competencia=F("id_pregunta__id_competencia__nombCompetencia"))
-            .annotate(
-            ide=F("id_pregunta__id_competencia__id_competencia"),
-            sumatoria=Sum("rtaUser"),
-            area=F(
-                "id_pregunta__id_competencia__id_area_competencia__nombAreaCompetencia"
-            ),
-            recomendado=F("id_pregunta__id_competencia__nivel__nivel"),
-        )
-            .values("competencia", "ide", "sumatoria", "area", "recomendado")
-    )
+    
     list, Rarea = [], []
-    list2, Rarea2 = [], []
+    counter_rpst = 0
+    labels = []
+    sumatoria = []
+    recomendado_graph = []
     for value in rpst:
+        counter_rpst += 1
+        labels.append("C"+str(counter_rpst))
         ar = (
             query.filter(id_pregunta__id_competencia__id_competencia=value["ide"])
                 .values("id_usr")
@@ -414,6 +403,8 @@ def repuestas_usuario(request, **kwargs):
                     text = recomendaciones.first().contenido
             else:
                 text = "Alcanzo el nivel maximo en esta competencia"
+            sumatoria.append(int(value["sumatoria"]))
+            recomendado_graph.append(int(value["recomendado"]))
             list.append(
                 {
                     "competencia": value["competencia"],
@@ -426,39 +417,6 @@ def repuestas_usuario(request, **kwargs):
             Rarea.append(int(ar["p"]))
         except Exception as e:
             print(e)
-    for value in rpst2:
-        ar = (
-            query.filter(id_pregunta__id_competencia__id_competencia=value["ide"])
-                .values("id_usr")
-                .annotate(s=Sum("rtaUser"))
-                .values("id_usr", "s")
-                .aggregate(p=Round(Avg("s")))
-        )
-        try:
-            id = value["ide"]
-            nivel = int(choices[str(lista[int(value["sumatoria"])])]) + 1
-            text = "Sin registro"
-            if not nivel > 2:
-                nivel = choices2[int(nivel)]
-                recomendaciones = Recomendaciones.objects.filter(
-                    competencia__id_competencia=id, nivel=nivel
-                )
-                if recomendaciones.exists():
-                    text = recomendaciones.first().contenido
-            else:
-                text = "Alcanzo el nivel maximo en esta competencia"
-            list2.append(
-                {
-                    "competencia": value["competencia"],
-                    "sumatoria": lista[int(value["sumatoria"])],
-                    "recomendado": lista[int(value["recomendado"])],
-                    "area": lista[int(ar["p"])],
-                    "subir": text,
-                }
-            )
-            Rarea2.append(int(ar["p"]))
-        except Exception as e:
-            print(e)        
 
     c = rpst.count()
     competencia = [f"C{value + 1}" for value in range(c)]
@@ -467,11 +425,10 @@ def repuestas_usuario(request, **kwargs):
 
     ctx = {
         "rpst": list,
-        "rpst2": list2,
         "lista": competencia,
         "resul_personal": Rpersonal,
         "resul_recomendado": Rrecomendado,
-        "resul_area": Rarea,
+        "resul_area": Rarea
     }
 
     return render(request, "cuestionario/base.html", ctx)
@@ -508,7 +465,12 @@ def repuestas_usuario_historico(request, **kwargs):
     profile = Profile.objects.get(user=request.user)
     base_query = RtaUsr.objects.exclude(historico__code_uuid="basic")
     query = base_query.filter(id_usr__profile__id_dependencia=profile.id_dependencia)
-    querySet = base_query.filter(id_usr=request.user)
+    querySet = base_query.filter(id_usr=request.user,
+                id_pregunta__id_competencia__nivel__id_dependencia__pk=profile.id_dependencia.pk
+            )
+    querySet2 = base_query.filter(id_usr=request.user,
+                id_pregunta__id_competencia__nivel__id_dependencia__pk=profile.id_dependencia.pk
+            )
     rpst = (
         querySet.order_by(
             "id_pregunta__id_competencia__id_area_competencia",
@@ -525,6 +487,7 @@ def repuestas_usuario_historico(request, **kwargs):
         )
             .values("competencia", "ide", "sumatoria", "area", "recomendado")
     )
+
     list, Rarea = [], []
     counter_rpst = 0
     labels = []
@@ -579,7 +542,7 @@ def repuestas_usuario_historico(request, **kwargs):
         "resul_personal": Rpersonal,
         "resul_recomendado": Rrecomendado,
         "resul_area": Rarea,
-        "id": id_historico
+        "id": id_historico,
     }
     if request.method == "POST":
         #print(sumatoria)
