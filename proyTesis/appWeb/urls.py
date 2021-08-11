@@ -11,6 +11,7 @@ urlpatterns = [
     path(
         "login/actualizar/<int:pk>/", views.UpdateUserView.as_view(), name="actualizar"
     ),
+    path("excel", views.export_users_xls, name='excel'),
 ]
 
 from .cuestionario import *

@@ -92,7 +92,6 @@ class PreguntaAdmin(admin.ModelAdmin):
         "pregunta",
         "ayuda",
         "id_tipoCuest",
-        "id_competencia",
     )
 
 
@@ -106,11 +105,10 @@ class RecomendacionAdmin(admin.ModelAdmin):
 
 class RtaUsrAdmin(admin.ModelAdmin):
     list_display = (
-        "rtaUser",
-        "id_pregunta",
         "id_usr",
+        "rtaUser",
+        "id_pregunta", 
     )
-
 
 class NivelAdmin(admin.ModelAdmin):
     list_display = (

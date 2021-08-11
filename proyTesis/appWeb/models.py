@@ -349,66 +349,6 @@ class Profile(models.Model):
         blank=True,
     )
 
-    # ancho_banda = models.CharField(
-    #     max_length=32,
-    #     choices=(
-    #         ("10Mb", "10Mb"),
-    #         ("15Mb", "15Mb"),
-    #         ("más de 25mb", "más de 25mb"),
-    #         ("más de 50mb", "más de 50mb"),
-    #     ),
-    #     verbose_name="Que ancho de banda de internet tiene?",
-    #     blank=True,
-    # )
-    # tipo_computador = models.CharField(
-    #     max_length=128,
-    #     choices=(
-    #         ("Computador de escritorio", "Computador de escritorio"),
-    #         ("Laptop", "Laptop"),
-    #     ),
-    #     verbose_name="Que tipo de computador utiliza?",
-    #     blank=True,
-    # )
-    # tiempo_dispositivo_movil = models.CharField(
-    #     max_length=32,
-    #     choices=(
-    #         ("4h", "4h"),
-    #         ("6h", "6h"),
-    #         ("8h", "8h"),
-    #         ("más de 10h", "más de 10h"),
-    #     ),
-    #     verbose_name="Cuanto tiempo al dia utiliza un dispositivo movil?",
-    #     blank=True,
-    # )
-    # tipo_movil = models.CharField(
-    #     max_length=128,
-    #     choices=(("Celular", "Celular"), ("Tablet", "Tablet")),
-    #     verbose_name="Que tipo de dispositivo movil utiliza con más frecuencia?",
-    #     blank=True,
-    # )
-    # numero_computador = models.CharField(
-    #     max_length=128,
-    #     choices=(
-    #         ("1", "1"),
-    #         ("2", "2"),
-    #         ("más de 4", "más de 4"),
-    #         ("más de 6", "más de 6"),
-    #     ),
-    #     verbose_name="Cuantas computadores tiene en su domicilio?",
-    #     blank=True,
-    # )
-    # numero_moviles = models.CharField(
-    #     max_length=128,
-    #     choices=(
-    #         ("1", "1"),
-    #         ("2", "2"),
-    #         ("más de 4", "más de 4"),
-    #         (",", "más de 6"),
-    #     ),
-    #     verbose_name="Cuantos dispositivos moviles tiene en su domicilio?",
-    #     blank=True,
-    # )
-
     def __str__(self):
         return "%s" % self.user
 
@@ -439,7 +379,7 @@ class RespuestaCuestionarioGeneral(models.Model):
     pregunta = models.ForeignKey(
         PreguntaCuestionarioGeneral,
         models.DO_NOTHING,
-        verbose_name="Pregunta a la que pertenece:",
+        verbose_name="Pregunta a la que pertenece:"
     )
 
     class Meta:

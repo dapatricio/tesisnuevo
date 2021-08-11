@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es">
+
+<head>
+    <meta charset="utf-8"/>
+    <title>UTPL</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <link rel="shortcut icon" href="{% static 'images/favicon.png' %}">
+
+    <link rel="stylesheet" href="{% static 'wp-admin-light/plugins/morris/morris.css' %}">
+    <!-- TOAST -->
+    <link href="{% static 'wp-admin-light/plugins/toastr/toastr.min.css' %}" rel="stylesheet" type="text/css"/>
+    <!-- sweet alert -->
+    <link href="{% static 'wp-admin-light/plugins/sweet-alert/sweetalert2.min.css' %}" rel="stylesheet"
+          type="text/css"/>
+    <link href="{% static 'wp-admin-light/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'wp-admin-light/css/icons.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'wp-admin-light/css/style.css' %}" rel="stylesheet" type="text/css"/>
+    <!-- Modal -->
+    <link href="{% static 'wp-admin-light/plugins/custombox/dist/custombox.min.css' %}" rel="stylesheet">
+
+    <script src="{% static 'wp-admin-light/js/modernizr.min.js' %}"></script>
+    {% block extra_head %}
+    
+    {% endblock %}
+</head>
+    <body>
+        <a href="{% url 'excel' %}">Export all users</a>
+    </body>
+    <footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                Copyright 2020. Universidad Técnica Particular de Loja
+            </div>
+        </div>
+    </div>
+</footer>
+</html>
