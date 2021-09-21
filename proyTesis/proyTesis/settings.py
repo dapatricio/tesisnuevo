@@ -98,28 +98,29 @@ WSGI_APPLICATION = "proyTesis.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": "webencuestas1",
-        "USER": "root",
-        "PASSWORD": "",
-        "HOST": "localhost",
-        "PORT": "3306",
-    }
-}
-
-#Base de datos postgres server
 #DATABASES = {
 #    "default": {
-#        "ENGINE": "django.db.backends.postgresql_psycopg2",
-#        "NAME": "competenciasdigitales",
-#        "USER": "adminsite",
-#        "PASSWORD": "DaPatr1c10.1994",
+#        "ENGINE": "django.db.backends.mysql",
+#        "NAME": "webencuestas1",
+#        "USER": "root",
+#        "PASSWORD": "",
 #        "HOST": "localhost",
-#        "PORT": "5432",
+#        "PORT": "3306",
 #    }
 #}
+
+#Base de datos postgres server
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "competenciasdigitales",
+        "USER": "adminsite",
+        "PASSWORD": "DaPatr1c10.1994",
+        "HOST": "localhost",
+        "PORT": "5432",
+    }
+}
+#pg_dump -h localhost -p 5432 -U adminsite -F c -b -v -f "/home/backups_base/backups_base/respaldo.backup" competenciasdigitales
 
 # DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": "mydatabase"}}
 # Password validation

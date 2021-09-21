@@ -284,6 +284,7 @@ class RtaUsr(models.Model):
         User,
         models.DO_NOTHING,
         db_column="user_id",
+        related_name="id_del_usuario",
         verbose_name="Respuesta realizada por:",
     )
 
@@ -322,7 +323,7 @@ class Nivel(models.Model):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, related_name="userprofile", on_delete=models.CASCADE)
     codigo = models.CharField(max_length=75, verbose_name="Codigo:")
 
     estado_codigo = models.BooleanField(null=True)
