@@ -198,7 +198,8 @@ def export_users_xls(request):
         col = 0
 
     #Hoja Preguntas cuestionario General
-    
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True    
     for col_num1 in range(len(columnsws2)):
         ws2.write(row_num, col_num1, columnsws1[col_num1], font_style)
 
@@ -213,7 +214,7 @@ def export_users_xls(request):
         ws2.write(row, col, username, font_style)
         col += 1
         for rta1, tit2 in zip(item1[1]['rta_user'], item1[1][0]):
-            ws2.write(0, col, "Comp. " + str(tit2), font_style)
+            ws2.write(0, col, "Preg. " + str(tit2), font_style)
             ws2.write(row, col, rta1, font_style)
             col += 1
         row += 1
