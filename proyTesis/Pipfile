@@ -6,7 +6,7 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-certifi = "==2019.11.28"
+certifi = "==2022.12.7"
 chardet = "==3.0.4"
 django-appconf = "==1.0.3"
 django-ckeditor = "==5.9.0"
